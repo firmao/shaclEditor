@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta charset="utf-8"/>
+
+    <script src="js/jquery.min.js"></script>
+    <script src="js/shacl.js"></script>
+</head>
+<body>
+
+<script>
+
+    $(document).ready(function () {
+    	makeValidation();
+    });
+    
+	function makeValidation(){
+		let validator = new SHACLValidator();
+        validate();
+
+        $('#shapes').bind('input propertychange', function () {
+            let text = $("#shapes").val();
+            validator.parseShapesGraph(text, 'text/turtle', function () {
+                console.log("successfully parsed shape graph");
+                validate();
+            })
+        });
+
+
+        $('#data').bind('input propertychange', function () {
+            let text = $("#data").val();
+            validator.parseDataGraph(text, 'text/turtle', function () {
+                console.log("successfully parsed data graph");
+                validate();
+            });
+        });
+
+
+        function validate() {
+            let data_text = $("#data").val();
+            let shapes_text = $("#shapes").val();
+
+            validator.validate(data_text, 'text/turtle', shapes_text, 'text/turtle', function (e, report) {
+                let $report = $("#report");
+                $report.val("Conforms? " + report.conforms() + "\n\n");
+
+                if (report.conforms() === false) {
+                    report.results().forEach(function (result) {
+                        $report.val($report.val() + JSON.stringify(result) + "\n\n");
+                    });
+                }
+            });
+        }
+	}
+
+</script>
+
+<textarea id="shapes" spellcheck="false" rows="25" style="width: 45%">
+    @prefix dash: <http://datashapes.org/dash#> .
+    @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+    @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+    @prefix schema: <http://schema.org/> .
+    @prefix sh: <http://www.w3.org/ns/shacl#> .
+    @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+    schema:PersonShape
+        a sh:NodeShape ;
+        sh:targetClass schema:Person ;
+        sh:property [
+            sh:path schema:givenName ;
+            sh:datatype xsd:string ;
+            sh:name "given name" ;
+        ] ;
+        sh:property [
+            sh:path schema:birthDate ;
+            sh:lessThan schema:deathDate ;
+            sh:maxCount 1 ;
+        ] ;
+        sh:property [
+            sh:path schema:gender ;
+            sh:in ( "female" "male" ) ;
+        ] ;
+        sh:property [
+            sh:path schema:address ;
+            sh:node schema:AddressShape ;
+        ] .
+
+    schema:AddressShape
+        a sh:NodeShape ;
+        sh:closed true ;
+        sh:property [
+            sh:path schema:streetAddress ;
+            sh:datatype xsd:string ;
+        ] ;
+        sh:property [
+            sh:path schema:postalCode ;
+            sh:or ( [ sh:datatype xsd:string ] [ sh:datatype xsd:integer ] ) ;
+            sh:minInclusive 10000 ;
+            sh:maxInclusive 99999 ;
+        ] .
+</textarea>
+
+<textarea id="data" spellcheck="false" rows="25" style="width: 45%">
+    @prefix ex: <http://example.org/ns#> .
+    @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+    @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+    @prefix schema: <http://schema.org/> .
+    @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+    ex:Bob
+        a schema:Person ;
+        schema:givenName "Robert" ;
+        schema:familyName "Junior" ;
+        schema:birthDate "1971-07-07"^^xsd:date ;
+        schema:deathDate "1968-09-10"^^xsd:date ;
+        schema:address ex:BobsAddress .
+
+    ex:BobsAddress
+        schema:streetAddress "1600 Amphitheatre Pkway" ;
+        schema:postalCode 9404 .
+</textarea>
+
+<textarea id="report"  rows="15" style="width: 90%"></textarea>
+<p><button id="btValidation" onclick="makeValidation();">Validate</button></p>
+</body>
+
+</html>
