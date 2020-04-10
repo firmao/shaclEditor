@@ -42,7 +42,7 @@ class ShaclData {
 		return lines;
 	}
 	
-	printShacl(){
+	printText(){
 		var res = "";
 		var lines = this.getShaclLines();
 		for (var line of lines) 

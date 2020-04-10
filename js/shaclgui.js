@@ -1,6 +1,7 @@
 	var cy = null;
 	var posShacl = null;
 	var origShacl = null;
+	var origProp = null;
 	var nodes = new Map();
 	document.addEventListener('DOMContentLoaded', function() {
 
@@ -39,6 +40,7 @@
 		});
 
 		cy.on('click', 'node', function(evt) {
+			//console.log(evt)
 			printSelected();
 		});
 
@@ -66,10 +68,11 @@
 
 		// demo your core ext
 		var contextMenu = cy.contextMenus({
-			menuItems : [ {
+			menuItems : [
+				{
 				id : 'addShaclShape',
 				content : 'addShaclShape',
-				selector : 'node, edge',
+				selector : 'node',
 				coreAsWell : true,
 				onClickFunction : function(event) {
 					pos = event.position || event.cyPosition;
@@ -77,6 +80,20 @@
 					origShacl = orig;
 					test = pos;
 					showAddDiv("addShDiv");
+				},
+				hasTrailingDivider : true
+			}, {
+				id : 'addProp',
+				content : 'add Property - RDF Term',
+				selector : 'node',
+				coreAsWell : true,
+				onClickFunction : function(event) {
+					pos = event.position || event.cyPosition;
+					orig = event.target || event.cyTarget;
+					origProp = orig;
+					test = pos;
+					//alert("Need to create addPropDiv");
+					showAddDiv("addPropDiv");
 				},
 				hasTrailingDivider : true
 			}, {
@@ -114,7 +131,7 @@
 				disabled : false
 			}, {
 				id : 'add-node',
-				content : 'add node',
+				content : 'add class',
 				coreAsWell : true,
 				onClickFunction : function(event) {
 					var data = {
@@ -202,21 +219,24 @@
 		});
 	});
 	function printNodes() {
-		var p = JSON.stringify(cy.elements().jsons());
+		const p = JSON.stringify(cy.elements().jsons());
 		document.getElementById('txtCode').innerHTML = p;
 	}
 	
 	function printSelected() {
 		var id = cy.$(':selected').id();
-		var classText = "" + nodes.get(id);
-		try {
-			if (classText.includes("sh:")) {
-				document.getElementById('txtShacl').innerHTML = classText;
-			} else {
-				document.getElementById('txtCode').innerHTML = classText;
+		//console.log(typeof nodes.get(id));
+		if(typeof(nodes.get(id)) === 'object'){
+			var classText = "" + nodes.get(id).printText();
+			try {
+				if (classText.includes("sh:")) {
+					document.getElementById('txtShacl').innerHTML = classText;
+				} else {
+					document.getElementById('txtCode').innerHTML = classText;
+				}
+			} catch (err) {
+				document.getElementById("txtShacl").innerHTML = err.message;
 			}
-		} catch (err) {
-			document.getElementById("txtShacl").innerHTML = err.message;
 		}
 	}
 	
@@ -228,20 +248,14 @@
 	function addClass() {
 		var className = document.getElementById("txtClassName").value;
 		classExtend = document.getElementById("txtClassExtend").value;
-		var prop1 = document.getElementById("txtProp1").value;
-		var value1 = document.getElementById("txtValue1").value;
-		var prop2 = document.getElementById("txtProp2").value;
-		var value2 = document.getElementById("txtValue2").value;
 		var ttl = new Turtle(className, classExtend);
-		ttl.addProperty(prop1, value1);
-		ttl.addProperty(prop2, value2);
-		var txtTurtle = ttl.printTurtle();
+		var txtTurtle = ttl.printText();
 		document.getElementById('txtCode').innerHTML = txtTurtle;
 		
 		var eles = cy.add([
 		  { group: 'nodes', data: { id: className, label: className }, position: { x: 100, y: 100 } }
 		]);
-		nodes.set(className, txtTurtle);
+		nodes.set(className, ttl);
 		var modal = document.getElementById("addDiv");
 	  	modal.style.display = "none";
 	}
@@ -251,14 +265,25 @@
 		var modal = document.getElementById(div);
 	  	modal.style.display = "none";
 	}
-	
-	function addField() {
-		  var x = document.createElement("INPUT");
-		  x.setAttribute("type", "text");
-		  x.setAttribute("value", "sh:");
-		  document.body.appendChild(x);
-		}
-	
+
+	function addProp(){
+		var pos = origProp.position;
+		var orig = origProp;
+		var targetClass = orig.id();
+		//var targetClass = classExtend;
+		var prop = document.getElementById("txtProp").value;
+		var value = document.getElementById("txtValue").value;
+
+		var classObj = nodes.get(targetClass);
+		console.log(typeof classObj);
+		classObj.addProperty(prop,value);
+
+		var txtTurtle = classObj.printText();
+		document.getElementById('txtCode').innerHTML = txtTurtle;
+		var modal = document.getElementById("addPropDiv");
+		modal.style.display = "none";
+	}
+
 	function addShacl(){
 		var pos = origShacl.position;
 		var orig = origShacl;
@@ -284,7 +309,7 @@
 			shacl.setPropertyValues("p3", value3);
 		}
 		
-		var txtShacl = shacl.printShacl();
+		var txtShacl = shacl.printText();
 		document.getElementById('txtShacl').innerHTML = txtShacl;
 		
 		cy.add([ {
@@ -306,7 +331,7 @@
 				target : className
 			}
 		} ]);
-		nodes.set(className, txtShacl);
+		nodes.set(className, shacl);
 		var modal = document.getElementById("addShDiv");
 	  	modal.style.display = "none";
 	}

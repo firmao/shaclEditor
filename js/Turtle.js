@@ -31,7 +31,7 @@ class Turtle {
 		return lines;
 	}
 	
-	printTurtle(){
+	printText(){
 		var res = "";
 		var lines = this.getTurtleLines();
 		for (var line of lines) 

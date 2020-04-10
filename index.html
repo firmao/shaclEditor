@@ -27,7 +27,6 @@
 
 <body>
 	<div id="addDiv" class="modal">
-
 		<!-- Modal content -->
 		<div class="modal-content">
 			<span onclick="spanClick('addDiv');" class="close">&times;</span>
@@ -40,27 +39,29 @@
 				Extend class:
 				<input type="text" id="txtClassExtend">
 			</p>
-			<p>	
-				Property 1:
-				<input type="text" id="txtProp1">
-				Value 1:
-				<input type="text" id="txtValue1">
-			</p>
-			<p>	
-				Property 2:
-				<input type="text" id="txtProp2">
-				Value 2:
-				<input type="text" id="txtValue2">
-			</p>
 			<div class="btn-group">
 				<button id="btnAddClass" class="button" onclick="addClass();">addClass</button>
 			</div>
 		</div>
-
 	</div>
-	
-	<div id="addShDiv" class="modal">
 
+	<div id="addPropDiv" class="modal">
+		<!-- Modal content -->
+		<div class="modal-content">
+			<span onclick="spanClick('addPropDiv');" class="close">&times;</span>
+			<p>
+				Property:
+				<input type="text" id="txtProp">
+				Value - RDF term:
+				<input type="text" id="txtValue">
+			</p>
+			<div class="btn-group">
+				<button id="btnAddProp" class="button" onclick="addProp();">addProp</button>
+			</div>
+		</div>
+	</div>
+
+	<div id="addShDiv" class="modal">
 		<!-- Modal content -->
 		<div class="modal-content">
 			<span onclick="spanClick('addShDiv');" class="close">&times;</span>
@@ -87,7 +88,6 @@
 			</div>
 			</p>
 		</div>
-
 	</div>
 	
 	<div id="menu" class="column left">
