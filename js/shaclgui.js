@@ -19,6 +19,24 @@
 					'background-clip' : 'none'
 				}
 			}, {
+				selector: 'node[type="shacl"]',
+				style: {
+					'shape': 'triangle',
+					'background-color': 'red',
+					'label' : 'data(label)',
+					'width' : '60px',
+					'height' : '60px',
+					'color' : 'blue',
+					'background-fit' : 'contain',
+					'background-clip' : 'none'
+				}
+			}, {
+				selector: 'node[type="mouse"]',
+				style: {
+					'shape': 'square',
+					'background-color': 'blue'
+				}
+			}, {
 				selector : 'edge',
 				style : {
 					'label' : 'data(label)',
@@ -333,7 +351,8 @@
 			group : 'nodes',
 			data : {
 				id : className,
-				label : className
+				label : className,
+				type : 'shacl'
 			},
 			position : {
 				x : 400,
@@ -348,6 +367,7 @@
 				target : className
 			}
 		} ]);
+
 		nodes.set(className, shacl);
 		var modal = document.getElementById("addShDiv");
 	  	modal.style.display = "none";
