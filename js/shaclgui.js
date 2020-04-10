@@ -2,6 +2,7 @@
 	var posShacl = null;
 	var origShacl = null;
 	var origProp = null;
+	let globalPos = null;
 	var nodes = new Map();
 	document.addEventListener('DOMContentLoaded', function() {
 
@@ -162,23 +163,15 @@
 				},
 				disabled : false
 			}, {
-				id : 'add-node',
+				id : 'add-class',
 				content : 'add class',
 				coreAsWell : true,
 				onClickFunction : function(event) {
-					var data = {
-						group : 'nodes'
-					};
-
-					var pos = event.position || event.cyPosition;
-
-					cy.add({
-						data : data,
-						position : {
-							x : pos.x,
-							y : pos.y
-						}
-					});
+					pos = event.position || event.cyPosition;
+					orig = event.target || event.cyTarget;
+					origProp = orig;
+					globalPos = pos;
+					showAddDiv("addDiv");
 				}
 			}, {
 				id : 'remove-selected',
@@ -283,9 +276,15 @@
 		var ttl = new Turtle(className, classExtend);
 		var txtTurtle = ttl.printText();
 		document.getElementById('txtCode').innerHTML = txtTurtle;
-		
+		console.log(globalPos);
 		var eles = cy.add([
-		  { group: 'nodes', data: { id: className, label: className }, position: { x: 100, y: 100 } }
+		  { group: 'nodes',
+			  data: {
+		  		id: className,
+			  	label: className,
+			  	type : 'class'
+			  },
+			  position: { x: globalPos.x, y: globalPos.y } }
 		]);
 		nodes.set(className, ttl);
 		var modal = document.getElementById("addDiv");
