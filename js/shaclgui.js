@@ -97,6 +97,20 @@
 				},
 				hasTrailingDivider : true
 			}, {
+				id : 'addShConstraint',
+				content : 'add SHACL constraint',
+				selector : 'node',
+				coreAsWell : true,
+				onClickFunction : function(event) {
+					pos = event.position || event.cyPosition;
+					orig = event.target || event.cyTarget;
+					origProp = orig;
+					test = pos;
+					//alert("Need to create addPropDiv");
+					showAddDiv("addShConstraint");
+				},
+				hasTrailingDivider : true
+			},{
 				id : 'remove',
 				content : 'remove',
 				selector : 'node, edge',
@@ -284,6 +298,25 @@
 		modal.style.display = "none";
 	}
 
+	function addShConstraint(){
+		var pos = origProp.position;
+		var orig = origProp;
+		var targetClass = orig.id();
+		//var targetClass = classExtend;
+		var value = [document.getElementById("txtShProp").value];
+
+		var classObj = nodes.get(targetClass);
+		console.log(classObj.properties.size);
+		const propName = "" + (classObj.properties.size + 1)
+		classObj.addProperty(propName);
+		classObj.setPropertyValues(propName, value);
+
+		var txtTurtle = classObj.printText();
+		document.getElementById('txtCode').innerHTML = txtTurtle;
+		var modal = document.getElementById("addShConstraint");
+		modal.style.display = "none";
+	}
+
 	function addShacl(){
 		var pos = origShacl.position;
 		var orig = origShacl;
@@ -291,24 +324,8 @@
 		var className = document.getElementById("txtShClassName").value;
 		//var targetClass = orig.id();
 		var targetClass = classExtend;
-		var value1 = [document.getElementById("txtShProp1").value];
-		var value2 = [document.getElementById("txtShProp2").value];
-		var value3 = [document.getElementById("txtShProp3").value];
 		var shacl = new ShaclData(className, targetClass);
-		
-		//var v1 = [value1,value2,value3, value_N];
-		//var v1 = [value1];
-		shacl.addProperty("p1");
-		shacl.setPropertyValues("p1", value1);
-		if(value2[0].length > 2){
-			shacl.addProperty("p2");
-			shacl.setPropertyValues("p2", value2);
-		}
-		if(value3[0].length > 2){
-			shacl.addProperty("p3");
-			shacl.setPropertyValues("p3", value3);
-		}
-		
+
 		var txtShacl = shacl.printText();
 		document.getElementById('txtShacl').innerHTML = txtShacl;
 		

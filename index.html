@@ -61,26 +61,27 @@
 		</div>
 	</div>
 
+	<div id="addShConstraint" class="modal">
+		<!-- Modal content -->
+		<div class="modal-content">
+			<span onclick="spanClick('addShConstraint');" class="close">&times;</span>
+			<p>
+				Constraint property
+				<textarea rows="3" cols="100" spellcheck="false" id="txtShProp"></textarea>
+			</p>
+			<div class="btn-group">
+				<button id="btnAddShConst" class="button" onclick="addShConstraint();">addProp</button>
+			</div>
+		</div>
+	</div>
+
 	<div id="addShDiv" class="modal">
 		<!-- Modal content -->
 		<div class="modal-content">
 			<span onclick="spanClick('addShDiv');" class="close">&times;</span>
-			<p>Shacl details</p>
 			<p>
 				Name
 				<input type="text" id="txtShClassName">
-			</p>
-			<p>
-				Constraint property[1]
-				<textarea rows="3" cols="100" spellcheck="false" id="txtShProp1"></textarea>
-			</p>
-			<p>
-				Constraint property[2]
-				<textarea rows="3" cols="100" spellcheck="false" id="txtShProp2"></textarea>
-			</p>
-			<p>
-				Constraint property[3]
-				<textarea rows="3" cols="100" spellcheck="false" id="txtShProp3"></textarea>
 			</p>
 			<p>
 			<div class="btn-group">
