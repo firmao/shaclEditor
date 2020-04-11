@@ -277,6 +277,14 @@
 		var txtTurtle = ttl.printText();
 		document.getElementById('txtCode').innerHTML = txtTurtle;
 		console.log(globalPos);
+		let myX, myY;
+		if(globalPos === null){
+			myX = 100;
+			myY = 100;
+		} else {
+			myX = globalPos.x;
+			myY = globalPos.y;
+		}
 		var eles = cy.add([
 		  { group: 'nodes',
 			  data: {
@@ -284,7 +292,7 @@
 			  	label: className,
 			  	type : 'class'
 			  },
-			  position: { x: globalPos.x, y: globalPos.y } }
+			  position: { x: myX, y: myY } }
 		]);
 		nodes.set(className, ttl);
 		var modal = document.getElementById("addDiv");
