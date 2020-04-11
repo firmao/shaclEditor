@@ -20,3 +20,4 @@ A demo is available (here)[http://141.57.11.86:8082/shaclgui/]:
 <img src="shaclGuiScreen.png">
 
 - RDF classes are represented by circles and SHACL shapes are represented by triangles.
+- The SHACL validation and the RDF representation are in the textAreas on the right side of the screen.
