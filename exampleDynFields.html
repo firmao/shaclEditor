@@ -1,0 +1,54 @@
+<html>
+<head>
+<script src="./js/Turtle.js"></script>
+<script src="./js/ShaclData.js"></script>   
+
+<script type='text/javascript'>
+        function addFields(){
+			var ttl = new Turtle("className", "classExtend");
+			ttl.addProperty("prop1","value1");
+			ttl.addProperty("prop2","value2");
+            
+            document.getElementById("txtClassName").value = ttl.getClassName();
+            document.getElementById("txtClassExtend").value = ttl.getClassExtend();
+            // Number of inputs to create
+			var number = ttl.getProperties().size;
+            // Container <div> where dynamic content will be placed
+            var container = document.getElementById("container");
+            // Clear previous contents of the container
+            while (container.hasChildNodes()) {
+                container.removeChild(container.lastChild);
+            }
+            
+            var get_keys =  ttl.getProperties().keys(); 
+            for (var prop of get_keys) 
+            {
+                container.appendChild(document.createTextNode("Property: " + prop + "value: " + ttl.getProperties().get(prop)));
+                var input = document.createElement("input");
+                input.type = "text";
+                input.name = prop;
+                input.value = ttl.getProperties().get(prop);
+                container.appendChild(input);
+                // Append a line break 
+                container.appendChild(document.createElement("br"));
+
+            }
+        }
+    </script>
+</head>
+<body>
+    
+    <div>
+		<p>
+			Class name:
+			<input type="text" id="txtClassName">
+			Class extension:
+			<input type="text" id="txtClassExtend">
+		</p>
+		<div>
+    		<a href="#" id="filldetails" onclick="addFields()">Generate Fields</a>
+			<div id="container"/>
+		</div>
+	</div>
+</body>
+</html>
