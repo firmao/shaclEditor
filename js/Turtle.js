@@ -7,8 +7,20 @@ class Turtle {
 		this.properties = new Map();
 	}
 	
+	getClassName(){
+		return this.className;
+	}
+
+	getClassExtend(){
+		return this.extendClass;
+	}
+
 	addProperty(property, value){
 		this.properties.set(property, value);
+	}
+
+	getProperties(){
+		return this.properties;
 	}
 	
 	getTurtleLines(){
