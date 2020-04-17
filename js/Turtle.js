@@ -1,19 +1,31 @@
-class Turtle { 
+class Turtle {
 
-	constructor(className, extendClass) 
-	{ 
+	constructor(className, extendClass)
+	{
 		this.className = className;
 		this.extendClass = extendClass;
 		this.properties = new Map();
 	}
-	
+
+	getClassName(){
+		return this.className;
+	}
+
+	getClassExtend(){
+		return this.extendClass;
+	}
+
 	addProperty(property, value){
 		this.properties.set(property, value);
 	}
-	
+
+	getProperties(){
+		return this.properties;
+	}
+
 	getTurtleLines(){
 		var lines = [];
-		
+
 		lines.push("@prefix ex: <http://example.org/ns#> .");
 		lines.push("@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .");
 		lines.push("@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .");
@@ -21,23 +33,23 @@ class Turtle {
 		lines.push("@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .");
 		lines.push(this.className);
 		lines.push("a " + this.extendClass + " ;");
-		var get_keys = this.properties.keys(); 
+		var get_keys = this.properties.keys();
 
-		for (var prop of get_keys) 
-		{ 
-			lines.push(prop + " " + this.properties.get(prop) + " ;"); 
+		for (var prop of get_keys)
+		{
+			lines.push(prop + " " + this.properties.get(prop) + " ;");
 		}
-		
+
 		return lines;
 	}
-	
+
 	printText(){
 		var res = "";
 		var lines = this.getTurtleLines();
-		for (var line of lines) 
-		{ 
+		for (var line of lines)
+		{
 			res += "\n" + line;
-			//console.log(line); 
+			//console.log(line);
 		}
 		res = res.trim().substring(0, res.length-2) + ".";
 		return res;

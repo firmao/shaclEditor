@@ -12,17 +12,18 @@
 
 <link href="./css/cytoscape-context-menus.css" rel="stylesheet"
 	type="text/css" />
-	
+
 <link href="./css/mystyle.css" rel="stylesheet"
 	type="text/css" />
 
-<script src="js/jquery.min.js"></script>
-<script src="https://unpkg.com/cytoscape/dist/cytoscape.min.js"></script>
-<script src="./js/Turtle.js"></script>
-<script src="./js/ShaclData.js"></script>
-<script src="./js/cytoscape-context-menus.js"></script>
-<script src="./js/shaclgui.js"></script>
-<script src="./js/shacl.js"></script>
+	<script src="js/jquery.min.js"></script>
+	<script src="https://unpkg.com/cytoscape/dist/cytoscape.min.js"></script>
+	<script src="./js/Turtle.js"></script>
+	<script src="./js/ShaclData.js"></script>
+	<script src="./js/cytoscape-context-menus.js"></script>
+	<script src="./js/shaclgui.js"></script>
+	<script src="./js/shacl.js"></script>
+	<script src="./js/util.js"></script>
 </head>
 
 <body>
@@ -90,14 +91,38 @@
 			</p>
 		</div>
 	</div>
-	
+
+	<div id="divEditClass" class="modal">
+		<!-- Modal content -->
+		<div class="modal-content">
+			<span onclick="spanClick('divEditClass');" class="close">&times;</span>
+			<p>
+				Class name:
+				<input type="text" id="txtEdClassName">
+			</p>
+			<p>
+				Extend class:
+				<input type="text" id="txtEdClassExtend">
+			</p>
+			<p>
+				Properties and RDF terms:
+			</p>
+			<div id="container" class="prop-value"></div>
+			<div class="btn-group">
+				<button id="btnEdClass" class="button" onclick="saveClass();">Save changes</button>
+			</div>
+		</div>
+	</div>
+
 	<div id="menu" class="column left">
 		<div class="btn-group">
-			<button id="btnAddNode" class="button" onclick="showAddDiv('addDiv');">Add Class</button>
+			<button id="btnAddNode" class="button" onclick="showDiv('addDiv');">Add Class</button>
 			<button id="btnShaclValidation" class="button" onclick="makeValidation();">Shacl
 				Validation</button>
 			<button id="btnShaclText" title="Try an example of SHACL Textual Validation" class="button" onclick="window.location.href='shacltext.html';">
 				SHACL Textual example</button>
+			<button id="btnGitHub" title="fork me on github" style="background-color: red" class="button" onclick="window.location.href='https://github.com/firmao/shaclEditor/';">
+				Fork me on GitHub</button>
 		</div>
 	</div>
 	<div id="cy" class="column middle"></div>
@@ -105,7 +130,7 @@
 		<textarea rows="15" cols="50" spellcheck="false" id="txtCode"></textarea>
 		<p>
 			<textarea rows="15" cols="50" spellcheck="false" id="txtShacl"></textarea>
-		</p>	
+		</p>
 		<p>
 			<textarea rows="5" cols="50" spellcheck="false" id="report"></textarea>
 		</p>

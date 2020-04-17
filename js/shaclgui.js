@@ -4,8 +4,8 @@
 	var origProp = null;
 	let globalPos = null;
 	var nodes = new Map();
-	document.addEventListener('DOMContentLoaded', function() {
 
+	document.addEventListener('DOMContentLoaded', function() {
 		cy = window.cy = cytoscape({
 			container : document.getElementById('cy'),
 
@@ -98,7 +98,8 @@
 					orig = event.target || event.cyTarget;
 					origShacl = orig;
 					test = pos;
-					showAddDiv("addShDiv");
+					clearForm(["txtShClassName"]);
+					showDiv("addShDiv");
 				},
 				hasTrailingDivider : true
 			}, {
@@ -112,7 +113,8 @@
 					origProp = orig;
 					test = pos;
 					//alert("Need to create addPropDiv");
-					showAddDiv("addPropDiv");
+					clearForm(["txtProp","txtValue"]);
+					showDiv("addPropDiv");
 				},
 				hasTrailingDivider : true
 			}, {
@@ -125,18 +127,59 @@
 					orig = event.target || event.cyTarget;
 					origProp = orig;
 					test = pos;
-					//alert("Need to create addPropDiv");
-					showAddDiv("addShConstraint");
+					clearForm(["txtShProp"]);
+					showDiv("addShConstraint");
 				},
 				hasTrailingDivider : true
-			},{
+			}, {
+				id : 'editClass',
+				content : 'Edit',
+				selector : 'node',
+				coreAsWell : true,
+				onClickFunction : function(event) {
+					pos = event.position || event.cyPosition;
+					orig = event.target || event.cyTarget;
+					origProp = orig;
+					test = pos;
+					//clearForm(["txtShProp"]);
+					const targetClass = orig.id();
+					const ttl = nodes.get(targetClass);
+					document.getElementById("txtEdClassName").value = ttl.getClassName();
+					document.getElementById("txtEdClassExtend").value = ttl.getClassExtend();
+					// Container <div> where dynamic content will be placed
+					const container = document.getElementById("container");
+					// Clear previous contents of the container
+					while (container.hasChildNodes()) {
+						container.removeChild(container.lastChild);
+					}
+
+					const get_keys = ttl.getProperties().keys();
+					for (const prop of get_keys)
+					{
+						const inputProp = document.createElement("input");
+						inputProp.type = "text";
+						inputProp.name = prop;
+						inputProp.value = prop;
+						container.appendChild(inputProp);
+
+						const inputValue = document.createElement("input");
+						inputValue.type = "text";
+						inputValue.name = ttl.getProperties().get(prop);
+						inputValue.value = ttl.getProperties().get(prop);
+						container.appendChild(inputValue);
+						// Append a line break
+						container.appendChild(document.createElement("br"));
+					}
+					showDiv("divEditClass");
+				},
+				hasTrailingDivider : true
+			}, {
 				id : 'remove',
 				content : 'remove',
 				selector : 'node, edge',
 				onClickFunction : function(event) {
 					var target = event.target || event.cyTarget;
 					removed = target.remove();
-
 					contextMenu.showMenuItem('undo-last-remove');
 				},
 				hasTrailingDivider : true
@@ -171,7 +214,9 @@
 					orig = event.target || event.cyTarget;
 					origProp = orig;
 					globalPos = pos;
-					showAddDiv("addDiv");
+					clearForm(["txtClassName", "txtClassExtend"]);
+					contextMenu.showMenuItem('addShaclShape');
+					showDiv("addDiv");
 				}
 			}, {
 				id : 'remove-selected',
@@ -265,10 +310,15 @@
 		}
 	}
 	
-	function showAddDiv(div) {
+	function showDiv(div) {
 		var modal = document.getElementById(div);
 		modal.style.display = "block";
 	}
+
+	function saveClass() {
+		alert("saveClass");
+	}
+
 	var classExtend = null;
 	function addClass() {
 		var className = document.getElementById("txtClassName").value;

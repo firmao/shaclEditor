@@ -42,6 +42,10 @@
   width: 80%;
 }
 
+.prop-value {
+  column-count: 2;
+}
+
 /* The Close Button */
 .close {
   color: #aaaaaa;
