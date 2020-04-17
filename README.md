@@ -13,8 +13,8 @@ A demo is available (here)[http://141.57.11.86:8082/shaclgui/]:
 
 ## What you can do with this "Shacl RDF Editor"
 
-- Create RDF class and add properties and RDF terms.
-- Create SHACL shape and add constraints to validate the content in your RDF classes.
+- Create RDF classes and add properties and RDF terms.
+- Create SHACL shapes and add constraints to validate the content in your RDF classes.
 - Execute and see the results of your SHACL validation on your RDF classes and terms.
 
 <img src="shaclEditorscreen.png">
