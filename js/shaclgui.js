@@ -332,22 +332,14 @@
 		const values = document.getElementById("container").querySelectorAll(".value");
 		//const values = document.getElementById("divEditClass").querySelectorAll(".value");
 		if(ttl === undefined){
-			alert("NEW class? something wrong !!!");
+			alert("NEW class? something wrong !!! Open issue !!!");
 			ttl = new Turtle(className, classExtend);
 		} else {
 			ttl.getProperties().clear();
 			let i;
 			for (i = 0; i < props.length; i++) {
-				//alert(props[i].value);
 				ttl.getProperties().set(props[i].value, values[i].value);
 			}
-			/*const get_keys = ttl.getProperties().keys();
-			for (const prop of get_keys)
-			{
-				console.log(prop);
-				const propValue = document.getElementById(prop).value;
-				ttl.getProperties().get(prop).push(propValue);
-			}*/
 		}
 		nodes.set(className,ttl);
 		const modal = document.getElementById("divEditClass");
