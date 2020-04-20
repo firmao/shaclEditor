@@ -1,7 +1,7 @@
 # shaclEditor
 A GUI for RDF shacl validation
 
-## Basic 3 steps of the work
+## Basic 3 steps of the workflow
 
 - 1 - Create Concepts/classes and properties
 - 2 - Create Shacl shapes and relate to the concepts
