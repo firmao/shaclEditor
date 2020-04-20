@@ -56,3 +56,8 @@ Given a visual representation of a class their constraints.
 - The most simple technology, basically it's only HTML and javascript applied. Many IDE's could be used to load the project, such as IntelliJIDEA, VisualSutdioJS, etc... just clone and start coding, no dependencies, no frameworks, no complex databases etc...
 
 More details on the paper.
+
+1 - Create Concepts/classes and properties
+2 - Create Shacl shapes and relate to the concepts
+3 - Create instances of the concepts/classes and check if the instances are valid with Shacl constraints  
+
