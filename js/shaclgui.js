@@ -153,10 +153,11 @@
 						container.removeChild(container.lastChild);
 					}
 
+					var html = "";
 					const get_keys = ttl.getProperties().keys();
 					for (const prop of get_keys)
 					{
-						const inputProp = document.createElement("input");
+						/*const inputProp = document.createElement("input");
 						inputProp.type = "text";
 						inputProp.name = prop;
 						inputProp.value = prop;
@@ -167,9 +168,16 @@
 						inputValue.name = ttl.getProperties().get(prop);
 						inputValue.value = ttl.getProperties().get(prop);
 						container.appendChild(inputValue);
-						// Append a line break
-						container.appendChild(document.createElement("br"));
+						container.appendChild(document.createElement("br"));*/
+
+						html+="<input type='text' id='prop' value='"+prop+"' class='prop' />";
+						html+="<input type='text' id='value' value='"+ttl.getProperties().get(prop)+"' class='value' />";
+						//container.innerHTML="<input type='text' id='bb' value='"+ttl.getProperties().get(prop)+"' class='value' />";
+						//container.innerHTML="<input type='text' id='aa' value='"+prop+"' class='prop' />";
+						//container.innerHTML="<input type='text' id='bb' value='"+ttl.getProperties().get(prop)+"' class='value' />";
+						//container.appendChild(document.createElement("br"));
 					}
+					container.innerHTML=html;
 					showDiv("divEditClass");
 				},
 				hasTrailingDivider : true
@@ -316,15 +324,42 @@
 	}
 
 	function saveClass() {
-		alert("saveClass");
+		const className = document.getElementById("txtEdClassName").value;
+		classExtend = document.getElementById("txtEdClassExtend").value;
+		let ttl = nodes.get(className);
+		console.log(ttl);
+		const props = document.getElementById("container").querySelectorAll(".prop");
+		const values = document.getElementById("container").querySelectorAll(".value");
+		//const values = document.getElementById("divEditClass").querySelectorAll(".value");
+		if(ttl === undefined){
+			alert("NEW class? something wrong !!!");
+			ttl = new Turtle(className, classExtend);
+		} else {
+			ttl.getProperties().clear();
+			let i;
+			for (i = 0; i < props.length; i++) {
+				//alert(props[i].value);
+				ttl.getProperties().set(props[i].value, values[i].value);
+			}
+			/*const get_keys = ttl.getProperties().keys();
+			for (const prop of get_keys)
+			{
+				console.log(prop);
+				const propValue = document.getElementById(prop).value;
+				ttl.getProperties().get(prop).push(propValue);
+			}*/
+		}
+		nodes.set(className,ttl);
+		const modal = document.getElementById("divEditClass");
+		modal.style.display = "none";
 	}
 
 	var classExtend = null;
 	function addClass() {
-		var className = document.getElementById("txtClassName").value;
+		const className = document.getElementById("txtClassName").value;
 		classExtend = document.getElementById("txtClassExtend").value;
-		var ttl = new Turtle(className, classExtend);
-		var txtTurtle = ttl.printText();
+		const ttl = new Turtle(className, classExtend);
+		const txtTurtle = ttl.printText();
 		document.getElementById('txtCode').innerHTML = txtTurtle;
 		console.log(globalPos);
 		let myX, myY;
