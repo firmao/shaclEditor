@@ -157,25 +157,8 @@
 					const get_keys = ttl.getProperties().keys();
 					for (const prop of get_keys)
 					{
-						/*const inputProp = document.createElement("input");
-						inputProp.type = "text";
-						inputProp.name = prop;
-						inputProp.value = prop;
-						container.appendChild(inputProp);
-
-						const inputValue = document.createElement("input");
-						inputValue.type = "text";
-						inputValue.name = ttl.getProperties().get(prop);
-						inputValue.value = ttl.getProperties().get(prop);
-						container.appendChild(inputValue);
-						container.appendChild(document.createElement("br"));*/
-
 						html+="<input type='text' id='prop' value='"+prop+"' class='prop' />";
 						html+="<input type='text' id='value' value='"+ttl.getProperties().get(prop)+"' class='value' />";
-						//container.innerHTML="<input type='text' id='bb' value='"+ttl.getProperties().get(prop)+"' class='value' />";
-						//container.innerHTML="<input type='text' id='aa' value='"+prop+"' class='prop' />";
-						//container.innerHTML="<input type='text' id='bb' value='"+ttl.getProperties().get(prop)+"' class='value' />";
-						//container.appendChild(document.createElement("br"));
 					}
 					container.innerHTML=html;
 					showDiv("divEditClass");
