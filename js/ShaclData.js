@@ -6,7 +6,23 @@ class ShaclData {
 		this.targetClass = targetClass;
 		this.properties = new Map();
 	}
-	
+
+	getClassName(){
+		return this.className;
+	}
+
+	getTargetClass(){
+		return this.targetClass;
+	}
+
+	setTargetClass(targetClass){
+		this.targetClass = targetClass;
+	}
+
+	getProperties(){
+		return this.properties;
+	}
+
 	addProperty(property){
 		this.properties.set(property, []);
 	}

@@ -15,6 +15,10 @@ class Turtle {
 		return this.extendClass;
 	}
 
+	setClassExtend(extendClass){
+		this.extendClass = extendClass;
+	}
+
 	addProperty(property, value){
 		this.properties.set(property, value);
 	}
@@ -23,8 +27,12 @@ class Turtle {
 		return this.properties;
 	}
 
+	setProperties(properties){
+		this.properties = properties;
+	}
+
 	getTurtleLines(){
-		var lines = [];
+		const lines = [];
 
 		lines.push("@prefix ex: <http://example.org/ns#> .");
 		lines.push("@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .");
@@ -32,10 +40,14 @@ class Turtle {
 		lines.push("@prefix schema: <http://schema.org/> .");
 		lines.push("@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .");
 		lines.push(this.className);
-		lines.push("a " + this.extendClass + " ;");
-		var get_keys = this.properties.keys();
+		if((this.extendClass != undefined) && (this.extendClass != null)) {
+			if (this.extendClass.length > 0) {
+				lines.push("a " + this.extendClass + " ;");
+			}
+		}
+		const get_keys = this.properties.keys();
 
-		for (var prop of get_keys)
+		for (const prop of get_keys)
 		{
 			lines.push(prop + " " + this.properties.get(prop) + " ;");
 		}
@@ -44,14 +56,17 @@ class Turtle {
 	}
 
 	printText(){
-		var res = "";
-		var lines = this.getTurtleLines();
+		let res = "";
+		const lines = this.getTurtleLines();
 		for (var line of lines)
 		{
 			res += "\n" + line;
 			//console.log(line);
 		}
-		res = res.trim().substring(0, res.length-2) + ".";
+		res = res.trim();
+		if(this.properties.size > 0){
+			res = res.substring(0, res.length-2) + ".";
+		}
 		return res;
 	}
 }

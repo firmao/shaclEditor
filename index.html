@@ -18,9 +18,11 @@
 
 	<script src="js/jquery.min.js"></script>
 	<script src="https://unpkg.com/cytoscape/dist/cytoscape.min.js"></script>
+	<script src="./js/cytoscape-context-menus.js"></script>
+	<script src="http://marvl.infotech.monash.edu/webcola/cola.min.js"></script>
+	<script src="./js/cytoscape-cola.js"></script>
 	<script src="./js/Turtle.js"></script>
 	<script src="./js/ShaclData.js"></script>
-	<script src="./js/cytoscape-context-menus.js"></script>
 	<script src="./js/shaclgui.js"></script>
 	<script src="./js/shacl.js"></script>
 	<script src="./js/util.js"></script>
@@ -31,14 +33,9 @@
 		<!-- Modal content -->
 		<div class="modal-content">
 			<span onclick="spanClick('addDiv');" class="close">&times;</span>
-			<p>Class details</p>
 			<p>
 				Class name:
 				<input type="text" id="txtClassName">
-			</p>
-			<p>
-				Extend class:
-				<input type="text" id="txtClassExtend">
 			</p>
 			<div class="btn-group">
 				<button id="btnAddClass" class="button" onclick="addClass();">addClass</button>
@@ -101,7 +98,7 @@
 				<input type="text" readonly id="txtEdClassName">
 			</p>
 			<p>
-				Extend class:
+				Relation class:
 				<input type="text" id="txtEdClassExtend">
 			</p>
 			<p>
@@ -114,16 +111,37 @@
 		</div>
 	</div>
 
+
+	<div id="divEditShacl" class="modal">
+		<!-- Modal content -->
+		<div class="modal-content">
+			<span onclick="spanClick('divEditShacl');" class="close">&times;</span>
+			<p>
+				Target class:
+				<input type="text" readonly id="txtEdTargetClassName">
+			</p>
+			<p>
+				Shacl constraints:
+			</p>
+			<div id="containerShacl"></div>
+			<div class="btn-group">
+				<button id="btnEdShacl" class="button" onclick="saveShacl();">Save changes</button>
+			</div>
+		</div>
+	</div>
+
 	<div id="menu" class="column left">
 		<div class="btn-group">
 			<button id="btnAddNode" class="button" onclick="showDiv('addDiv');">Add Class</button>
 			<button id="btnShaclValidation" class="button" onclick="makeValidation();">Shacl
 				Validation</button>
+			<button id="btnUpdateUI" class="button" onclick="organizeUI();">Organize Graph</button>
 			<button id="btnShaclText" title="Try an example of SHACL Textual Validation" class="button" onclick="window.location.href='shacltext.html';">
 				SHACL Textual example</button>
 			<button id="btnGitHub" title="fork me on github" style="background-color: red" class="button" onclick="window.location.href='https://github.com/firmao/shaclEditor/';">
 				Fork me on GitHub</button>
 		</div>
+
 	</div>
 	<div id="cy" class="column middle"></div>
 	<div id="code" class="column right">

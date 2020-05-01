@@ -10,7 +10,7 @@
 			container : document.getElementById('cy'),
 
 			style : [ {
-				selector : 'node',
+				selector : 'node[type="class"]',
 				style : {
 					'label' : 'data(label)',
 					'width' : '60px',
@@ -32,10 +32,16 @@
 					'background-clip' : 'none'
 				}
 			}, {
-				selector: 'node[type="mouse"]',
+				selector: 'node[type="property"]',
 				style: {
-					'shape': 'square',
-					'background-color': 'blue'
+					'shape': 'round-rectangle',
+					'background-color': 'green',
+					'label' : 'data(label)',
+					'width' : '100px',
+					'height' : '20px',
+					'color' : 'blue',
+					'background-fit' : 'contain',
+					'background-clip' : 'none'
 				}
 			}, {
 				selector : 'edge',
@@ -49,13 +55,23 @@
 				}
 			} ],
 			layout : {
-				name : 'breadthfirst'
+				name: 'circle'
 			},
 
 			elements : {
 				nodes : [],
 				edges : []
 			},
+		});
+
+		let options = {
+			name: 'circle'
+		// node position. Useful for changing flow direction in discrete layouts
+		};
+
+		cy.on('add', 'node', function(evt) {
+			cy.layout( options ).run();
+			cy.fit();
 		});
 
 		cy.on('click', 'node', function(evt) {
@@ -112,7 +128,6 @@
 					orig = event.target || event.cyTarget;
 					origProp = orig;
 					test = pos;
-					//alert("Need to create addPropDiv");
 					clearForm(["txtProp","txtValue"]);
 					showDiv("addPropDiv");
 				},
@@ -120,7 +135,7 @@
 			}, {
 				id : 'addShConstraint',
 				content : 'add SHACL constraint',
-				selector : 'node',
+				selector : 'node[type="shacl"]',
 				coreAsWell : true,
 				onClickFunction : function(event) {
 					pos = event.position || event.cyPosition;
@@ -134,7 +149,7 @@
 			}, {
 				id : 'editClass',
 				content : 'Edit',
-				selector : 'node',
+				selector : 'node[type="shacl"], node[type="class"], node[type="property"]',
 				coreAsWell : true,
 				onClickFunction : function(event) {
 					pos = event.position || event.cyPosition;
@@ -143,25 +158,56 @@
 					test = pos;
 					//clearForm(["txtShProp"]);
 					const targetClass = orig.id();
+					//console.log(cy.getElementById(orig.id()).parentNode);
 					const ttl = nodes.get(targetClass);
-					document.getElementById("txtEdClassName").value = ttl.getClassName();
-					document.getElementById("txtEdClassExtend").value = ttl.getClassExtend();
-					// Container <div> where dynamic content will be placed
-					const container = document.getElementById("container");
-					// Clear previous contents of the container
-					while (container.hasChildNodes()) {
-						container.removeChild(container.lastChild);
-					}
+					const classText = "" + ttl.printText();
+					try {
+						const className = ttl.className;
+						if (classText.includes("sh:")) {
+							document.getElementById("txtEdTargetClassName").value = ttl.getTargetClass();
+							const container = document.getElementById("containerShacl");
+							// Clear previous contents of the container
+							while (container.hasChildNodes()) {
+								container.removeChild(container.lastChild);
+							}
 
-					var html = "";
-					const get_keys = ttl.getProperties().keys();
-					for (const prop of get_keys)
-					{
-						html+="<input type='text' id='prop' value='"+prop+"' class='prop' />";
-						html+="<input type='text' id='value' value='"+ttl.getProperties().get(prop)+"' class='value' />";
+							var html = "";
+							const get_keys = ttl.getProperties().keys();
+							for (const prop of get_keys)
+							{
+								const get_values = ttl.getProperties().get(prop);
+								let vTxtArea = "";
+								for (var value of get_values){
+									vTxtArea += value;
+								}
+								html+="<textarea rows=\"3\" cols=\"100\" spellcheck=\"false\" class=\"shprop\" id=\"txtAEdShProp\" name=\"txtAEdShProp\">"+vTxtArea+"</textarea>";
+							}
+							container.innerHTML=html;
+							showDiv("divEditShacl");
+						} else {
+							document.getElementById("txtEdClassName").value = ttl.getClassName();
+							document.getElementById("txtEdClassExtend").value = ttl.getClassExtend();
+							// Container <div> where dynamic content will be placed
+							const container = document.getElementById("container");
+							// Clear previous contents of the container
+							while (container.hasChildNodes()) {
+								container.removeChild(container.lastChild);
+							}
+
+							var html = "";
+							const get_keys = ttl.getProperties().keys();
+							for (const prop of get_keys)
+							{
+								html+="<input type='text' id='prop' value='"+prop+"' class='prop' />";
+								html+="<input type='text' id='value' value='"+ttl.getProperties().get(prop)+"' class='value' />";
+							}
+							container.innerHTML=html;
+							showDiv("divEditClass");
+						}
+					} catch (err) {
+						//document.getElementById("txtShacl").innerHTML = err.message;
+						console.log(err);
 					}
-					container.innerHTML=html;
-					showDiv("divEditClass");
 				},
 				hasTrailingDivider : true
 			}, {
@@ -205,7 +251,7 @@
 					orig = event.target || event.cyTarget;
 					origProp = orig;
 					globalPos = pos;
-					clearForm(["txtClassName", "txtClassExtend"]);
+					clearForm(["txtClassName"]);
 					contextMenu.showMenuItem('addShaclShape');
 					showDiv("addDiv");
 				}
@@ -296,7 +342,7 @@
 					document.getElementById('txtCode').innerHTML = classText;
 				}
 			} catch (err) {
-				document.getElementById("txtShacl").innerHTML = err.message;
+				document.getElementById("report").innerHTML = err.message;
 			}
 		}
 	}
@@ -306,11 +352,105 @@
 		modal.style.display = "block";
 	}
 
+	function organizeUI() {
+		let options = {
+			name: 'cola'
+		};
+
+		cy.layout( options ).run();
+		cy.fit();
+	}
+
+	function updateUI() {
+		cy.elements().remove();
+		const allNodes = nodes.keys();
+		for (const id of allNodes){
+			if(typeof(nodes.get(id)) === 'object') {
+				const classText = "" + nodes.get(id).printText();
+				try {
+					const className = nodes.get(id).className;
+					if (classText.includes("sh:")) {
+						const targetClass = nodes.get(id).getTargetClass();
+						cy.add([ {
+							group : 'nodes',
+							data : {
+								id : className,
+								label : className,
+								type : 'shacl'
+							}
+						}, {
+							group : 'edges',
+							data : {
+								id : targetClass + '-' + className,
+								label : 'validatedBy',
+								source : targetClass,
+								target : className
+							}
+						} ]);
+					} else {
+						const extendClass = nodes.get(id).getClassExtend();
+						if((extendClass === undefined) || (extendClass === null) || (extendClass.length < 2)){
+							cy.add([
+								{ group: 'nodes',
+									data: {
+										id: className,
+										label: className,
+										type : 'class'
+									}
+								} ]);
+						} else {
+							cy.add([
+								{ group: 'nodes',
+									data: {
+										id: className,
+										label: className,
+										type : 'class'
+									}
+								}, {
+									group : 'edges',
+									data : {
+										id : extendClass + '-' + className,
+										label : 'instance',
+										source : extendClass,
+										target : className
+									}
+								} ]);
+						}
+						const properties = nodes.get(id).getProperties();
+						const get_keys = properties.keys();
+						for (const prop of get_keys)
+						{
+							cy.add([ {
+								group : 'nodes',
+								data : {
+									id : prop,
+									label : prop,
+									type : 'property'
+								}
+							}, {
+								group : 'edges',
+								data : {
+									id : prop + '-' + className,
+									label : 'property',
+									source : className,
+									target : prop
+								}
+							} ]);
+							//lines.push(prop + " " + properties.get(prop) + " ;");
+						}
+					}
+				} catch (err) {
+					//document.getElementById("txtShacl").innerHTML = err.message;
+					console.log(err);
+				}
+			}
+		}
+	}
+
 	function saveClass() {
 		const className = document.getElementById("txtEdClassName").value;
 		classExtend = document.getElementById("txtEdClassExtend").value;
 		let ttl = nodes.get(className);
-		console.log(ttl);
 		const props = document.getElementById("container").querySelectorAll(".prop");
 		const values = document.getElementById("container").querySelectorAll(".value");
 		//const values = document.getElementById("divEditClass").querySelectorAll(".value");
@@ -319,12 +459,21 @@
 			ttl = new Turtle(className, classExtend);
 		} else {
 			ttl.getProperties().clear();
+			if(classExtend.length > 0){
+				let ttlExtend = nodes.get(classExtend);
+				if(ttlExtend != undefined) {
+					addAll(ttl.getProperties(), ttlExtend.getProperties());
+				}
+			}
+			ttl.setClassExtend(classExtend);
+
 			let i;
 			for (i = 0; i < props.length; i++) {
 				ttl.getProperties().set(props[i].value, values[i].value);
 			}
 		}
 		nodes.set(className,ttl);
+		updateUI();
 		const modal = document.getElementById("divEditClass");
 		modal.style.display = "none";
 	}
@@ -332,11 +481,10 @@
 	var classExtend = null;
 	function addClass() {
 		const className = document.getElementById("txtClassName").value;
-		classExtend = document.getElementById("txtClassExtend").value;
+		//classExtend = document.getElementById("txtClassExtend").value;
 		const ttl = new Turtle(className, classExtend);
 		const txtTurtle = ttl.printText();
 		document.getElementById('txtCode').innerHTML = txtTurtle;
-		console.log(globalPos);
 		let myX, myY;
 		if(globalPos === null){
 			myX = 100;
@@ -366,20 +514,43 @@
 	}
 
 	function addProp(){
-		var pos = origProp.position;
-		var orig = origProp;
-		var targetClass = orig.id();
-		//var targetClass = classExtend;
-		var prop = document.getElementById("txtProp").value;
-		var value = document.getElementById("txtValue").value;
+		const pos = origProp.position;
+		const orig = origProp;
+		const targetClass = orig.id();
+		const prop = document.getElementById("txtProp").value;
+		const value = document.getElementById("txtValue").value;
 
-		var classObj = nodes.get(targetClass);
-		console.log(typeof classObj);
+		const classObj = nodes.get(targetClass);
 		classObj.addProperty(prop,value);
 
-		var txtTurtle = classObj.printText();
+		const txtTurtle = classObj.printText();
 		document.getElementById('txtCode').innerHTML = txtTurtle;
-		var modal = document.getElementById("addPropDiv");
+		nodes.set(classObj.getClassName(), classObj);
+		updateUI();
+		const modal = document.getElementById("addPropDiv");
+		modal.style.display = "none";
+	}
+
+	function saveShacl(){
+		const orig = origProp;
+		const shaclClass = orig.id();
+		const targetClass = document.getElementById("txtEdTargetClassName").value;
+		const ttl = nodes.get(shaclClass);
+		//const props = document.getElementsByClassName("shprop");
+		const props = document.getElementsByName("txtAEdShProp");
+		ttl.setTargetClass(targetClass);
+		ttl.getProperties().clear();
+		for (let prop of props)
+		{
+			const propName = "" + (ttl.properties.size + 1);
+			ttl.addProperty(propName);
+			ttl.setPropertyValues(propName, [prop.value]);
+		}
+
+		const txtTurtle = ttl.printText();
+		document.getElementById('txtShacl').innerHTML = txtTurtle;
+		nodes.set(shaclClass, ttl);
+		const modal = document.getElementById("divEditShacl");
 		modal.style.display = "none";
 	}
 
@@ -391,13 +562,12 @@
 		var value = [document.getElementById("txtShProp").value];
 
 		var classObj = nodes.get(targetClass);
-		console.log(classObj.properties.size);
 		const propName = "" + (classObj.properties.size + 1)
 		classObj.addProperty(propName);
 		classObj.setPropertyValues(propName, value);
 
 		var txtTurtle = classObj.printText();
-		document.getElementById('txtCode').innerHTML = txtTurtle;
+		document.getElementById('txtShacl').innerHTML = txtTurtle;
 		var modal = document.getElementById("addShConstraint");
 		modal.style.display = "none";
 	}
@@ -408,34 +578,13 @@
 		
 		var className = document.getElementById("txtShClassName").value;
 		//var targetClass = orig.id();
-		var targetClass = classExtend;
+		var targetClass = orig.id();
 		var shacl = new ShaclData(className, targetClass);
 
 		var txtShacl = shacl.printText();
 		document.getElementById('txtShacl').innerHTML = txtShacl;
-		
-		cy.add([ {
-			group : 'nodes',
-			data : {
-				id : className,
-				label : className,
-				type : 'shacl'
-			},
-			position : {
-				x : 400,
-				y : 100
-			}
-		}, {
-			group : 'edges',
-			data : {
-				id : orig.id() + '-' + className,
-				label : 'validatedBy',
-				source : orig.id(),
-				target : className
-			}
-		} ]);
-
 		nodes.set(className, shacl);
+		updateUI();
 		var modal = document.getElementById("addShDiv");
 	  	modal.style.display = "none";
 	}
