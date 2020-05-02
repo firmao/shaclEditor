@@ -157,8 +157,12 @@
 					origProp = orig;
 					test = pos;
 					//clearForm(["txtShProp"]);
-					const targetClass = orig.id();
-					//console.log(cy.getElementById(orig.id()).parentNode);
+					let targetClass = orig.id();
+					const indStr = targetClass.indexOf(";");
+					if(indStr > 0){
+						targetClass = targetClass.substr(indStr+1);
+					}
+					console.log(targetClass);
 					const ttl = nodes.get(targetClass);
 					const classText = "" + ttl.printText();
 					try {
@@ -423,7 +427,7 @@
 							cy.add([ {
 								group : 'nodes',
 								data : {
-									id : prop,
+									id : prop + ';' + className,
 									label : prop,
 									type : 'property'
 								}
@@ -433,7 +437,7 @@
 									id : prop + '-' + className,
 									label : 'property',
 									source : className,
-									target : prop
+									target : prop + ';' + className
 								}
 							} ]);
 							//lines.push(prop + " " + properties.get(prop) + " ;");
