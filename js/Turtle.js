@@ -5,6 +5,7 @@ class Turtle {
 		this.className = className;
 		this.extendClass = extendClass;
 		this.properties = new Map();
+		this.prefixes = fillPrefixes();
 	}
 
 	getClassName(){
@@ -31,22 +32,36 @@ class Turtle {
 		this.properties = properties;
 	}
 
+	getPrefixes(){
+		return this.prefixes;
+	}
+	setPrefixes(prefixes){
+		this.prefixes = prefixes;
+	}
+
 	getTurtleLines(){
 		const lines = [];
 
-		lines.push("@prefix ex: <http://example.org/ns#> .");
+		/*lines.push("@prefix ex: <http://example.org/ns#> .");
 		lines.push("@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .");
 		lines.push("@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .");
 		lines.push("@prefix schema: <http://schema.org/> .");
-		lines.push("@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .");
+		lines.push("@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .");*/
+
+		const preNames = this.prefixes.keys();
+		for (const name of preNames)
+		{
+			lines.push("@prefix " + name + ": <" + this.prefixes.get(name) + "> .");
+		}
+
 		lines.push(this.className);
 		if((this.extendClass != undefined) && (this.extendClass != null)) {
 			if (this.extendClass.length > 0) {
 				lines.push("a " + this.extendClass + " ;");
 			}
 		}
-		const get_keys = this.properties.keys();
 
+		const get_keys = this.properties.keys();
 		for (const prop of get_keys)
 		{
 			lines.push(prop + " " + this.properties.get(prop) + " ;");

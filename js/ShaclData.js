@@ -5,6 +5,7 @@ class ShaclData {
 		this.className = className;
 		this.targetClass = targetClass;
 		this.properties = new Map();
+		this.prefixes = fillPrefixes();
 	}
 
 	getClassName(){
@@ -26,19 +27,32 @@ class ShaclData {
 	addProperty(property){
 		this.properties.set(property, []);
 	}
-	
+
+	getPrefixes(){
+		return this.prefixes;
+	}
+	setPrefixes(prefixes){
+		this.prefixes = prefixes;
+	}
+
 	setPropertyValues(property, value){
 		this.properties.get(property).push(value);
 	}
 	
 	getShaclLines(){
 		var lines = [];
-		lines.push("@prefix dash: <http://datashapes.org/dash#> .");
+		/*lines.push("@prefix dash: <http://datashapes.org/dash#> .");
 		lines.push("@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .");
 		lines.push("@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .");
 		lines.push("@prefix schema: <http://schema.org/> .");
 		lines.push("@prefix sh: <http://www.w3.org/ns/shacl#> .");
-		lines.push("@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .");
+		lines.push("@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .");*/
+
+		const preNames = this.prefixes.keys();
+		for (const name of preNames)
+		{
+			lines.push("@prefix " + name + ": <" + this.prefixes.get(name) + "> .");
+		}
 		
 		lines.push(this.className);
 		lines.push("a sh:NodeShape ;");

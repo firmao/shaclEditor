@@ -31,11 +31,11 @@
 <body>
 	<div id="addDiv" class="modal">
 		<!-- Modal content -->
-		<div class="modal-content">
+		<div class="modal-content autocomplete">
 			<span onclick="spanClick('addDiv');" class="close">&times;</span>
 			<p>
 				Class name:
-				<input type="text" id="txtClassName">
+				<input type="text" id="txtClassName" onfocus="makeAutoComplete(this.id);">
 			</p>
 			<div class="btn-group">
 				<button id="btnAddClass" class="button" onclick="addClass();">addClass</button>
@@ -45,13 +45,13 @@
 
 	<div id="addPropDiv" class="modal">
 		<!-- Modal content -->
-		<div class="modal-content">
+		<div class="modal-content autocomplete">
 			<span onclick="spanClick('addPropDiv');" class="close">&times;</span>
 			<p>
 				Property:
-				<input type="text" id="txtProp">
+				<input type="text" id="txtProp" onfocus="makeAutoComplete(this.id);">
 				Value - RDF term:
-				<input type="text" id="txtValue">
+				<input type="text" id="txtValue" onfocus="makeAutoComplete(this.id);">
 			</p>
 			<div class="btn-group">
 				<button id="btnAddProp" class="button" onclick="addProp();">addProp</button>
@@ -75,11 +75,11 @@
 
 	<div id="addShDiv" class="modal">
 		<!-- Modal content -->
-		<div class="modal-content">
+		<div class="modal-content autocomplete">
 			<span onclick="spanClick('addShDiv');" class="close">&times;</span>
 			<p>
 				Name
-				<input type="text" id="txtShClassName">
+				<input type="text" id="txtShClassName" onfocus="makeAutoComplete(this.id);">
 			</p>
 			<p>
 			<div class="btn-group">
@@ -91,7 +91,7 @@
 
 	<div id="divEditClass" class="modal">
 		<!-- Modal content -->
-		<div class="modal-content">
+		<div class="modal-content autocomplete">
 			<span onclick="spanClick('divEditClass');" class="close">&times;</span>
 			<p>
 				Class name:
@@ -99,12 +99,12 @@
 			</p>
 			<p>
 				Relation class:
-				<input type="text" id="txtEdClassExtend">
+				<input type="text" id="txtEdClassExtend" onfocus="makeAutoComplete(this.id);">
 			</p>
 			<p>
 				Properties and RDF terms:
 			</p>
-			<div id="container" class="prop-value"></div>
+			<div id="container" class="prop-value autocomplete"></div>
 			<div class="btn-group">
 				<button id="btnEdClass" class="button" onclick="saveClass();">Save changes</button>
 			</div>

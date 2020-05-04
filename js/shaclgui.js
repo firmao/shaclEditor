@@ -1,12 +1,14 @@
-	var cy = null;
-	var posShacl = null;
-	var origShacl = null;
-	var origProp = null;
-	let globalPos = null;
-	var nodes = new Map();
+let cy = null;
+let posShacl = null;
+let origShacl = null;
+let origProp = null;
+let globalPos = null;
+const nodes = new Map();
+let prefixes = new Map();
 
-	document.addEventListener('DOMContentLoaded', function() {
-		cy = window.cy = cytoscape({
+document.addEventListener('DOMContentLoaded', function() {
+	prefixes = fillPrefixes();
+	cy = window.cy = cytoscape({
 			container : document.getElementById('cy'),
 
 			style : [ {
@@ -66,7 +68,6 @@
 
 		let options = {
 			name: 'circle'
-		// node position. Useful for changing flow direction in discrete layouts
 		};
 
 		cy.on('add', 'node', function(evt) {
@@ -167,7 +168,7 @@
 					const classText = "" + ttl.printText();
 					try {
 						const className = ttl.className;
-						if (classText.includes("sh:")) {
+						if (classText.includes("sh:targetClass")) {
 							document.getElementById("txtEdTargetClassName").value = ttl.getTargetClass();
 							const container = document.getElementById("containerShacl");
 							// Clear previous contents of the container
@@ -202,8 +203,8 @@
 							const get_keys = ttl.getProperties().keys();
 							for (const prop of get_keys)
 							{
-								html+="<input type='text' id='prop' value='"+prop+"' class='prop' />";
-								html+="<input type='text' id='value' value='"+ttl.getProperties().get(prop)+"' class='value' />";
+								html+="<input type='text' id='prop' onfocus='makeAutoComplete(this.id);' value='"+prop+"' class='prop' />";
+								html+="<input type='text' id='value' onfocus='makeAutoComplete(this.id);' value='"+ttl.getProperties().get(prop)+"' class='value' />";
 							}
 							container.innerHTML=html;
 							showDiv("divEditClass");
@@ -340,7 +341,7 @@
 		if(typeof(nodes.get(id)) === 'object'){
 			var classText = "" + nodes.get(id).printText();
 			try {
-				if (classText.includes("sh:")) {
+				if (classText.includes("sh:targetClass")) {
 					document.getElementById('txtShacl').innerHTML = classText;
 				} else {
 					document.getElementById('txtCode').innerHTML = classText;
@@ -373,7 +374,7 @@
 				const classText = "" + nodes.get(id).printText();
 				try {
 					const className = nodes.get(id).className;
-					if (classText.includes("sh:")) {
+					if (classText.includes("sh:targetClass")) {
 						const targetClass = nodes.get(id).getTargetClass();
 						cy.add([ {
 							group : 'nodes',
@@ -393,7 +394,7 @@
 						} ]);
 					} else {
 						const extendClass = nodes.get(id).getClassExtend();
-						if((extendClass === undefined) || (extendClass === null) || (extendClass.length < 2)){
+						if((extendClass === undefined) || (extendClass === null) || (extendClass.length < 1)){
 							cy.add([
 								{ group: 'nodes',
 									data: {
