@@ -3,8 +3,44 @@ let posShacl = null;
 let origShacl = null;
 let origProp = null;
 let globalPos = null;
-const nodes = new Map();
+let nodes = new Map();
 let prefixes = new Map();
+let systemId = 0;
+
+function generateId() {
+	let sparql = "SELECT ?vmax\n" +
+		"WHERE { ?s shg:Id ?vmax }\n" +
+		"ORDER BY DESC(xsd:integer(?vmax)) LIMIT 1";
+	let myEndpoint = "http://shaclguiserver:3030/sparql";
+	let reSparql = executeSparql(sparql, myEndpoint);
+	systemId = parseInt(reSparql) + 1;
+}
+
+function loadProject(){
+	systemId = document.getElementById("txtIdProject").value;
+	alert("loadProject("+systemId+") -- NEED TO IMPLEMENT !!!");
+	loadNodes(systemId);
+	updateUI();
+}
+
+function saveProject(){
+	const allNodes = nodes.keys();
+	for (const id of allNodes) {
+		if (typeof (nodes.get(id)) === 'object') {
+			const classObj = nodes.get(id);
+			if(systemId > 0){
+				classObj.setId(systemId);
+				update(classObj);
+			} else {
+				generateId();
+				classObj.setId(systemId);
+				insert(classObj);
+			}
+		}
+	}
+	alert("Project ID: " + systemId);
+	//systemId = 0;
+}
 
 document.addEventListener('DOMContentLoaded', function() {
 	prefixes = fillPrefixes();

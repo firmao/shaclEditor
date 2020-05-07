@@ -2,10 +2,19 @@ class Turtle {
 
 	constructor(className, extendClass)
 	{
+		this.id = systemId;
 		this.className = className;
 		this.extendClass = extendClass;
 		this.properties = new Map();
 		this.prefixes = fillPrefixes();
+	}
+
+	getId(){
+		return this.id;
+	}
+
+	setId(id){
+		this.id = id;
 	}
 
 	getClassName(){

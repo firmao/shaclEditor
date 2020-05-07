@@ -1,11 +1,20 @@
 class ShaclData { 
 
 	constructor(className, targetClass) 
-	{ 
+	{
+		this.id = systemId;
 		this.className = className;
 		this.targetClass = targetClass;
 		this.properties = new Map();
 		this.prefixes = fillPrefixes();
+	}
+
+	getId(){
+		return this.id;
+	}
+
+	setId(id){
+		this.id = id;
 	}
 
 	getClassName(){

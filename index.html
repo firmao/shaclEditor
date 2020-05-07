@@ -130,9 +130,27 @@
 		</div>
 	</div>
 
+	<div id="divLoadProject" class="modal">
+		<!-- Modal content -->
+		<div class="modal-content">
+			<span onclick="spanClick('divLoadProject');" class="close">&times;</span>
+			UNDER CONSTRUCTION !!!
+			<p>
+				 Identification number:
+				<input type="text" id="txtIdProject">
+			</p>
+			<div class="btn-group">
+				<button id="btnLoad" class="button" onclick="loadProject();">Load</button>
+			</div>
+		</div>
+	</div>
+
 	<div id="menu" class="column left">
 		<div class="btn-group">
 			<button id="btnAddNode" class="button" onclick="showDiv('addDiv');">Add Class</button>
+			<button id="btnLoadProject" class="button" onclick="showDiv('divLoadProject');">Load Project</button>
+			<button id="btnSaveProject" class="button" onclick="saveProject();">Save Project</button>
+			<button id="btnQueryEndPoint" class="button" onclick="showDiv('divQueryEndpoint');">Query End Point</button>
 			<button id="btnShaclValidation" class="button" onclick="makeValidation();">Shacl
 				Validation</button>
 			<button id="btnUpdateUI" class="button" onclick="organizeUI();">Organize Graph</button>
