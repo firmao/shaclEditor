@@ -223,6 +223,16 @@ document.addEventListener('DOMContentLoaded', function() {
 								}
 								html+="<textarea rows=\"3\" cols=\"100\" spellcheck=\"false\" class=\"shprop\" id=\"txtAEdShProp\" name=\"txtAEdShProp\">"+vTxtArea+"</textarea>";
 							}
+
+							console.log(nodes.get(ttl.getTargetClass()).getProperties());
+							const propNames = nodes.get(ttl.getTargetClass()).getProperties().keys();
+							for (const prop of propNames)
+							{
+								if(!html.includes(prop)){
+									html+="<br><button id=\"btnAddConstr\" class=\"button\" onclick=\"newConstr('"+prop+"', 'divEditShacl');\">"+prop+" +</button>";
+								}
+							}
+
 							container.innerHTML=html;
 							showDiv("divEditShacl");
 						} else {
@@ -370,7 +380,15 @@ document.addEventListener('DOMContentLoaded', function() {
 		const p = JSON.stringify(cy.elements().jsons());
 		document.getElementById('txtCode').innerHTML = p;
 	}
-	
+
+	function newConstr(prop, oldDiv) {
+		//clearForm(["txtShProp"]);
+		const modal = document.getElementById(oldDiv);
+		modal.style.display = "none";
+		document.getElementById("txtShProp").value = prop;
+		showDiv("addShConstraint");
+	}
+
 	function printSelected() {
 		var id = cy.$(':selected').id();
 		//console.log(typeof nodes.get(id));
