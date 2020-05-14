@@ -199,7 +199,7 @@ document.addEventListener('DOMContentLoaded', function() {
 					if(indStr > 0){
 						targetClass = targetClass.substr(indStr+1);
 					}
-					console.log(targetClass);
+
 					const ttl = nodes.get(targetClass);
 					const classText = "" + ttl.printText();
 					try {
@@ -224,7 +224,6 @@ document.addEventListener('DOMContentLoaded', function() {
 								html+="<textarea rows=\"3\" cols=\"100\" spellcheck=\"false\" class=\"shprop\" id=\"txtAEdShProp\" name=\"txtAEdShProp\">"+vTxtArea+"</textarea>";
 							}
 
-							console.log(nodes.get(ttl.getTargetClass()).getProperties());
 							const propNames = nodes.get(ttl.getTargetClass()).getProperties().keys();
 							for (const prop of propNames)
 							{

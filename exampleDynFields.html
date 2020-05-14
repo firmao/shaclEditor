@@ -1,176 +1,40 @@
-
-
-
-
-
-
-
 <!DOCTYPE html>
 <html>
 
 <head>
 	<title>ReLOD demo dataset visual similarity relations</title>
-
-	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1, maximum-scale=1">
-
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/bluebird/3.5.2/bluebird.min.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/fetch/2.0.3/fetch.min.js"></script>
-	<script src="https://unpkg.com/cytoscape/dist/cytoscape.min.js"></script>
-	<script src="https://unpkg.com/weaverjs@1.2.0/dist/weaver.min.js"></script>
-	<script src="https://unpkg.com/webcola/WebCola/cola.min.js"></script>
-	<script src="./js/cytoscape-cola.js"></script>
-
-	<style>
-		body {
-			font-family: helvetica;
-			font-size: 14px;
-		}
-
-		#cy {
-			width: 100%;
-			height: 100%;
-			position: absolute;
-			left: 0;
-			top: 0;
-			z-index: 999;
-		}
-
-		h1 {
-			opacity: 0.5;
-			font-size: 1em;
-		}
-	</style>
-
-	<script>
-		window.addEventListener('DOMContentLoaded', function(){
-
-			var cy = window.cy = cytoscape({
-				container: document.getElementById('cy'),
-
-				layout: {
-					/*name: 'spread',*/
-					name: 'cola'
-				},
-
-				style: [
-					{
-						selector: 'node',
-						style: {
-							'label' : 'data(label)',
-							'background-color': '#ea8a31'
-						}
-					},
-
-					{
-						selector: 'edge',
-						style: {
-							'label' : 'data(label)',
-							'curve-style': 'haystack',
-							'haystack-radius': 0,
-							'width': 3,
-							'opacity': 0.666,
-							'line-color': '#fcc694'
-						}
-					}
-				],
-				elements: {
-					"nodes": [
-						{ "data": {"id": "http://purl.org/dc/terms/date", "label": "http://purl.org/dc/terms/date"}},
-						{ "data": {"id": "92e6476d73c8325b5b6d748f9f33254a.hdt", "label": "92e6476d73c8325b5b6d748f9f33254a.hdt"}},
-						{ "data": {"id": "360893bfc33da07215e05ba634016e8d.hdt", "label": "360893bfc33da07215e05ba634016e8d.hdt"}},
-						{ "data": {"id": "dd5f8c65f7ddc4b327b3a2d235f9c656.hdt", "label": "dd5f8c65f7ddc4b327b3a2d235f9c656.hdt"}},
-						{ "data": {"id": "438ebba092b1bceb5d94b8d7dbf5ec38.hdt", "label": "438ebba092b1bceb5d94b8d7dbf5ec38.hdt"}},
-						{ "data": {"id": "9b13f3dbafe956911a5b4fbf72f28cb2.hdt", "label": "9b13f3dbafe956911a5b4fbf72f28cb2.hdt"}},
-						{ "data": {"id": "e35415885555cdd63cd4aeb0cc9ba5d4.hdt", "label": "e35415885555cdd63cd4aeb0cc9ba5d4.hdt"}},
-						{ "data": {"id": "f662d4401a226040459e82b995b87dd4.hdt", "label": "f662d4401a226040459e82b995b87dd4.hdt"}},
-						{ "data": {"id": "e3c05b8df53e883900ab8a7a282c5e01.hdt", "label": "e3c05b8df53e883900ab8a7a282c5e01.hdt"}},
-						{ "data": {"id": "8c16d8f375dfb201307ca5179fb19436.hdt", "label": "8c16d8f375dfb201307ca5179fb19436.hdt"}},
-						{ "data": {"id": "92b5892e32316a8bf136a58ae090d206.hdt", "label": "92b5892e32316a8bf136a58ae090d206.hdt"}},
-						{ "data": {"id": "588f3a2541d0d385da81a9a3ac617920.hdt", "label": "588f3a2541d0d385da81a9a3ac617920.hdt"}},
-						{ "data": {"id": "94a51980a19f6348b75c05d9d7a11df0.hdt", "label": "94a51980a19f6348b75c05d9d7a11df0.hdt"}},
-						{ "data": {"id": "f627defdf7840d07c12da353ebe3f9f2.hdt", "label": "f627defdf7840d07c12da353ebe3f9f2.hdt"}},
-						{ "data": {"id": "36c987b9f790075a78dc087f96a730bc.hdt", "label": "36c987b9f790075a78dc087f96a730bc.hdt"}},
-						{ "data": {"id": "2c1af44fb3179ab43f12064c983ae706.hdt", "label": "2c1af44fb3179ab43f12064c983ae706.hdt"}},
-						{ "data": {"id": "af081af0dcf79cdc4ce0c0438a36bcb0.hdt", "label": "af081af0dcf79cdc4ce0c0438a36bcb0.hdt"}},
-						{ "data": {"id": "633d95df3b1517d1347e97615b2d7602.hdt", "label": "633d95df3b1517d1347e97615b2d7602.hdt"}},
-						{ "data": {"id": "8cc30d89ac9a56a5d2ae7defafe7af5b.hdt", "label": "8cc30d89ac9a56a5d2ae7defafe7af5b.hdt"}},
-						{ "data": {"id": "fa22d15d08909e2f9d559037e83d0334.hdt", "label": "fa22d15d08909e2f9d559037e83d0334.hdt"}},
-						{ "data": {"id": "b4312b62c7183250e0224f800648d4b7.hdt", "label": "b4312b62c7183250e0224f800648d4b7.hdt"}},
-						{ "data": {"id": "e5b428a2ad54b2fc1793b691fc6007b2.hdt", "label": "e5b428a2ad54b2fc1793b691fc6007b2.hdt"}},
-						{ "data": {"id": "6a62c71c4108948717385b50f5ef6ef5.hdt", "label": "6a62c71c4108948717385b50f5ef6ef5.hdt"}},
-						{ "data": {"id": "7f32cb3e1f7b01d552a8248bf68efb35.hdt", "label": "7f32cb3e1f7b01d552a8248bf68efb35.hdt"}},
-						{ "data": {"id": "0fa28633059da570b9e6a40689f542b6.hdt", "label": "0fa28633059da570b9e6a40689f542b6.hdt"}},
-						{ "data": {"id": "fddbaedee648361346f00e87ec507c58.hdt", "label": "fddbaedee648361346f00e87ec507c58.hdt"}},
-						{ "data": {"id": "b7b619fb3190495c86fdf479e6523c16.hdt", "label": "b7b619fb3190495c86fdf479e6523c16.hdt"}},
-						{ "data": {"id": "linked.opendata.cz/sparql", "label": "linked.opendata.cz/sparql"}},
-						{ "data": {"id": "0d9f7a842514998a5af4dba1d0069f5e.hdt", "label": "0d9f7a842514998a5af4dba1d0069f5e.hdt"}},
-						{ "data": {"id": "f7a1cb55485871714543f4a9bf2fb8af.hdt", "label": "f7a1cb55485871714543f4a9bf2fb8af.hdt"}},
-						{ "data": {"id": "fce0edd30c98e99934abf19ac06094e5.hdt", "label": "fce0edd30c98e99934abf19ac06094e5.hdt"}},
-						{ "data": {"id": "037c1e2b40d2fd99e8887c7d4a056263.hdt", "label": "037c1e2b40d2fd99e8887c7d4a056263.hdt"}},
-						{ "data": {"id": "6fb64110f2b2ac5007bc6712f7f127d4.hdt", "label": "6fb64110f2b2ac5007bc6712f7f127d4.hdt"}},
-						{ "data": {"id": "c368e5f37b7568f5cab7bf089fb71895.hdt", "label": "c368e5f37b7568f5cab7bf089fb71895.hdt"}},
-						{ "data": {"id": "5f2d0bb3598c4f70e3701d8b8cb1c615.hdt", "label": "5f2d0bb3598c4f70e3701d8b8cb1c615.hdt"}},
-						{ "data": {"id": "348d5951bae5d289602cc80a30606ba0.hdt", "label": "348d5951bae5d289602cc80a30606ba0.hdt"}},
-						{ "data": {"id": "19d14ec5e969fac1f4d70cbe097d850e.hdt", "label": "19d14ec5e969fac1f4d70cbe097d850e.hdt"}},
-						{ "data": {"id": "ba5a5d3f8e82f2fad6286fa0bc8ceb5c.hdt", "label": "ba5a5d3f8e82f2fad6286fa0bc8ceb5c.hdt"}},
-						{ "data": {"id": "2a5e3181e9a71842dce2cde0ed5608a1.hdt", "label": "2a5e3181e9a71842dce2cde0ed5608a1.hdt"}},
-						{ "data": {"id": "6d8f09660badd4cd042436981819b8f1.hdt", "label": "6d8f09660badd4cd042436981819b8f1.hdt"}}
-
-					],
-					"edges": [
-						{ "data": { "id": "http://purl.org/dc/terms/date-92e6476d73c8325b5b6d748f9f33254a.hdt", "label": "contained", "source": "http://purl.org/dc/terms/date", "target": "92e6476d73c8325b5b6d748f9f33254a.hdt"}},
-						{ "data": { "id": "http://purl.org/dc/terms/date-360893bfc33da07215e05ba634016e8d.hdt", "label": "contained", "source": "http://purl.org/dc/terms/date", "target": "360893bfc33da07215e05ba634016e8d.hdt"}},
-						{ "data": { "id": "http://purl.org/dc/terms/date-dd5f8c65f7ddc4b327b3a2d235f9c656.hdt", "label": "contained", "source": "http://purl.org/dc/terms/date", "target": "dd5f8c65f7ddc4b327b3a2d235f9c656.hdt"}},
-						{ "data": { "id": "http://purl.org/dc/terms/date-438ebba092b1bceb5d94b8d7dbf5ec38.hdt", "label": "contained", "source": "http://purl.org/dc/terms/date", "target": "438ebba092b1bceb5d94b8d7dbf5ec38.hdt"}},
-						{ "data": { "id": "http://purl.org/dc/terms/date-9b13f3dbafe956911a5b4fbf72f28cb2.hdt", "label": "contained", "source": "http://purl.org/dc/terms/date", "target": "9b13f3dbafe956911a5b4fbf72f28cb2.hdt"}},
-						{ "data": { "id": "http://purl.org/dc/terms/date-e35415885555cdd63cd4aeb0cc9ba5d4.hdt", "label": "contained", "source": "http://purl.org/dc/terms/date", "target": "e35415885555cdd63cd4aeb0cc9ba5d4.hdt"}},
-						{ "data": { "id": "http://purl.org/dc/terms/date-f662d4401a226040459e82b995b87dd4.hdt", "label": "contained", "source": "http://purl.org/dc/terms/date", "target": "f662d4401a226040459e82b995b87dd4.hdt"}},
-						{ "data": { "id": "http://purl.org/dc/terms/date-e3c05b8df53e883900ab8a7a282c5e01.hdt", "label": "contained", "source": "http://purl.org/dc/terms/date", "target": "e3c05b8df53e883900ab8a7a282c5e01.hdt"}},
-						{ "data": { "id": "http://purl.org/dc/terms/date-8c16d8f375dfb201307ca5179fb19436.hdt", "label": "contained", "source": "http://purl.org/dc/terms/date", "target": "8c16d8f375dfb201307ca5179fb19436.hdt"}},
-						{ "data": { "id": "http://purl.org/dc/terms/date-92b5892e32316a8bf136a58ae090d206.hdt", "label": "contained", "source": "http://purl.org/dc/terms/date", "target": "92b5892e32316a8bf136a58ae090d206.hdt"}},
-						{ "data": { "id": "http://purl.org/dc/terms/date-588f3a2541d0d385da81a9a3ac617920.hdt", "label": "contained", "source": "http://purl.org/dc/terms/date", "target": "588f3a2541d0d385da81a9a3ac617920.hdt"}},
-						{ "data": { "id": "http://purl.org/dc/terms/date-94a51980a19f6348b75c05d9d7a11df0.hdt", "label": "contained", "source": "http://purl.org/dc/terms/date", "target": "94a51980a19f6348b75c05d9d7a11df0.hdt"}},
-						{ "data": { "id": "http://purl.org/dc/terms/date-f627defdf7840d07c12da353ebe3f9f2.hdt", "label": "contained", "source": "http://purl.org/dc/terms/date", "target": "f627defdf7840d07c12da353ebe3f9f2.hdt"}},
-						{ "data": { "id": "http://purl.org/dc/terms/date-36c987b9f790075a78dc087f96a730bc.hdt", "label": "contained", "source": "http://purl.org/dc/terms/date", "target": "36c987b9f790075a78dc087f96a730bc.hdt"}},
-						{ "data": { "id": "http://purl.org/dc/terms/date-2c1af44fb3179ab43f12064c983ae706.hdt", "label": "contained", "source": "http://purl.org/dc/terms/date", "target": "2c1af44fb3179ab43f12064c983ae706.hdt"}},
-						{ "data": { "id": "http://purl.org/dc/terms/date-af081af0dcf79cdc4ce0c0438a36bcb0.hdt", "label": "contained", "source": "http://purl.org/dc/terms/date", "target": "af081af0dcf79cdc4ce0c0438a36bcb0.hdt"}},
-						{ "data": { "id": "http://purl.org/dc/terms/date-633d95df3b1517d1347e97615b2d7602.hdt", "label": "contained", "source": "http://purl.org/dc/terms/date", "target": "633d95df3b1517d1347e97615b2d7602.hdt"}},
-						{ "data": { "id": "http://purl.org/dc/terms/date-8cc30d89ac9a56a5d2ae7defafe7af5b.hdt", "label": "contained", "source": "http://purl.org/dc/terms/date", "target": "8cc30d89ac9a56a5d2ae7defafe7af5b.hdt"}},
-						{ "data": { "id": "http://purl.org/dc/terms/date-fa22d15d08909e2f9d559037e83d0334.hdt", "label": "contained", "source": "http://purl.org/dc/terms/date", "target": "fa22d15d08909e2f9d559037e83d0334.hdt"}},
-						{ "data": { "id": "http://purl.org/dc/terms/date-b4312b62c7183250e0224f800648d4b7.hdt", "label": "contained", "source": "http://purl.org/dc/terms/date", "target": "b4312b62c7183250e0224f800648d4b7.hdt"}},
-						{ "data": { "id": "http://purl.org/dc/terms/date-e5b428a2ad54b2fc1793b691fc6007b2.hdt", "label": "contained", "source": "http://purl.org/dc/terms/date", "target": "e5b428a2ad54b2fc1793b691fc6007b2.hdt"}},
-						{ "data": { "id": "http://purl.org/dc/terms/date-6a62c71c4108948717385b50f5ef6ef5.hdt", "label": "contained", "source": "http://purl.org/dc/terms/date", "target": "6a62c71c4108948717385b50f5ef6ef5.hdt"}},
-						{ "data": { "id": "http://purl.org/dc/terms/date-7f32cb3e1f7b01d552a8248bf68efb35.hdt", "label": "contained", "source": "http://purl.org/dc/terms/date", "target": "7f32cb3e1f7b01d552a8248bf68efb35.hdt"}},
-						{ "data": { "id": "http://purl.org/dc/terms/date-0fa28633059da570b9e6a40689f542b6.hdt", "label": "contained", "source": "http://purl.org/dc/terms/date", "target": "0fa28633059da570b9e6a40689f542b6.hdt"}},
-						{ "data": { "id": "http://purl.org/dc/terms/date-fddbaedee648361346f00e87ec507c58.hdt", "label": "contained", "source": "http://purl.org/dc/terms/date", "target": "fddbaedee648361346f00e87ec507c58.hdt"}},
-						{ "data": { "id": "http://purl.org/dc/terms/date-b7b619fb3190495c86fdf479e6523c16.hdt", "label": "contained", "source": "http://purl.org/dc/terms/date", "target": "b7b619fb3190495c86fdf479e6523c16.hdt"}},
-						{ "data": { "id": "http://purl.org/dc/terms/date-linked.opendata.cz/sparql", "label": "contained", "source": "http://purl.org/dc/terms/date", "target": "linked.opendata.cz/sparql"}},
-						{ "data": { "id": "http://purl.org/dc/terms/date-0d9f7a842514998a5af4dba1d0069f5e.hdt", "label": "contained", "source": "http://purl.org/dc/terms/date", "target": "0d9f7a842514998a5af4dba1d0069f5e.hdt"}},
-						{ "data": { "id": "http://purl.org/dc/terms/date-f7a1cb55485871714543f4a9bf2fb8af.hdt", "label": "contained", "source": "http://purl.org/dc/terms/date", "target": "f7a1cb55485871714543f4a9bf2fb8af.hdt"}},
-						{ "data": { "id": "http://purl.org/dc/terms/date-fce0edd30c98e99934abf19ac06094e5.hdt", "label": "contained", "source": "http://purl.org/dc/terms/date", "target": "fce0edd30c98e99934abf19ac06094e5.hdt"}},
-						{ "data": { "id": "http://purl.org/dc/terms/date-037c1e2b40d2fd99e8887c7d4a056263.hdt", "label": "contained", "source": "http://purl.org/dc/terms/date", "target": "037c1e2b40d2fd99e8887c7d4a056263.hdt"}},
-						{ "data": { "id": "http://purl.org/dc/terms/date-6fb64110f2b2ac5007bc6712f7f127d4.hdt", "label": "contained", "source": "http://purl.org/dc/terms/date", "target": "6fb64110f2b2ac5007bc6712f7f127d4.hdt"}},
-						{ "data": { "id": "http://purl.org/dc/terms/date-c368e5f37b7568f5cab7bf089fb71895.hdt", "label": "contained", "source": "http://purl.org/dc/terms/date", "target": "c368e5f37b7568f5cab7bf089fb71895.hdt"}},
-						{ "data": { "id": "http://purl.org/dc/terms/date-5f2d0bb3598c4f70e3701d8b8cb1c615.hdt", "label": "contained", "source": "http://purl.org/dc/terms/date", "target": "5f2d0bb3598c4f70e3701d8b8cb1c615.hdt"}},
-						{ "data": { "id": "http://purl.org/dc/terms/date-348d5951bae5d289602cc80a30606ba0.hdt", "label": "contained", "source": "http://purl.org/dc/terms/date", "target": "348d5951bae5d289602cc80a30606ba0.hdt"}},
-						{ "data": { "id": "http://purl.org/dc/terms/date-19d14ec5e969fac1f4d70cbe097d850e.hdt", "label": "contained", "source": "http://purl.org/dc/terms/date", "target": "19d14ec5e969fac1f4d70cbe097d850e.hdt"}},
-						{ "data": { "id": "http://purl.org/dc/terms/date-ba5a5d3f8e82f2fad6286fa0bc8ceb5c.hdt", "label": "contained", "source": "http://purl.org/dc/terms/date", "target": "ba5a5d3f8e82f2fad6286fa0bc8ceb5c.hdt"}},
-						{ "data": { "id": "http://purl.org/dc/terms/date-2a5e3181e9a71842dce2cde0ed5608a1.hdt", "label": "contained", "source": "http://purl.org/dc/terms/date", "target": "2a5e3181e9a71842dce2cde0ed5608a1.hdt"}},
-						{ "data": { "id": "http://purl.org/dc/terms/date-6d8f09660badd4cd042436981819b8f1.hdt", "label": "contained", "source": "http://purl.org/dc/terms/date", "target": "6d8f09660badd4cd042436981819b8f1.hdt"}}
-
-					]
-				}
-
-			});
-		});
-	</script>
 </head>
 
 <body>
 <h1>ReLOD demo dataset visual similarity relations</h1>
 
-<div id="cy"></div>
+<script>
+	//async request to the url -> print the result
+	function httpPostAsync(theUrl) {
+		var xmlHttp = new XMLHttpRequest();
+		xmlHttp.onreadystatechange = function() {
+			//if (xmlHttp.readyState == 4 && xmlHttp.status == 200) {
+				//query worked
+				document.write(xmlHttp.responseText);
+				//xmlHttp.abort();
+			//}
+		}
+		xmlHttp.open("POST", theUrl, true);
+		xmlHttp.send(null);
+	}
 
+	const server = "http://localhost:3030/d1";
+
+	let query = "INSERT DATA{ <http://example/book888> <http://purl.org/dc/elements/1.1/title> \"oooA new book5\"}";
+	let queryUrl = server + "?update=" + encodeURIComponent(query);
+	console.log(queryUrl);
+	httpPostAsync(queryUrl);
+
+	/*query = "Select * where {<http://example/book888> ?p ?o}";
+	queryUrl = server + "?query=" + encodeURIComponent(query);
+	console.log(queryUrl);
+	httpPostAsync(queryUrl);*/
+</script>
 </body>
 
 </html>

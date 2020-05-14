@@ -8,12 +8,14 @@
 <body>
 <script>
     console.log("Starting");
-    Comunica.newEngine().query('SELECT * { ?s ?p <http://dbpedia.org/resource/Belgium>. ?s ?p ?o } LIMIT 100',
-        { sources: [ { type: 'hypermedia', value: 'http://fragments.dbpedia.org/2015/en' } ] })
+    Comunica.newEngine().query('SELECT * {?s ?p ?o } LIMIT 100',
+        { sources: [ { type: 'sparql', value: 'http://localhost:3030/d1' } ] })
         .then(function (result) {
             result.bindingsStream.on('data', function (data) {
                 // Each variable binding is an RDFJS term
-                console.log(data.get('?s').value + ' ' + data.get('?p').value + ' ' + data.get('?o').value);
+                const strOut = data.get('?s').value + ' ' + data.get('?p').value + ' ' + data.get('?o').value;
+                console.log(strOut);
+                document.write(strOut);
             });
         });
 </script>
