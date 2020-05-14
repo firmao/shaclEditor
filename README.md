@@ -22,6 +22,8 @@ A demo is available (here)[http://141.57.11.86:8082/shaclgui/]:
 - Create RDF classes and add properties and RDF terms.
 - Create SHACL shapes and add constraints to validate the content in your RDF classes.
 - Execute and see the results of your SHACL validation on your RDF classes and terms.
+- Execute SPARQL queries over the graphs (In progress).
+- Obtain versions of the RDF Knowledge Base, due to the use of QUIT store(In progress).
 
 <img src="shaclEditorscreen.png">
 
