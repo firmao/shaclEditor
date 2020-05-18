@@ -63,17 +63,28 @@ class Turtle {
 			lines.push("@prefix " + name + ": <" + this.prefixes.get(name) + "> .");
 		}
 
-		lines.push(this.className);
+
 		if((this.extendClass != undefined) && (this.extendClass != null)) {
 			if (this.extendClass.length > 0) {
-				lines.push("a " + this.extendClass + " ;");
+				lines.push(this.className + " a " + this.extendClass + " ; rdfs:label \""+getURLName(this.className)+"\" .");
+			}
+		} else {
+			if(this.className.includes("http")){
+				lines.push("<" + this.className + ">" + " <http://www.w3.org/1999/02/22-rdf-syntax-ns#type>  <http://www.w3.org/2000/01/rdf-schema#Class> . ");
+				lines.push("<" + this.className + ">" + " <http://www.w3.org/1999/02/22-rdf-syntax-ns#label>  \""+getURLName(this.className)+"\" . ");
+			} else {
+				lines.push(this.className + " a rdfs:Class ; rdfs:label \""+getURLName(this.className)+"\" .");
 			}
 		}
 
 		const get_keys = this.properties.keys();
 		for (const prop of get_keys)
 		{
-			lines.push(prop + " " + this.properties.get(prop) + " ;");
+			if(prop.includes("http")){
+				lines.push("<" + prop + "> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property> ; <http://www.w3.org/1999/02/22-rdf-syntax-ns#label>  \""+getURLName(prop)+"\" .");
+			} else {
+				lines.push(prop + " a rdf:Property ; rdfs:label \"" + getURLName(prop) + "\" .");
+			}
 		}
 
 		return lines;

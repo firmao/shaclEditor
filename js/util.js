@@ -166,3 +166,13 @@ function loadNodes(pSystemId) {
     const modal = document.getElementById("divLoadProject");
     modal.style.display = "none";
 }
+
+function getURLName(url) {
+    if(url.includes("http")){
+        const indexS = url.split("/").length;
+        const sRet = url.split("/")[indexS - 1].replace("#", "");
+        return sRet;
+    } else {
+        return url.split(':')[1];
+    }
+}
