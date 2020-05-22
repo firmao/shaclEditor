@@ -7,7 +7,7 @@
 <body>
 <script>
     console.log("Starting");
-    var queryStr = "insert data { graph <http://example.org/> { <urn:a1> <urn:b1> <urn:c1> } }";
+    var queryStr = "insert data { graph <http://example.org/> { <urn:a2> <urn:b2> <urn:c2> } }";
     var endpoint = "http://localhost:8080/sparql/master";
     var querypart = "update=" + encodeURI(queryStr);
 
@@ -24,8 +24,9 @@
 
     // Set up a POST with JSON result format.
     xmlhttp.open('POST', endpoint, true); // GET can have caching probs, so POST
-    xmlhttp.setRequestHeader('Content-type', 'application/sparql-update');
-    xmlhttp.setRequestHeader("Accept", "application/sparql-results+json");
+    //xmlhttp.setRequestHeader('Content-type', 'application/sparql-update');
+    xmlhttp.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+    //xmlhttp.setRequestHeader("Accept", "application/sparql-update");
 
     // Set up callback to get the response asynchronously.
     xmlhttp.onreadystatechange = function() {
