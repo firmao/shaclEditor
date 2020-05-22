@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    console.log("Starting");
+    var queryStr = "insert data { graph <http://example.org/> { <urn:a1> <urn:b1> <urn:c1> } }";
+    var endpoint = "http://localhost:8080/sparql/master";
+    var querypart = "query=" + encodeURI(queryStr);
+
+    // Get our HTTP request object.
+    var xmlhttp = null;
+    if (window.XMLHttpRequest) {
+        xmlhttp = new XMLHttpRequest();
+    } else if (window.ActiveXObject) {
+        // Code for older versions of IE, like IE6 and before.
+        xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+    } else {
+        alert('Perhaps your browser does not support XMLHttpRequests?');
+    }
+
+    // Set up a POST with JSON result format.
+    xmlhttp.open('POST', endpoint, true); // GET can have caching probs, so POST
+    xmlhttp.setRequestHeader('Content-type', 'application/sparql-update');
+    xmlhttp.setRequestHeader("Accept", "application/sparql-results+json");
+
+    // Set up callback to get the response asynchronously.
+    xmlhttp.onreadystatechange = function() {
+        if (xmlhttp.readyState == 4) {
+            if (xmlhttp.status == 200) {
+                // Process the results
+                document.write(xmlhttp.responseText);
+                //callback(xmlhttp.responseText);
+            } else {
+                // Some kind of error occurred.
+                alert("Sparql query error: " + xmlhttp.status + " " + xmlhttp.responseText);
+            }
+        }
+    };
+    xmlhttp.send(querypart);
+</script>
+</body>
+</html>
