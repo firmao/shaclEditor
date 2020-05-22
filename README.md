@@ -65,3 +65,13 @@ Given a visual representation of a class their constraints.
 
 More details on the paper. 
 
+## Setup QUIT store docker instance:
+
+- Create a directory to run the docker instance:
+-- mkdir /store/repo
+-- sudo chown 1000 /store/repo
+-- sudo chmod u+w /store/repo
+-- cd /store/repo
+-- sudo docker run -it --name containername -p 8080:8080 -v storerepo:/data aksw/quitstore
+
+More information about the QUIT store at: https://github.com/AKSW/QuitStore/
