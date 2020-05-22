@@ -9,7 +9,7 @@
     console.log("Starting");
     var queryStr = "insert data { graph <http://example.org/> { <urn:a1> <urn:b1> <urn:c1> } }";
     var endpoint = "http://localhost:8080/sparql/master";
-    var querypart = "query=" + encodeURI(queryStr);
+    var querypart = "update=" + encodeURI(queryStr);
 
     // Get our HTTP request object.
     var xmlhttp = null;
