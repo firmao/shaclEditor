@@ -75,6 +75,6 @@ sudo chmod u+w <HOME_FOLDER>/store/repo
 cd <HOME_FOLDER>/store/repo
 sudo docker run -it --name containername -p 8080:8080 -v storerepo:/data aksw/quitstore
 ```
-``` <HOME_FOLDER> can be you home folder or any other folder that you want.```
+``` <HOME_FOLDER> can be your home folder or any other folder that you want.```
 
 More information about the QUIT store at: https://github.com/AKSW/QuitStore/
