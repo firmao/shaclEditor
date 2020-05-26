@@ -7,6 +7,13 @@ A GUI for RDF shacl validation
 - 2 - Create Shacl shapes and relate to the concepts
 - 3 - Create instances of the concepts/classes and check if the instances are valid with Shacl constraints 
 
+### Enabling Load/Save/SparqlEndpoint on shaclEditor 
+- You need (docker)[https://www.docker.com/] installed.
+- Start the [QUIT store](https://github.com/AKSW/QuitStore/) executing the bash file:
+```
+initQuitStore.sh
+```
+
 Video with a minimal example, just a proof of concept of a very first stage of this project (now should be different).
 
 https://www.youtube.com/watch?v=i958YCTpU2g
@@ -64,13 +71,3 @@ Given a visual representation of a class their constraints.
 - The most simple technology, basically it's only HTML and javascript applied. Many IDE's could be used to load the project, such as IntelliJIDEA, VisualSutdioJS, etc... just clone and start coding, no dependencies, no frameworks, no complex databases etc...
 
 More details on the paper. 
-
-## Setup QUIT store docker instance:
-
-- You need (docker)[https://www.docker.com/] installed.
-```
-docker system prune -f
-docker run -it --name containername -p 8080:8080 -v quitrepo:/data aksw/quitstore
-curl -d "insert data { graph <http://example.org/> { <urn:a> <urn:b> <urn:c> } }" -H "Content-Type: application/sparql-update"  http://localhost:8080/sparql
-```
-More information about the QUIT store at: https://github.com/AKSW/QuitStore/
