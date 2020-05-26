@@ -8,7 +8,7 @@ A GUI for RDF shacl validation
 - 3 - Create instances of the concepts/classes and check if the instances are valid with Shacl constraints 
 
 ### Enabling Load/Save/SparqlEndpoint on shaclEditor 
-- You need (docker)[https://www.docker.com/] installed.
+- You need [docker](https://www.docker.com/) installed.
 - Start the [QUIT store](https://github.com/AKSW/QuitStore/) executing the bash file:
 ```
 initQuitStore.sh
@@ -18,19 +18,19 @@ Video with a minimal example, just a proof of concept of a very first stage of t
 
 https://www.youtube.com/watch?v=i958YCTpU2g
 
-A demo is available (here)[http://141.57.11.86:8082/shaclgui/]:
+A demo is available [here](http://141.57.11.86:8082/shaclgui/):
 
 1) Clone the repository;
 
-2) Open the file (index.html)[https://github.com/firmao/shaclEditor/blob/master/index.html] in your webbrowser.
+2) Open the file [index.html](https://github.com/firmao/shaclEditor/blob/master/index.html) in your webbrowser.
 
 ## What you can do with this "Shacl RDF Editor"
 
 - Create RDF classes and add properties and RDF terms.
 - Create SHACL shapes and add constraints to validate the content in your RDF classes.
 - Execute and see the results of your SHACL validation on your RDF classes and terms.
-- Execute SPARQL queries over the graphs (In progress).
-- Obtain versions of the RDF Knowledge Base, due to the use of QUIT store(In progress).
+- Execute SPARQL queries over the graphs with [QUIT store](https://github.com/AKSW/QuitStore/) (In progress).
+- Obtain versions of the RDF Knowledge Base, due to the use of the [QUIT store](https://github.com/AKSW/QuitStore/)(In progress).
 
 <img src="shaclEditorscreen.png">
 
