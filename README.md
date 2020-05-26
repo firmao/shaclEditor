@@ -67,14 +67,10 @@ More details on the paper.
 
 ## Setup QUIT store docker instance:
 
-- Create a directory to run the docker instance:
+- You need (docker)[https://www.docker.com/] installed.
 ```
-mkdir <HOME_FOLDER>/store/repo
-sudo chown 1000 <HOME_FOLDER>/store/repo
-sudo chmod u+w <HOME_FOLDER>/store/repo
-cd <HOME_FOLDER>/store/repo
-sudo docker run -it --name containername -p 8080:8080 -v storerepo:/data aksw/quitstore
+docker system prune -f
+docker run -it --name containername -p 8080:8080 -v quitrepo:/data aksw/quitstore
+curl -d "insert data { graph <http://example.org/> { <urn:a> <urn:b> <urn:c> } }" -H "Content-Type: application/sparql-update"  http://localhost:8080/sparql
 ```
-``` <HOME_FOLDER> can be your home folder or any other folder that you want.```
-
 More information about the QUIT store at: https://github.com/AKSW/QuitStore/
