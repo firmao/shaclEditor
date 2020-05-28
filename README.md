@@ -13,6 +13,9 @@ A GUI for RDF shacl validation
 ```
 initQuitStore.sh
 ```
+```
+curl -d "insert data { graph <http://example.org/> { <urn:shacleditor> <http://shacleditor#id> 0 } }" -H "Content-Type: application/sparql-update"  http://localhost:8080/sparql
+```
 
 Video with a minimal example, just a proof of concept of a very first stage of this project (now should be different).
 
