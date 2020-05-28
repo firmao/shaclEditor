@@ -9,9 +9,9 @@ A GUI for RDF shacl validation
 
 ### Enabling Load/Save/SparqlEndpoint on shaclEditor 
 - You need [docker](https://www.docker.com/) installed.
-- Start the [QUIT store](https://github.com/AKSW/QuitStore/) executing the bash file:
+- Start the [QUIT store](https://github.com/AKSW/QuitStore/) executing the bash command file [initQuitStore.sh](https://github.com/firmao/shaclEditor/blob/master/initQuitStore.sh):
 ```
-initQuitStore.sh
+./initQuitStore.sh
 ```
 
 Video with a minimal example, just a proof of concept of a very first stage of this project (now should be different).
