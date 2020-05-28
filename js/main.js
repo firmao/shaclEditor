@@ -39,7 +39,7 @@ function saveProject(){
 		}
 	}
 	alert("Project ID: " + systemId);
-	//systemId = 0;
+	//systemId = -1;
 }
 
 document.addEventListener('DOMContentLoaded', function() {

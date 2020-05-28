@@ -54,7 +54,7 @@ function insert(classObj) {
 }
 
 function loadNodes() {
-    
+    //systemId = -1;
     var qSparql = "select ?s ?p ?o where { graph <http://shaclid"+systemId+"> { ?s ?p ?o} }"
     var rSparql = executeSparql(qSparql);
 
