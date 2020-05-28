@@ -1,7 +1,10 @@
+var retSparql = null;
+
 function executeSparql(queryStr) {
     const endpoint = "http://localhost:8080/sparql/master";
     var querypart = "";
     var xmlhttp = null;
+    var ret = null;
 
     // Get our HTTP request object.
     if (window.XMLHttpRequest) {
@@ -13,7 +16,7 @@ function executeSparql(queryStr) {
         alert('Perhaps your browser does not support XMLHttpRequests?');
     }
 
-    xmlhttp.open('POST', endpoint, true); // GET can have caching probs, so POST
+    xmlhttp.open('POST', endpoint, false); // GET can have caching probs, so POST
     if(queryStr.includes("insert") || queryStr.includes("update")){
         querypart = queryStr;
         xmlhttp.setRequestHeader('Content-type', 'application/sparql-update');
@@ -28,12 +31,10 @@ function executeSparql(queryStr) {
         if (xmlhttp.readyState == 4) {
             if (xmlhttp.status == 200) {
                 // Process the results
-                //document.write(xmlhttp.responseText);
-                return xmlhttp.responseText;
-                //callback(xmlhttp.responseText);
+                retSparql = JSON.parse(xmlhttp.responseText);
             } else {
                 // Some kind of error occurred.
-                return "Sparql query error: " + xmlhttp.status + " " + xmlhttp.responseText;
+                retSparql = "Sparql query error: " + xmlhttp.status + " " + xmlhttp.responseText;
             }
         }
     };
@@ -56,10 +57,14 @@ function insert(classObj) {
 function loadNodes() {
     //systemId = -1;
     var qSparql = "select ?s ?p ?o where { graph <http://shaclid"+systemId+"> { ?s ?p ?o} }"
-    var rSparql = executeSparql(qSparql);
+    executeSparql(qSparql);
+    //console.log(retSparql['results']['bindings'].length);
+    let elems = retSparql['results']['bindings'];
+    console.log(elems);
+    for (let i = 0; i < elems.length; i++) {
+        console.log("s: " + elems[i]['s']['value'] + " p: " + elems[i]['p']['value']);
+    }
 
-    console.log("IMPLEMENT THE LOAD NODES !!!");
-    console.log(rSparql);
     /*let classObj = new Turtle("classTest", "");
     let shcl = new ShaclData("shTest", "classTest");
     nodes.set("classTest", classObj);
