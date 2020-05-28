@@ -7,7 +7,13 @@
 <body>
 <script>
     console.log("Starting");
-    var queryStr = "insert data { graph <http://example.org/> { <urn:a2> <urn:b2> <urn:c2> } }";
+    var queryStr = "prefix schema: <http://schema.org/>"
+    + " prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>"
+    + " insert data { graph <http://shaclid8> { "
+        + "schema:Person a rdfs:Class . "
+        + "<http://schema.org/Person> <http://www.w3.org/1999/02/22-rdf-syntax-ns#label>  \"Person\" . "
+        + "<http://schema.org/birthDate> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property> ; <http://www.w3.org/1999/02/22-rdf-syntax-ns#label>  \"birthDate\". "
+        + "} }";
     var endpoint = "http://localhost:8080/sparql/master";
     var querypart = queryStr;
 
@@ -33,6 +39,8 @@
                 // Process the results
                 document.write(xmlhttp.responseText);
                 //callback(xmlhttp.responseText);
+                console.log("finished with success");
+                document.write("finished with success");
             } else {
                 // Some kind of error occurred.
                 alert("Sparql query error: " + xmlhttp.status + " " + xmlhttp.responseText);

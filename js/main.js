@@ -11,16 +11,19 @@ function generateId() {
 	let sparql = "SELECT ?vmax\n" +
 		"WHERE { ?s shg:Id ?vmax }\n" +
 		"ORDER BY DESC(xsd:integer(?vmax)) LIMIT 1";
-	let myEndpoint = "http://shaclguiserver:3030/sparql";
+	let myEndpoint = "http://localhost:8080/sparql/master";
 	let reSparql = executeSparql(sparql, myEndpoint);
 	systemId = parseInt(reSparql) + 1;
 }
 
 function loadProject(){
+	var systemID_old = systemId;
 	systemId = document.getElementById("txtIdProject").value;
-	alert("loadProject("+systemId+") -- NEED TO IMPLEMENT !!!");
-	loadNodes(systemId);
-	updateUI();
+	if (loadNodes()){
+		updateUI();
+	} else {
+		systemId = systemID_old;
+	}
 }
 
 function saveProject(){
@@ -28,14 +31,11 @@ function saveProject(){
 	for (const id of allNodes) {
 		if (typeof (nodes.get(id)) === 'object') {
 			const classObj = nodes.get(id);
-			if(systemId > 0){
-				classObj.setId(systemId);
-				update(classObj);
-			} else {
+			if(systemId < 0){
 				generateId();
-				classObj.setId(systemId);
-				insert(classObj);
 			}
+			classObj.setId(systemId);
+			insert(classObj);
 		}
 	}
 	alert("Project ID: " + systemId);

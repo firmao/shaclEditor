@@ -144,29 +144,6 @@ function makeAutoComplete(field) {
     xmlhttp.send();
 }
 
-function executeSparql(sparql, myEndpoint) {
-    alert("executeSparql() -- NEED TO IMPLEMENT !!!");
-    return "0";
-}
-
-function update(classObj) {
-    alert("update() -- NEED TO IMPLEMENT !!!");
-}
-
-function insert(classObj) {
-    alert("insert() -- NEED TO IMPLEMENT !!!");
-}
-
-function loadNodes(pSystemId) {
-    systemId = pSystemId;
-    let classObj = new Turtle("classTest", "");
-    let shcl = new ShaclData("shTest", "classTest");
-    nodes.set("classTest", classObj);
-    nodes.set("shTest", shcl);
-    const modal = document.getElementById("divLoadProject");
-    modal.style.display = "none";
-}
-
 function getURLName(url) {
     if(url.includes("http")){
         const indexS = url.split("/").length;
