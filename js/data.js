@@ -62,7 +62,23 @@ function loadNodes() {
     let elems = retSparql['results']['bindings'];
     console.log(elems);
     for (let i = 0; i < elems.length; i++) {
-        console.log("s: " + elems[i]['s']['value'] + " p: " + elems[i]['p']['value']);
+        let s = elems[i]['s']['value'];
+        let p = elems[i]['p']['value'];
+        let o = elems[i]['o']['value'];
+        console.log("s: " + s + " p: " + p + " o: " + o);
+        let objRDF = new Turtle(null,null);
+        if(o.includes("http://www.w3.org/2000/01/rdf-schema#Class")){
+            objRDF.setClassName(s);
+        }
+        if(o.includes("http://www.w3.org/2000/01/rdf-schema#subClassOf")){
+            objRDF.setClassExtend(s);
+        }
+
+        if(o.includes("http://www.w3.org/1999/02/22-rdf-syntax-ns#Property")){
+            objRDF.addProperty(s,null);
+        }
+
+        nodes.set(objRDF.getClassName(), objRDF);
     }
 
     /*let classObj = new Turtle("classTest", "");

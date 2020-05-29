@@ -21,6 +21,10 @@ class Turtle {
 		return this.className;
 	}
 
+	setClassName(className){
+	    this.className = className;
+	}
+
 	getClassExtend(){
 		return this.extendClass;
 	}
@@ -60,7 +64,14 @@ class Turtle {
 
 		if((this.extendClass != undefined) && (this.extendClass != null)) {
 			if (this.extendClass.length > 0) {
-				lines.push(this.className + " a " + this.extendClass + " ; rdfs:label \""+getURLName(this.className)+"\" .");
+			    if(this.className.includes("http")){
+			        lines.push("<" + this.className + ">" + " <http://www.w3.org/1999/02/22-rdf-syntax-ns#type>  <http://www.w3.org/2000/01/rdf-schema#Class> . ");
+                    lines.push("<" + this.className + ">" + " <http://www.w3.org/1999/02/22-rdf-syntax-ns#label>  \""+getURLName(this.className)+"\" . ");
+                    lines.push("<" + this.extendClass + ">" + " <http://www.w3.org/1999/02/22-rdf-syntax-ns#subClassOf>  <"+this.className+"> . ");
+			    } else {
+				    lines.push(this.className + " a " + this.extendClass + " ; rdfs:label \""+getURLName(this.className)+"\" .");
+				    lines.push(this.extendClass + " rdfs:subClassOf " + this.className + ");
+				}
 			}
 		} else {
 			if(this.className.includes("http")){
