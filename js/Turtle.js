@@ -61,7 +61,6 @@ class Turtle {
 			lines.push("@prefix " + name + ": <" + this.prefixes.get(name) + "> .");
 		}
 
-
 		if((this.extendClass != undefined) && (this.extendClass != null)) {
 			if (this.extendClass.length > 0) {
 			    if(this.className.includes("http")){
@@ -70,7 +69,7 @@ class Turtle {
                     lines.push("<" + this.extendClass + ">" + " <http://www.w3.org/1999/02/22-rdf-syntax-ns#subClassOf>  <"+this.className+"> . ");
 			    } else {
 				    lines.push(this.className + " a " + this.extendClass + " ; rdfs:label \""+getURLName(this.className)+"\" .");
-				    lines.push(this.extendClass + " rdfs:subClassOf " + this.className + ");
+				    lines.push(this.extendClass + " rdfs:subClassOf " + this.className + " .");
 				}
 			}
 		} else {

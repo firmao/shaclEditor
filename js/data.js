@@ -39,7 +39,7 @@ function executeSparql(queryStr) {
         }
     };
     xmlhttp.send(querypart);
-    //return "0";
+    //return "-1";
 }
 
 function insert(classObj) {
@@ -58,18 +58,16 @@ function loadNodes() {
     //systemId = -1;
     var qSparql = "select ?s ?p ?o where { graph <http://shaclid"+systemId+"> { ?s ?p ?o} }"
     executeSparql(qSparql);
-    //console.log(retSparql['results']['bindings'].length);
     let elems = retSparql['results']['bindings'];
     console.log(elems);
+    let objRDF = new Turtle(null,null);
+    let objShacl = new ShaclData(null, null);
     for (let i = 0; i < elems.length; i++) {
         let s = elems[i]['s']['value'];
         let p = elems[i]['p']['value'];
         let o = elems[i]['o']['value'];
         console.log("s: " + s + " p: " + p + " o: " + o);
-        let objRDF = new Turtle(null,null);
-        if(o.includes("http://www.w3.org/2000/01/rdf-schema#Class")){
-            objRDF.setClassName(s);
-        }
+
         if(o.includes("http://www.w3.org/2000/01/rdf-schema#subClassOf")){
             objRDF.setClassExtend(s);
         }
@@ -78,7 +76,15 @@ function loadNodes() {
             objRDF.addProperty(s,null);
         }
 
-        nodes.set(objRDF.getClassName(), objRDF);
+        if(o.includes("http://www.w3.org/2000/01/rdf-schema#Class")){
+            objRDF.setClassName(s);
+            nodes.set(objRDF.getClassName(), objRDF);
+        }
+
+        if(o.includes("http://www.w3.org/ns/shacl#NodeShape")){
+            objShacl.setClassName(s);
+            nodes.set(objShacl.getClassName(), objRDF);
+        }
     }
 
     /*let classObj = new Turtle("classTest", "");

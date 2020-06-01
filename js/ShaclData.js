@@ -21,6 +21,10 @@ class ShaclData {
 		return this.className;
 	}
 
+    setClassName(className){
+        this.className = className;
+    }
+
 	getTargetClass(){
 		return this.targetClass;
 	}
