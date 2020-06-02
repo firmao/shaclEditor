@@ -31,10 +31,14 @@ function executeSparql(queryStr) {
         if (xmlhttp.readyState == 4) {
             if (xmlhttp.status == 200) {
                 // Process the results
-                retSparql = JSON.parse(xmlhttp.responseText);
+                if(queryStr.includes("insert") || queryStr.includes("update")){
+                    retSparql = "Inserted with success !!!"
+                } else {
+                    retSparql = JSON.parse(xmlhttp.responseText)['results']['bindings'];
+                }
             } else {
                 // Some kind of error occurred.
-                retSparql = "Sparql query error: " + xmlhttp.status + " " + xmlhttp.responseText;
+                retSparql = "Sparql query error: " + xmlhttp.status + " " + xmlhttp.responseText + "\nQuery: " + queryStr;
             }
         }
     };
@@ -44,21 +48,16 @@ function executeSparql(queryStr) {
 
 function insert(classObj) {
     const classText = classObj.printText();
-    // if is a Shacl shape, we should not include in a triple store.
-    if (classText.includes("sh:targetClass")) {
-        alert("Including SHACL shape (TODO !!!): " + classObj.getClassName());
-    } else {
-        var sparqlInsert = classObj.generateInsert();
-        var retSparql = executeSparql(sparqlInsert);
-        alert(retSparql);
-    }
+    const sparqlInsert = classObj.generateInsert();
+    executeSparql(sparqlInsert);
+    alert(retSparql);
 }
 
 function loadNodes() {
     //systemId = -1;
-    var qSparql = "select ?s ?p ?o where { graph <http://shaclid"+systemId+"> { ?s ?p ?o} }"
+    var qSparql = "select ?s ?p ?o where { graph <http://shacleditor#"+systemId+"> { ?s ?p ?o} }"
     executeSparql(qSparql);
-    let elems = retSparql['results']['bindings'];
+    let elems = retSparql;
     console.log(elems);
     let objRDF = new Turtle(null,null);
     let objShacl = new ShaclData(null, null);
@@ -83,6 +82,7 @@ function loadNodes() {
 
         if(o.includes("http://www.w3.org/ns/shacl#NodeShape")){
             objShacl.setClassName(s);
+            objShacl.setTargetClass(objRDF.className);
             nodes.set(objShacl.getClassName(), objRDF);
         }
     }

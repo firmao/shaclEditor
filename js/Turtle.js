@@ -126,8 +126,14 @@ class Turtle {
 			}
 		}
 
+		let res = "";
 		lines.push("} }");
-		return lines;
+		for (const line of lines)
+		{
+			res += "\n" + line;
+		}
+		res = res.trim();
+		return res;
 	}
 
 	printText(){
@@ -136,7 +142,6 @@ class Turtle {
 		for (var line of lines)
 		{
 			res += "\n" + line;
-			//console.log(line);
 		}
 		res = res.trim();
 		if(this.properties.size > 0){

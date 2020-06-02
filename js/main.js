@@ -8,12 +8,12 @@ let prefixes = new Map();
 let systemId = 0;
 
 function generateId() {
-	let sparql = "SELECT ?vmax\n" +
-		"WHERE { ?s shg:Id ?vmax }\n" +
-		"ORDER BY DESC(xsd:integer(?vmax)) LIMIT 1";
-	let myEndpoint = "http://localhost:8080/sparql/master";
-	let reSparql = executeSparql(sparql, myEndpoint);
-	systemId = parseInt(reSparql) + 1;
+	let sparql = "SELECT (max(?vmax) as ?rmax) WHERE { graph <http://example.org/> { ?s ?p ?vmax . FILTER regex(str(?p), \"shacleditor#id\") }}";
+	executeSparql(sparql);
+	const rSparql = retSparql[0]['rmax']['value'];
+	console.log(rSparql);
+	systemId = parseInt(rSparql) + 1;
+	executeSparql("insert data { graph <http://example.org/> { <urn:shacleditor> <http://shacleditor#id> "+systemId+" } }");
 }
 
 function loadProject(){

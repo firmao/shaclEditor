@@ -84,7 +84,45 @@ class ShaclData {
 		
 		return lines;
 	}
-	
+
+	generateInsert(){
+		const lines = [];
+		//systemId = -1;
+		const preNames = this.prefixes.keys();
+		for (const name of preNames)
+		{
+			lines.push("prefix " + name + ": <" + this.prefixes.get(name) + "> ");
+		}
+		lines.push("insert data { graph <http://shacleditor#"+ this.getId() +"> { ");
+		if(this.className.includes("http")){
+			lines.push("<" + this.className + ">" + " <http://www.w3.org/1999/02/22-rdf-syntax-ns#type>  <http://www.w3.org/ns/shacl#NodeShape> . ");
+			lines.push("<" + this.className + ">" + " <http://www.w3.org/ns/shacl#targetClass>  <"+this.targetClass+"> . ");
+		} else {
+			lines.push(this.className + " a sh:NodeShape ; rdfs:label \""+getURLName(this.className)+"\" .");
+			lines.push("sh:targetClass "+this.targetClass+" ;");
+		}
+
+		const get_keys = this.properties.keys();
+		for (const prop of get_keys)
+		{
+			lines.push("sh:property [");
+			const get_values = this.properties.get(prop);
+			for (const value of get_values){
+				lines.push(value);
+			}
+			lines.push(" ] ;");
+		}
+
+		lines.push("} }");
+
+		let res = "";
+		for (const line of lines)
+		{
+			res += "\n" + line;
+		}
+		return res.trim();
+	}
+
 	printText(){
 		var res = "";
 		var lines = this.getShaclLines();
