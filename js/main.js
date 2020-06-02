@@ -427,8 +427,17 @@ document.addEventListener('DOMContentLoaded', function() {
 				const classText = "" + nodes.get(id).printText();
 				try {
 					const className = nodes.get(id).className;
-					if (classText.includes("sh:targetClass")) {
+					if (classText.includes("sh:targetClass") || classText.includes("NodeShape")) {
 						const targetClass = nodes.get(id).getTargetClass();
+						cy.add([
+							{ group: 'nodes',
+								data: {
+									id: targetClass,
+									label: targetClass,
+									type : 'class'
+								}
+							} ]);
+
 						cy.add([ {
 							group : 'nodes',
 							data : {

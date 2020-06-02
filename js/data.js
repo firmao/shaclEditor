@@ -82,8 +82,8 @@ function loadNodes() {
 
         if(o.includes("http://www.w3.org/ns/shacl#NodeShape")){
             objShacl.setClassName(s);
-            objShacl.setTargetClass(objRDF.className);
-            nodes.set(objShacl.getClassName(), objRDF);
+            objShacl.setTargetClass("http://schema.org/Person");
+            nodes.set(objShacl.getClassName(), objShacl);
         }
     }
 
