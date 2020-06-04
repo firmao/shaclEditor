@@ -60,12 +60,10 @@ function loadNodes() {
     let elems = retSparql;
     console.log(elems);
     let objRDF = new Turtle(null,null);
-    let objShacl = new ShaclData(null, null);
     for (let i = 0; i < elems.length; i++) {
         let s = elems[i]['s']['value'];
         let p = elems[i]['p']['value'];
         let o = elems[i]['o']['value'];
-        console.log("s: " + s + " p: " + p + " o: " + o);
 
         if(o.includes("http://www.w3.org/2000/01/rdf-schema#subClassOf")){
             objRDF.setClassExtend(s);
@@ -76,13 +74,25 @@ function loadNodes() {
         }
 
         if(o.includes("http://www.w3.org/2000/01/rdf-schema#Class")){
+            //"Select * from where class = className"
+            // Load only things from this class
             objRDF.setClassName(s);
             nodes.set(objRDF.getClassName(), objRDF);
+        }
+    }
+
+    let objShacl = new ShaclData(null, null);
+    for (let i = 0; i < elems.length; i++) {
+        let s = elems[i]['s']['value'];
+        let p = elems[i]['p']['value'];
+        let o = elems[i]['o']['value'];
+
+        if(p.includes("http://www.w3.org/ns/shacl#targetClass")){
+            objShacl.setTargetClass(o);
         }
 
         if(o.includes("http://www.w3.org/ns/shacl#NodeShape")){
             objShacl.setClassName(s);
-            objShacl.setTargetClass("http://schema.org/Person");
             nodes.set(objShacl.getClassName(), objShacl);
         }
     }

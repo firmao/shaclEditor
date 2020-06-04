@@ -85,10 +85,12 @@ class Turtle {
 		for (const prop of get_keys)
 		{
 			if(prop.includes("http")){
-				lines.push("<" + prop + "> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property> ; <http://www.w3.org/1999/02/22-rdf-syntax-ns#label>  \""+getURLName(prop)+"\" .");
-			} else {
-				lines.push(prop + " a rdf:Property ; rdfs:label \"" + getURLName(prop) + "\" .");
-			}
+                lines.push("<" + prop + "> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property> ; <http://www.w3.org/1999/02/22-rdf-syntax-ns#label>  \""+getURLName(prop)+"\" .");
+                lines.push("<"+this.className+"> <http://shacleditor/hasProperty> <"+prop+"> .");
+            } else {
+                lines.push(prop + " a rdf:Property ; rdfs:label \"" + getURLName(prop) + "\" .");
+                lines.push(this.className + "she:hasProperty" + prop + " .");
+            }
 		}
 
 		return lines;
@@ -121,8 +123,10 @@ class Turtle {
 		{
 			if(prop.includes("http")){
 				lines.push("<" + prop + "> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property> ; <http://www.w3.org/1999/02/22-rdf-syntax-ns#label>  \""+getURLName(prop)+"\" .");
+				lines.push("<"+this.className+"> <http://shacleditor/hasProperty> <"+prop+"> .");
 			} else {
 				lines.push(prop + " a rdf:Property ; rdfs:label \"" + getURLName(prop) + "\" .");
+				lines.push(this.className + "she:hasProperty" + prop + " .");
 			}
 		}
 
