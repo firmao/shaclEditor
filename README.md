@@ -7,14 +7,17 @@ A GUI for RDF shacl validation
 - 2 - Create Shacl shapes and relate to the concepts
 - 3 - Create instances of the concepts/classes and check if the instances are valid with Shacl constraints 
 
-### Enabling Load/Save/SparqlEndpoint on shaclEditor 
+_______________________
+### (OPTIONAL) Enabling Load/Save/SparqlEndpoint on shaclEditor 
 - You need [docker](https://www.docker.com/) installed.
 - Start the [QUIT store](https://github.com/AKSW/QuitStore/) executing the bash command file [initQuitStore.sh](https://github.com/firmao/shaclEditor/blob/master/initQuitStore.sh):
 ```
 ./initQuitStore.sh
 ```
+After that, the QUIT store should be running at: http://localhost:8080/sparql/master
+_______________________
 
-Video with a minimal example, just a proof of concept of a very first stage of this project (now should be different).
+A video with a minimal example, just a proof of concept of a very first stage of this project (now should be different).
 
 https://www.youtube.com/watch?v=i958YCTpU2g
 
