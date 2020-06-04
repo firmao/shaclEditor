@@ -13,8 +13,9 @@ A GUI for RDF shacl validation
 ```
 ./initQuitStore.sh
 ```
+The QUIT store should be running at: http://localhost:8080/sparql/master
 
-Video with a minimal example, just a proof of concept of a very first stage of this project (now should be different).
+A video with a minimal example, just a proof of concept of a very first stage of this project (now should be different).
 
 https://www.youtube.com/watch?v=i958YCTpU2g
 
