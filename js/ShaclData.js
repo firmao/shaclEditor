@@ -66,17 +66,16 @@ class ShaclData {
 		{
 			lines.push("@prefix " + name + ": <" + this.prefixes.get(name) + "> .");
 		}
-		
-		lines.push(this.className);
-		lines.push("a sh:NodeShape ;");
-		lines.push("sh:targetClass "+this.targetClass+" ;");
-		var get_keys = this.properties.keys(); 
 
-		for (var prop of get_keys) 
+		lines.push("<" + this.className + ">" + " <http://www.w3.org/1999/02/22-rdf-syntax-ns#type>  <http://www.w3.org/ns/shacl#NodeShape> . ");
+		lines.push("<" + this.className + ">" + " <http://www.w3.org/ns/shacl#targetClass>  <"+this.targetClass+"> . ");
+
+		const get_keys = this.properties.keys();
+		for (const prop of get_keys)
 		{ 
-			lines.push("sh:property [");
-			var get_values = this.properties.get(prop); 
-			for (var value of get_values){
+			lines.push("<http://www.w3.org/ns/shacl#property> [");
+			const get_values = this.properties.get(prop);
+			for (const value of get_values){
 				lines.push(value);
 			}  
 			lines.push(" ] ;");
@@ -94,13 +93,8 @@ class ShaclData {
 			lines.push("prefix " + name + ": <" + this.prefixes.get(name) + "> ");
 		}
 		lines.push("insert data { graph <http://shacleditor#"+ this.getId() +"> { ");
-		if(this.className.includes("http")){
-			lines.push("<" + this.className + ">" + " <http://www.w3.org/1999/02/22-rdf-syntax-ns#type>  <http://www.w3.org/ns/shacl#NodeShape> . ");
-			lines.push("<" + this.className + ">" + " <http://www.w3.org/ns/shacl#targetClass>  <"+this.targetClass+"> . ");
-		} else {
-			lines.push(this.className + " a sh:NodeShape ; rdfs:label \""+getURLName(this.className)+"\" .");
-			lines.push("sh:targetClass "+this.targetClass+" ;");
-		}
+		lines.push("<" + this.className + ">" + " <http://www.w3.org/1999/02/22-rdf-syntax-ns#type>  <http://www.w3.org/ns/shacl#NodeShape> . ");
+		lines.push("<" + this.className + ">" + " <http://www.w3.org/ns/shacl#targetClass>  <"+this.targetClass+"> . ");
 
 		const get_keys = this.properties.keys();
 		for (const prop of get_keys)

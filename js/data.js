@@ -38,6 +38,7 @@ function executeSparql(queryStr) {
                 }
             } else {
                 // Some kind of error occurred.
+                console.log(queryStr);
                 retSparql = "Sparql query error: " + xmlhttp.status + " " + xmlhttp.responseText + "\nQuery: " + queryStr;
             }
         }
@@ -55,28 +56,40 @@ function insert(classObj) {
 
 function loadNodes() {
     //systemId = -1;
-    var qSparql = "select ?s ?p ?o where { graph <http://shacleditor#"+systemId+"> { ?s ?p ?o} }"
+    let qSparql = "select ?s ?p ?o where { graph <http://shacleditor#"+systemId+"> { ?s ?p ?o} }"
     executeSparql(qSparql);
     let elems = retSparql;
-    console.log(elems);
-    let objRDF = new Turtle(null,null);
+
     for (let i = 0; i < elems.length; i++) {
         let s = elems[i]['s']['value'];
         let p = elems[i]['p']['value'];
         let o = elems[i]['o']['value'];
 
-        if(o.includes("http://www.w3.org/2000/01/rdf-schema#subClassOf")){
-            objRDF.setClassExtend(s);
-        }
-
-        if(o.includes("http://www.w3.org/1999/02/22-rdf-syntax-ns#Property")){
-            objRDF.addProperty(s,null);
-        }
 
         if(o.includes("http://www.w3.org/2000/01/rdf-schema#Class")){
-            //"Select * from where class = className"
-            // Load only things from this class
-            objRDF.setClassName(s);
+            qSparql = "select ?s ?p ?o where { graph <http://shacleditor#"+systemId+"> { ?s ?p ?o . FILTER (?s=<"+s+"> || ?o=<"+s+">) } }";
+            executeSparql(qSparql);
+            let classElems = retSparql;
+            console.log(classElems);
+            const objRDF = new Turtle(s, null);
+            for (let j = 0; j < classElems.length; j++) {
+                let sClass = classElems[j]['s']['value'];
+                let pClass = classElems[j]['p']['value'];
+                let oClass = classElems[j]['o']['value'];
+                // Load only things from this class
+
+                if (pClass.includes("http://www.w3.org/1999/02/22-rdf-syntax-ns#subClassOf")) {
+                    console.log(oClass.localeCompare(s));
+                    if(oClass.localeCompare(s) != 0){
+                        objRDF.setClassExtend(oClass);
+                    }
+                }
+
+                if (pClass.includes("http://shacleditor/hasProperty")) {
+                    objRDF.addProperty(oClass, null);
+                }
+            }
+            console.log(objRDF);
             nodes.set(objRDF.getClassName(), objRDF);
         }
     }

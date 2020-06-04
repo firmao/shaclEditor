@@ -153,3 +153,15 @@ function getURLName(url) {
         return url.split(':')[1];
     }
 }
+
+function checkFirstVisit() {
+    systemId = -1;
+    if(document.cookie.indexOf('mycookie')==-1) {
+        // cookie doesn't exist, create it now
+        document.cookie = 'mycookie=1';
+    }
+    else {
+        // not first visit, so alert
+        alert('You refreshed!');
+    }
+}
