@@ -204,7 +204,7 @@ document.addEventListener('DOMContentLoaded', function() {
 					const classText = "" + ttl.printText();
 					try {
 						const className = ttl.className;
-						if (classText.includes("sh:targetClass")) {
+						if (classText.includes("sh:targetClass") || classText.includes("NodeShape")) {
 							document.getElementById("txtEdTargetClassName").value = ttl.getTargetClass();
 							const container = document.getElementById("containerShacl");
 							// Clear previous contents of the container
@@ -394,7 +394,7 @@ document.addEventListener('DOMContentLoaded', function() {
 		if(typeof(nodes.get(id)) === 'object'){
 			var classText = "" + nodes.get(id).printText();
 			try {
-				if (classText.includes("sh:targetClass")) {
+				if (classText.includes("sh:targetClass") || classText.includes("NodeShape")) {
 					document.getElementById('txtShacl').innerHTML = classText;
 				} else {
 					document.getElementById('txtCode').innerHTML = classText;
