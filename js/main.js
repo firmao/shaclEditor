@@ -466,6 +466,14 @@ document.addEventListener('DOMContentLoaded', function() {
 									}
 								} ]);
 						} else {
+						    cy.add([
+                            { group: 'nodes',
+                                data: {
+                                    id: extendClass,
+                                    label: extendClass,
+                                    type : 'class'
+                                }
+                            } ]);
 							cy.add([
 								{ group: 'nodes',
 									data: {
