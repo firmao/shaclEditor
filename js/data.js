@@ -65,21 +65,17 @@ function loadNodes() {
         let p = elems[i]['p']['value'];
         let o = elems[i]['o']['value'];
 
-
         if(o.includes("http://www.w3.org/2000/01/rdf-schema#Class")){
             qSparql = "select ?s ?p ?o where { graph <http://shacleditor#"+systemId+"> { ?s ?p ?o . FILTER (?s=<"+s+"> || ?o=<"+s+">) } }";
             executeSparql(qSparql);
             let classElems = retSparql;
-            console.log(classElems);
             const objRDF = new Turtle(s, null);
             for (let j = 0; j < classElems.length; j++) {
                 let sClass = classElems[j]['s']['value'];
                 let pClass = classElems[j]['p']['value'];
                 let oClass = classElems[j]['o']['value'];
                 // Load only things from this class
-
                 if (pClass.includes("http://www.w3.org/1999/02/22-rdf-syntax-ns#subClassOf")) {
-                    console.log(oClass.localeCompare(s));
                     if(oClass.localeCompare(s) != 0){
                         objRDF.setClassExtend(oClass);
                     }
@@ -89,7 +85,6 @@ function loadNodes() {
                     objRDF.addProperty(oClass, null);
                 }
             }
-            console.log(objRDF);
             nodes.set(objRDF.getClassName(), objRDF);
         }
     }
@@ -101,19 +96,32 @@ function loadNodes() {
         let o = elems[i]['o']['value'];
 
         if(p.includes("http://www.w3.org/ns/shacl#targetClass")){
-            objShacl.setTargetClass(o);
+            //objShacl.setTargetClass(o);
+
+            qSparql = "select ?s ?p ?o where { graph <http://shacleditor#"+systemId+"> { ?s ?p ?o . FILTER (?s=<"+s+"> || ?o=<"+s+">) } }";
+            executeSparql(qSparql);
+            let classElems = retSparql;
+            console.log(classElems);
+            const objShacl = new ShaclData(s, o);
+            /*for (let j = 0; j < classElems.length; j++) {
+                let sClass = classElems[j]['s']['value'];
+                let pClass = classElems[j]['p']['value'];
+                let oClass = classElems[j]['o']['value'];
+                // Load only things from this class
+                if (pClass.includes("http://shacleditor/hasProperty")) {
+                    objShacl.addProperty(oClass, null);
+                }
+            }*/
+            console.log(objShacl);
+            nodes.set(objShacl.getClassName(), objShacl);
+
         }
 
-        if(o.includes("http://www.w3.org/ns/shacl#NodeShape")){
+        /*if(o.includes("http://www.w3.org/ns/shacl#NodeShape")){
             objShacl.setClassName(s);
             nodes.set(objShacl.getClassName(), objShacl);
-        }
+        }*/
     }
-
-    /*let classObj = new Turtle("classTest", "");
-    let shcl = new ShaclData("shTest", "classTest");
-    nodes.set("classTest", classObj);
-    nodes.set("shTest", shcl);*/
     
     const modal = document.getElementById("divLoadProject");
     modal.style.display = "none";
