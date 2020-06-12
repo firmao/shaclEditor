@@ -32,7 +32,7 @@ function executeSparql(queryStr) {
             if (xmlhttp.status == 200) {
                 // Process the results
                 if(queryStr.includes("insert") || queryStr.includes("update")){
-                    retSparql = "Inserted with success !!!"
+                    retSparql = "true"
                 } else {
                     retSparql = JSON.parse(xmlhttp.responseText)['results']['bindings'];
                 }
@@ -51,7 +51,9 @@ function insert(classObj) {
     const classText = classObj.printText();
     const sparqlInsert = classObj.generateInsert();
     executeSparql(sparqlInsert);
-    alert(retSparql);
+    if(!retSparql.includes("true")){
+        alert(retSparql);
+    }
 }
 
 function loadNodes() {
