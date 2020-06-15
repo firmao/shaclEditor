@@ -93,12 +93,12 @@ class ShaclData {
 		const get_keys = this.properties.keys();
 		for (const prop of get_keys)
 		{
-			lines.push("<http://www.w3.org/ns/shacl#property> [");
+			lines.push("<" + this.className + ">" + " <http://www.w3.org/ns/shacl#property> \"[");
 			const get_values = this.properties.get(prop);
 			for (const value of get_values){
 				lines.push(value);
 			}
-			lines.push(" ] ;");
+			lines.push(" ]\" .");
 		}
 
 		lines.push("} }");
