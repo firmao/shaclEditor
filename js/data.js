@@ -56,9 +56,28 @@ function insert(classObj) {
     }
 }
 
-function loadNodes() {
+function insertTriples(txtTriples) {
+    generateId();
+    const sparqlInsert = "insert data { graph <http://shacleditor#"+ systemId +"> { " + txtTriples + "} }";
+    executeSparql(sparqlInsert);
+    if(!retSparql.includes("true")){
+        alert(retSparql);
+    }
+}
+
+function loadNodes(txtTriples) {
     //systemId = -1;
-    let qSparql = "select ?s ?p ?o where { graph <http://shacleditor#"+systemId+"> { ?s ?p ?o} }"
+    let qSparql = null;
+    if((txtTriples === undefined) || (txtTriples === null) || (txtTriples.length < 1)) {
+        qSparql = "select ?s ?p ?o where { graph <http://shacleditor#"+systemId+"> { ?s ?p ?o} }";
+    } else {
+        if (txtTriples.trim().toLowerCase().includes("select")) {
+            qSparql = txtTriples.trim();
+        } else {
+            insertTriples(txtTriples);
+            qSparql = "select ?s ?p ?o where { graph <http://shacleditor#"+systemId+"> { ?s ?p ?o} }";
+        }
+    }
     executeSparql(qSparql);
     let elems = retSparql;
 

@@ -17,9 +17,10 @@ function generateId() {
 }
 
 function loadProject(){
-	var systemID_old = systemId;
+	const systemID_old = systemId;
 	systemId = document.getElementById("txtIdProject").value;
-	if (loadNodes()){
+	const txtTriples = document.getElementById("txtLoad").value;
+	if (loadNodes(txtTriples)){
 		updateUI();
 	} else {
 		systemId = systemID_old;
