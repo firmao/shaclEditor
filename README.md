@@ -23,6 +23,8 @@ https://www.youtube.com/watch?v=i958YCTpU2g
 
 A demo is available [here](http://141.57.11.86:8082/shaclgui/):
 
+An unfinished version of the manual is [here](https://docs.google.com/document/d/1nIH84Lys71Trthr5-oNZGwZgfwD6RbWXOZqAJ387evo/edit?usp=sharing)
+
 1) Clone the repository;
 
 2) Open the file [index.html](https://github.com/firmao/shaclEditor/blob/master/index.html) in your webbrowser.
