@@ -75,7 +75,11 @@ class Turtle {
 		{
 			lines.push("<" + prop + "> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property> ; <http://www.w3.org/1999/02/22-rdf-syntax-ns#label>  \""+getURLName(prop)+"\" .");
 			lines.push("<"+this.className+"> <http://shacleditor/hasProperty> <"+prop+"> .");
-			lines.push("<"+this.className+"> <"+prop+"> "+this.properties.get(prop)+"  .");
+			if((this.properties.get(prop) != undefined) && (this.properties.get(prop) != null)) {
+                if (this.properties.get(prop) > 0) {
+                    lines.push("<"+this.className+"> <"+prop+"> "+this.properties.get(prop)+"  .");
+                }
+            }
 		}
 
 		return lines;
@@ -105,7 +109,11 @@ class Turtle {
 		{
 			lines.push("<" + prop + "> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property> ; <http://www.w3.org/1999/02/22-rdf-syntax-ns#label>  \""+getURLName(prop)+"\" .");
 			lines.push("<"+this.className+"> <http://shacleditor/hasProperty> <"+prop+"> .");
-			//lines.push("<"+this.className+"> <"+prop+"> "+this.properties.get(prop)+"  .");
+			if((this.properties.get(prop) != undefined) && (this.properties.get(prop) != null)) {
+                if (this.properties.get(prop) > 0) {
+                    lines.push("<"+this.className+"> <"+prop+"> "+this.properties.get(prop)+"  .");
+                }
+            }
 		}
 
 		let res = "";
