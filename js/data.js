@@ -65,6 +65,18 @@ function insertTriples(txtTriples) {
     }
 }
 
+function getPropValue(propSearch, classElems) {
+    for (let j = 0; j < classElems.length; j++) {
+        let sClass = classElems[j]['s']['value'];
+        let pClass = classElems[j]['p']['value'];
+        let oClass = classElems[j]['o']['value'];
+        if (pClass.includes(propSearch)) {
+            return oClass;
+        }
+    }
+    return null;
+}
+
 function loadNodes(txtTriples) {
     //systemId = -1;
     let qSparql = null;
@@ -78,6 +90,7 @@ function loadNodes(txtTriples) {
             qSparql = "select ?s ?p ?o where { graph <http://shacleditor#"+systemId+"> { ?s ?p ?o} }";
         }
     }
+    //console.log(qSparql);
     executeSparql(qSparql);
     let elems = retSparql;
 
@@ -103,7 +116,8 @@ function loadNodes(txtTriples) {
                 }
 
                 if (pClass.includes("http://shacleditor/hasProperty")) {
-                    objRDF.addProperty(oClass, null);
+                    //objRDF.addProperty(oClass, null);
+                    objRDF.addProperty(oClass, getPropValue(oClass, classElems));
                 }
             }
             nodes.set(objRDF.getClassName(), objRDF);
