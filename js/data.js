@@ -17,7 +17,7 @@ function executeSparql(queryStr) {
     }
 
     xmlhttp.open('POST', endpoint, false); // GET can have caching probs, so POST
-    if(queryStr.includes("insert") || queryStr.includes("update")){
+    if(queryStr.includes("insert") || queryStr.includes("update") || queryStr.includes("delete")){
         querypart = queryStr;
         xmlhttp.setRequestHeader('Content-type', 'application/sparql-update');
     } else {
@@ -31,7 +31,7 @@ function executeSparql(queryStr) {
         if (xmlhttp.readyState == 4) {
             if (xmlhttp.status == 200) {
                 // Process the results
-                if(queryStr.includes("insert") || queryStr.includes("update")){
+                if(queryStr.includes("insert") || queryStr.includes("update") || queryStr.includes("delete")){
                     retSparql = "true"
                 } else {
                     retSparql = JSON.parse(xmlhttp.responseText)['results']['bindings'];
@@ -45,6 +45,14 @@ function executeSparql(queryStr) {
     };
     xmlhttp.send(querypart);
     //return "-1";
+}
+
+function deleteAll() {
+    const sparqlDelete = "delete WHERE { GRAPH <http://shacleditor#"+ systemId +">  { ?s ?p ?o } }";
+    executeSparql(sparqlDelete);
+    if(!retSparql.includes("true")){
+        alert(retSparql);
+    }
 }
 
 function insert(classObj) {

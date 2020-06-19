@@ -28,6 +28,9 @@ function loadProject(){
 }
 
 function saveProject(){
+	if(systemId > 0) {
+		deleteAll();
+	}
 	const allNodes = nodes.keys();
 	for (const id of allNodes) {
 		if (typeof (nodes.get(id)) === 'object') {
