@@ -12,7 +12,7 @@ class ShaclData {
 	getId(){
 		return this.id;
 	}
-//systemId = -1;
+
 	setId(id){
 		this.id = id;
 	}
