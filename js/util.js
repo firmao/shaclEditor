@@ -165,3 +165,9 @@ function checkFirstVisit() {
         alert('You refreshed!');
     }
 }
+
+function isDate(s) {
+    if(isNaN(s) && !isNaN(Date.parse(s)))
+        return true;
+    else return false;
+}

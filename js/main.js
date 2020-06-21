@@ -11,7 +11,6 @@ function generateId() {
 	let sparql = "SELECT (max(?vmax) as ?rmax) WHERE { graph <http://example.org/> { ?s ?p ?vmax . FILTER regex(str(?p), \"shacleditor#id\") }}";
 	executeSparql(sparql);
 	const rSparql = retSparql[0]['rmax']['value'];
-	console.log(rSparql);
 	systemId = parseInt(rSparql) + 1;
 	executeSparql("insert data { graph <http://example.org/> { <urn:shacleditor> <http://shacleditor#id> "+systemId+" } }");
 }
@@ -631,6 +630,36 @@ document.addEventListener('DOMContentLoaded', function() {
 		nodes.set(shaclClass, ttl);
 		const modal = document.getElementById("divEditShacl");
 		modal.style.display = "none";
+	}
+
+	/*
+	Suggest a Shacl constraint according to the type and name of the property.
+	 */
+	function getSugByType(prop) {
+		const sparql = "Select ?o where { graph <http://shacleditor#"+systemId+"> { ?s <"+prop+"> ?o} }";
+		executeSparql(sparql);
+		const rSparql = retSparql[0]['o']['value'];
+		let sugg = "";
+		if(rSparql.startsWith("http")){
+			//URI
+		} else {
+			//Literal
+			if(isDate(rSparql)){
+				sugg = "sh:path schema:birthDate ;\n" +
+					"sh:lessThan schema:deathDate ;\n" +
+					"sh:maxCount 1 ;";
+			}
+		}
+		return sugg;
+	}
+
+	/*
+	Add a suggestion for a shacl constraint.
+	 */
+	function sugShConstraint(){
+		const value = [document.getElementById("txtShProp").value];
+		const suggestion = getSugByType(value);
+		document.getElementById("txtShProp").value = suggestion;
 	}
 
 	function addShConstraint(){
