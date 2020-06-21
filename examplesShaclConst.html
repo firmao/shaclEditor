@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Example of constraints with SHACL</title>
+</head>
+<body>
+
+<p><strong>Validating Strings:</strong></p>
+<p>sh:path schema:givenName ;<br />sh:datatype xsd:string ;<br />sh:name "given name" ;</p>
+<p>sh:path schema:streetAddress ;<br />sh:datatype xsd:string ;</p>
+<p><strong>Validating Gender:</strong></p>
+<p>sh:path schema:gender ;<br />sh:in ( "female" "male" ) ;</p>
+<p><strong>Validating Dates:</strong></p>
+<p>sh:path schema:birthDate ;<br />sh:lessThan schema:deathDate ;<br />sh:maxCount 1 ;</p>
+<p>&nbsp;</p>
+<p><strong>Validating Numbers:</strong></p>
+<p>sh:path schema:postalCode ;<br />sh:or ( [ sh:datatype xsd:string ] [ sh:datatype xsd:integer ] ) ;<br />sh:minInclusive 10000 ;<br />sh:maxInclusive 99999 ;</p>
+
+</body>
+</html>
