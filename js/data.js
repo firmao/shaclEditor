@@ -73,13 +73,32 @@ function insertTriples(txtTriples) {
     }
 }
 
-function getPropValue(propSearch, classElems) {
-    for (let j = 0; j < classElems.length; j++) {
-        let sClass = classElems[j]['s']['value'];
-        let pClass = classElems[j]['p']['value'];
-        let oClass = classElems[j]['o']['value'];
-        if (pClass.includes(propSearch)) {
-            return oClass;
+function getPropValue(propSearch, classElems, bShacl) {
+    if(bShacl){
+        console.log(propSearch);
+        let retShacl = "";
+        for (let j = 0; j < classElems.length; j++) {
+            let sClass = classElems[j]['s']['value'];
+            let pClass = classElems[j]['p']['value'];
+            let oClass = classElems[j]['o']['value'];
+            if (sClass.includes(propSearch)) {
+                console.log(sClass);
+                if(oClass.startsWith("http")){
+                    retShacl += "<" + pClass + "> <" + oClass + "> ;\n";
+                } else {
+                    retShacl += "<" + pClass + "> " + oClass + " ;\n";
+                }
+            }
+        }
+        return retShacl;
+    } else {
+        for (let j = 0; j < classElems.length; j++) {
+            let sClass = classElems[j]['s']['value'];
+            let pClass = classElems[j]['p']['value'];
+            let oClass = classElems[j]['o']['value'];
+            if (pClass.includes(propSearch)) {
+                return oClass;
+            }
         }
     }
     return null;
@@ -125,7 +144,7 @@ function loadNodes(txtTriples) {
 
                 if (pClass.includes("http://shacleditor/hasProperty")) {
                     //objRDF.addProperty(oClass, null);
-                    objRDF.addProperty(oClass, getPropValue(oClass, classElems));
+                    objRDF.addProperty(oClass, getPropValue(oClass, classElems, false));
                 }
             }
             nodes.set(objRDF.getClassName(), objRDF);
@@ -143,18 +162,23 @@ function loadNodes(txtTriples) {
 
             qSparql = "select ?s ?p ?o where { graph <http://shacleditor#"+systemId+"> { ?s ?p ?o . FILTER (?s=<"+s+"> || ?o=<"+s+">) } }";
             executeSparql(qSparql);
-            let classElems = retSparql;
-            console.log(classElems);
+            let shaclElems = retSparql;
             const objShacl = new ShaclData(s, o);
-            /*for (let j = 0; j < classElems.length; j++) {
-                let sClass = classElems[j]['s']['value'];
-                let pClass = classElems[j]['p']['value'];
-                let oClass = classElems[j]['o']['value'];
+            for (let j = 0; j < shaclElems.length; j++) {
+                let sClass = shaclElems[j]['s']['value'];
+                let pClass = shaclElems[j]['p']['value'];
+                let oClass = shaclElems[j]['o']['value'];
                 // Load only things from this class
-                if (pClass.includes("http://shacleditor/hasProperty")) {
-                    objShacl.addProperty(oClass, null);
+                if (pClass.includes("http://www.w3.org/ns/shacl#property")) {
+                    let propValues = getPropValue(oClass, elems, true);
+                    console.log(propValues);
+                    //objShacl.setPropertyValues(""+j, [propValues]);
+
+                    const propName = "" + (objShacl.properties.size + 1);
+                    objShacl.addProperty(propName);
+                    objShacl.setPropertyValues(propName, [propValues]);
                 }
-            }*/
+            }
             console.log(objShacl);
             nodes.set(objShacl.getClassName(), objShacl);
 

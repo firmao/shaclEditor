@@ -62,7 +62,7 @@ class ShaclData {
 		}
 
 		lines.push("<" + this.className + ">" + " <http://www.w3.org/1999/02/22-rdf-syntax-ns#type>  <http://www.w3.org/ns/shacl#NodeShape> . ");
-		lines.push("<" + this.className + ">" + " <http://www.w3.org/ns/shacl#targetClass>  <"+this.targetClass+"> . ");
+		lines.push("<" + this.className + ">" + " <http://www.w3.org/ns/shacl#targetClass>  <"+this.targetClass+"> ; ");
 
 		const get_keys = this.properties.keys();
 		for (const prop of get_keys)
@@ -88,17 +88,17 @@ class ShaclData {
 		}
 		lines.push("insert data { graph <http://shacleditor#"+ this.getId() +"> { ");
 		lines.push("<" + this.className + ">" + " <http://www.w3.org/1999/02/22-rdf-syntax-ns#type>  <http://www.w3.org/ns/shacl#NodeShape> . ");
-		lines.push("<" + this.className + ">" + " <http://www.w3.org/ns/shacl#targetClass>  <"+this.targetClass+"> . ");
+		lines.push("<" + this.className + ">" + " <http://www.w3.org/ns/shacl#targetClass>  <"+this.targetClass+"> ; ");
 
 		const get_keys = this.properties.keys();
 		for (const prop of get_keys)
 		{
-			lines.push("<" + this.className + ">" + " <http://www.w3.org/ns/shacl#property> \"[");
+			lines.push("<http://www.w3.org/ns/shacl#property> [");
 			const get_values = this.properties.get(prop);
 			for (const value of get_values){
 				lines.push(value);
 			}
-			lines.push(" ]\" .");
+			lines.push(" ] .");
 		}
 
 		lines.push("} }");

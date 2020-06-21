@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    console.log("Starting...");
+    var queryStr = "prefix ex: <http://example.org/ns#> \n" +
+        "prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> \n" +
+        "prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> \n" +
+        "prefix schema: <http://schema.org/> \n" +
+        "prefix xsd: <http://www.w3.org/2001/XMLSchema#> \n" +
+        "prefix dash: <http://datashapes.org/dash#> \n" +
+        "prefix sh: <http://www.w3.org/ns/shacl#> \n" +
+        "insert data { graph <http://shacleditor#13> { \n" +
+        "<http://www.w3.org/ns/shacl#MyShape> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type>  <http://www.w3.org/ns/shacl#NodeShape> . \n" +
+        "<http://www.w3.org/ns/shacl#MyShape> <http://www.w3.org/ns/shacl#targetClass>  <http://schema.org/Bob> ; \n" +
+        "<http://www.w3.org/ns/shacl#property> [\n" +
+        "sh:path schema:birthDate ;\n" +
+        "sh:lessThan schema:deathDate ;\n" +
+        "sh:maxCount 1 ;\n" +
+        " ] .\n" +
+        "} }";
+    var endpoint = "http://localhost:8080/sparql/master";
+    var querypart = queryStr;
+
+    // Get our HTTP request object.
+    var xmlhttp = null;
+    if (window.XMLHttpRequest) {
+        xmlhttp = new XMLHttpRequest();
+    } else if (window.ActiveXObject) {
+        // Code for older versions of IE, like IE6 and before.
+        xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+    } else {
+        alert('Perhaps your browser does not support XMLHttpRequests?');
+    }
+
+    // Set up a POST with JSON result format.
+    xmlhttp.open('POST', endpoint, true); // GET can have caching probs, so POST
+    xmlhttp.setRequestHeader('Content-type', 'application/sparql-update');
+
+    // Set up callback to get the response asynchronously.
+    xmlhttp.onreadystatechange = function() {
+        if (xmlhttp.readyState == 4) {
+            if (xmlhttp.status == 200) {
+                // Process the results
+                document.write(xmlhttp.responseText);
+                //callback(xmlhttp.responseText);
+                console.log("finished with success");
+                document.write("finished with success");
+            } else {
+                // Some kind of error occurred.
+                alert("Sparql query error: " + xmlhttp.status + " " + xmlhttp.responseText);
+            }
+        }
+    };
+    xmlhttp.send(querypart);
+</script>
+</body>
+</html>
