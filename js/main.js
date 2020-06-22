@@ -638,17 +638,29 @@ document.addEventListener('DOMContentLoaded', function() {
 	function getSugByType(prop) {
 		const sparql = "Select ?o where { graph <http://shacleditor#"+systemId+"> { ?s <"+prop+"> ?o} }";
 		executeSparql(sparql);
-		const rSparql = retSparql[0]['o']['value'];
+		const rValue = retSparql[0]['o']['value'];
+		const rType = retSparql[0]['o']['type'];
 		let sugg = "";
-		if(rSparql.startsWith("http")){
-			//URI
+		let propLow = "";
+		if(Array.isArray(prop)){
+			propLow = prop[0].toLowerCase();
 		} else {
-			//Literal
-			if(isDate(rSparql)){
+			propLow = prop.toLowerCase();
+		}
+		if(rType.includes("literal")){
+			//if(isDate(rSparql)){
+			if(propLow.includes("date")){
 				sugg = "sh:path schema:birthDate ;\n" +
 					"sh:lessThan schema:deathDate ;\n" +
 					"sh:maxCount 1 ;";
 			}
+			if(propLow.includes("gender")){
+				sugg = "sh:path schema:gender ;\n" +
+					"sh:in ( \"female\" \"male\" ) ;";
+			}
+		} else {
+			//URI
+
 		}
 		return sugg;
 	}
