@@ -636,32 +636,53 @@ document.addEventListener('DOMContentLoaded', function() {
 	Suggest a Shacl constraint according to the type and name of the property.
 	 */
 	function getSugByType(prop) {
-		const sparql = "Select ?o where { graph <http://shacleditor#"+systemId+"> { ?s <"+prop+"> ?o} }";
-		executeSparql(sparql);
-		const rValue = retSparql[0]['o']['value'];
-		const rType = retSparql[0]['o']['type'];
 		let sugg = "";
 		let propLow = "";
-		if(Array.isArray(prop)){
-			propLow = prop[0].toLowerCase();
-		} else {
-			propLow = prop.toLowerCase();
-		}
-		if(rType.includes("literal")){
-			//if(isDate(rSparql)){
-			if(propLow.includes("date")){
-				sugg = "sh:path schema:birthDate ;\n" +
-					"sh:lessThan schema:deathDate ;\n" +
-					"sh:maxCount 1 ;";
+		const sparql = "Select ?o where { graph <http://shacleditor#"+systemId+"> { ?s <"+prop+"> ?o} }";
+		try{
+			executeSparql(sparql);
+			const rValue = retSparql[0]['o']['value'];
+			const rType = retSparql[0]['o']['type'];
+			if(Array.isArray(prop)){
+				propLow = prop[0].toLowerCase();
+			} else {
+				propLow = prop.toLowerCase();
 			}
-			if(propLow.includes("gender")){
-				sugg = "sh:path schema:gender ;\n" +
-					"sh:in ( \"female\" \"male\" ) ;";
-			}
-		} else {
-			//URI
+			if(rType.includes("literal")){
+				//if(isDate(rSparql)){
+				if(propLow.includes("date")){
+					sugg = "sh:path schema:birthDate ;\n" +
+						"sh:lessThan schema:deathDate ;\n" +
+						"sh:maxCount 1 ;";
+				}
+				if(propLow.includes("gender")){
+					sugg = "sh:path schema:gender ;\n" +
+						"sh:in ( \"female\" \"male\" ) ;";
+				}
+				if(propLow.includes("name")){
+					sugg = "sh:path schema:givenName ;\n" +
+						"sh:datatype xsd:string ;\n" +
+						"sh:name \"given name\" ;";
+				}
+				if(propLow.includes("address")){
+					sugg = "sh:path schema:streetAddress ;\n" +
+						"sh:datatype xsd:string ;";
+				}
+				if(propLow.includes("postal")){
+					sugg = "sh:path schema:postalCode ;\n" +
+						"sh:or ( [ sh:datatype xsd:string ] [ sh:datatype xsd:integer ] ) ;\n" +
+						"sh:minInclusive 10000 ;\n" +
+						"sh:maxInclusive 99999 ;";
+				}
+			} else {
+				//URI
 
+			}
+		} catch(err){
+			console.log(err);
+			console.log(sparql);
 		}
+
 		return sugg;
 	}
 
