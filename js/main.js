@@ -6,6 +6,8 @@ let globalPos = null;
 let nodes = new Map();
 let prefixes = new Map();
 let systemId = 0;
+let sourceClass = "";
+let targetClass = "";
 
 function generateId() {
 	let sparql = "SELECT (max(?vmax) as ?rmax) WHERE { graph <http://example.org/> { ?s ?p ?vmax . FILTER regex(str(?p), \"shacleditor#id\") }}";
@@ -45,12 +47,21 @@ function saveProject(){
 	//systemId = -1;
 }
 
+function addClassAsProperty() {
+	console.log(targetClass +  " now has one " + sourceClass);
+}
+
 document.addEventListener('DOMContentLoaded', function() {
 	prefixes = fillPrefixes();
 	cy = window.cy = cytoscape({
 			container : document.getElementById('cy'),
 
-			style : [ {
+		layout : {
+			name: 'circle'
+		},
+
+		style: [
+			{
 				selector : 'node[type="class"]',
 				style : {
 					'label' : 'data(label)',
@@ -94,15 +105,72 @@ document.addEventListener('DOMContentLoaded', function() {
 					'target-arrow-shape' : 'triangle',
 					'control-point-step-size' : '140px'
 				}
-			} ],
-			layout : {
-				name: 'circle'
 			},
+
+			// some style for the extension
+
+			{
+				selector: '.eh-handle',
+				style: {
+					'background-color': 'red',
+					'width': 12,
+					'height': 12,
+					'shape': 'ellipse',
+					'overlay-opacity': 0,
+					'border-width': 12, // makes the handle easier to hit
+					'border-opacity': 0
+				}
+			},
+
+			{
+				selector: '.eh-hover',
+				style: {
+					'background-color': 'red'
+				}
+			},
+
+			{
+				selector: '.eh-source',
+				style: {
+					'border-width': 2,
+					'border-color': 'red'
+				}
+			},
+
+			{
+				selector: '.eh-target',
+				style: {
+					'border-width': 2,
+					'border-color': 'red'
+				}
+			},
+
+			{
+				selector: '.eh-preview, .eh-ghost-edge',
+				style: {
+					'background-color': 'red',
+					'line-color': 'red',
+					'target-arrow-color': 'red',
+					'source-arrow-color': 'red'
+				}
+			},
+
+			{
+				selector: '.eh-ghost-edge.eh-preview-active',
+				style: {
+					'opacity': 0
+				}
+			}
+		],
 
 			elements : {
 				nodes : [],
 				edges : []
 			},
+		});
+
+		var eh = cy.edgehandles({
+			snap: true
 		});
 
 		let options = {
@@ -112,6 +180,19 @@ document.addEventListener('DOMContentLoaded', function() {
 		cy.on('add', 'node', function(evt) {
 			cy.layout( options ).run();
 			cy.fit();
+		});
+
+		cy.on('add', 'edge', function(evt) {
+			const orig1 = evt.target;
+			sourceClass = orig1.data().source;
+			targetClass = orig1.data().target;
+		});
+
+		cy.on('mouseup', 'node', function(evt) {
+			const mouseUpNodeSelected = evt.target.id();
+			if(nodes.has(sourceClass) && nodes.has(targetClass) && nodes.has(mouseUpNodeSelected)){
+				addClassAsProperty();
+			}
 		});
 
 		cy.on('click', 'node', function(evt) {
@@ -378,6 +459,7 @@ document.addEventListener('DOMContentLoaded', function() {
 			} ]
 		});
 	});
+
 	function printNodes() {
 		const p = JSON.stringify(cy.elements().jsons());
 		document.getElementById('txtCode').innerHTML = p;
@@ -498,22 +580,41 @@ document.addEventListener('DOMContentLoaded', function() {
 						const get_keys = properties.keys();
 						for (const prop of get_keys)
 						{
-							cy.add([ {
-								group : 'nodes',
-								data : {
-									id : prop + ';' + className,
-									label : prop,
-									type : 'property'
-								}
-							}, {
-								group : 'edges',
-								data : {
-									id : prop + '-' + className,
-									label : 'property',
-									source : className,
-									target : prop + ';' + className
-								}
-							} ]);
+							if(nodes.has(prop) && !className.includes(prop)){
+								cy.add([ {
+									group : 'nodes',
+									data : {
+										id : prop,
+										label : prop,
+										type : 'class'
+									}
+								}, {
+									group : 'edges',
+									data : {
+										id : prop + '-' + className,
+										label : 'contains',
+										source : className,
+										target : prop
+									}
+								} ]);
+							} else {
+								cy.add([ {
+									group : 'nodes',
+									data : {
+										id : prop + ';' + className,
+										label : prop,
+										type : 'property'
+									}
+								}, {
+									group : 'edges',
+									data : {
+										id : prop + '-' + className,
+										label : 'property',
+										source : className,
+										target : prop + ';' + className
+									}
+								} ]);
+							}
 							//lines.push(prop + " " + properties.get(prop) + " ;");
 						}
 					}
