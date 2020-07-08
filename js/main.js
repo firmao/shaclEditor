@@ -741,9 +741,13 @@ document.addEventListener('DOMContentLoaded', function() {
 		let propLow = "";
 		const sparql = "Select ?o where { graph <http://shacleditor#"+systemId+"> { ?s <"+prop+"> ?o} }";
 		try{
+			let rType = "literal";
+			let rValue = null;
 			executeSparql(sparql);
-			const rValue = retSparql[0]['o']['value'];
-			const rType = retSparql[0]['o']['type'];
+			if(retSparql.length > 0){
+				rValue = retSparql[0]['o']['value'];
+				rType = retSparql[0]['o']['type'];
+			}
 			if(Array.isArray(prop)){
 				propLow = prop[0].toLowerCase();
 			} else {
