@@ -51,6 +51,58 @@ function addClassAsProperty() {
 	console.log(targetClass +  " now has one " + sourceClass);
 }
 
+function loadClasses(classAvoid) {
+	const combo = document.getElementById("cbclasses");
+	combo.innerHTML = "";
+
+	const opt = document.createElement("option");
+	opt.text = "< NOTHING >";
+	opt.value = "nothing";
+	try {
+		combo.add(opt, null); //Standard
+	}catch(error) {
+		combo.add(opt); // IE only
+	}
+
+	const allNodes = nodes.keys();
+	for (const id of allNodes) {
+		if (typeof (nodes.get(id)) === 'object') {
+			const className = nodes.get(id).className;
+			if(!className.includes(classAvoid)){
+				const option = document.createElement("option");
+				option.text = className;
+				option.value = className;
+				try {
+					combo.add(option, null); //Standard
+				}catch(error) {
+					combo.add(option); // IE only
+				}
+			}
+		}
+	}
+}
+
+function getProps(){
+	const selClass = document.getElementById("cbclasses").value;
+	console.log(selClass);
+	const combo = document.getElementById("cboprops");
+	combo.innerHTML = "";
+	const properties = nodes.get(selClass).getProperties();
+	console.log(properties);
+	const get_keys = properties.keys();
+	for (const prop of get_keys)
+	{
+		const option = document.createElement("option");
+		option.text = prop;
+		option.value = prop;
+		try {
+			combo.add(option, null); //Standard
+		}catch(error) {
+			combo.add(option); // IE only
+		}
+	}
+}
+
 document.addEventListener('DOMContentLoaded', function() {
 	prefixes = fillPrefixes();
 	cy = window.cy = cytoscape({
@@ -253,6 +305,20 @@ document.addEventListener('DOMContentLoaded', function() {
 					showDiv("addPropDiv");
 				},
 				hasTrailingDivider : true
+			}, {
+				id: 'addPropClass',
+				content: 'add Contained Class',
+				selector: 'node',
+				coreAsWell: true,
+				onClickFunction: function (event) {
+					pos = event.position || event.cyPosition;
+					orig = event.target || event.cyTarget;
+					origProp = orig;
+					test = pos;
+					loadClasses(orig.id());
+					showDiv("addPropClassDiv");
+				},
+				hasTrailingDivider: true
 			}, {
 				id : 'addShConstraint',
 				content : 'add SHACL constraint',

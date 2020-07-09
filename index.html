@@ -104,7 +104,7 @@
 				<input type="text" readonly id="txtEdClassName">
 			</p>
 			<p>
-				Relation class:
+				Extend class:
 				<input type="text" id="txtEdClassExtend" onfocus="makeAutoComplete(this.id);">
 			</p>
 			<p>
@@ -113,6 +113,26 @@
 			<div id="container" class="prop-value autocomplete"></div>
 			<div class="btn-group">
 				<button id="btnEdClass" class="button" onclick="saveClass();">Save changes</button>
+			</div>
+		</div>
+	</div>
+
+	<div id="addPropClassDiv" class="modal">
+		<!-- Modal content -->
+		<div class="modal-content autocomplete">
+			<span onclick="spanClick('addPropClassDiv');" class="close">&times;</span>
+			<p>
+				Choose a class:
+				<select name="cbclasses" id="cbclasses" onchange="getProps()">
+				</select>
+			</p>
+			<p>
+				Choose the property to relate:
+				<select name="cboprops" id="cboprops">
+				</select>
+			</p>
+			<div class="btn-group">
+				<button id="btnaddPropClass" class="button" onclick="saveClass();">Save changes</button>
 			</div>
 		</div>
 	</div>
