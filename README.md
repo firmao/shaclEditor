@@ -6,7 +6,7 @@ Execute this comand in your bash:
 ```
 bash <(curl -s https://raw.githubusercontent.com/firmao/shaclEditor/master/InstallShaclEditor.sh)
 ```
-after all open the index.html in your web-browser
+after all, inside shaclEditor directory, open the index.html in your web-browser.
 _______________________
 
 A video with a minimal example, just a proof of concept of a very first stage of this project (now should be different).
