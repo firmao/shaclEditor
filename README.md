@@ -1,33 +1,25 @@
 # shaclEditor
-A GUI for RDF shacl validation
+An integrated environment for Visualizing, Validate, and Versioning RDF graph
 
-## Basic 3 steps of the workflow
-
-- 1 - Create Concepts/classes and properties
-- 2 - Create Shacl shapes and relate to the concepts
-- 3 - Create instances of the concepts/classes and check if the instances are valid with Shacl constraints 
-
-_______________________
-### (OPTIONAL) Enabling Load/Save/SparqlEndpoint on shaclEditor 
-- You need [docker](https://www.docker.com/) installed.
-- Start the [QUIT store](https://github.com/AKSW/QuitStore/) executing the bash command file [initQuitStore.sh](https://github.com/firmao/shaclEditor/blob/master/initQuitStore.sh):
+## Starting:
+Execute this comand in your bash:
 ```
-./initQuitStore.sh
+bash <(curl -s https://raw.githubusercontent.com/firmao/shaclEditor/master/InstallShaclEditor.sh)
 ```
-After that, the QUIT store should be running at: http://localhost:8080/sparql/master
+after all open the index.html in your web-browser
 _______________________
 
 A video with a minimal example, just a proof of concept of a very first stage of this project (now should be different).
 
 https://www.youtube.com/watch?v=i958YCTpU2g
 
-A demo is available [here](http://141.57.11.86:8082/shaclgui/):
-
 An unfinished version of the manual is [here](https://docs.google.com/document/d/1nIH84Lys71Trthr5-oNZGwZgfwD6RbWXOZqAJ387evo/edit?usp=sharing)
 
-1) Clone the repository;
+## Basic 3 steps of the workflow
 
-2) Open the file [index.html](https://github.com/firmao/shaclEditor/blob/master/index.html) in your webbrowser.
+- 1 - Create Concepts/classes and properties
+- 2 - Create Shacl shapes and relate to the concepts
+- 3 - Create instances of the concepts/classes and check if the instances are valid with Shacl constraints 
 
 ## What you can do with this "Shacl RDF Editor"
 
