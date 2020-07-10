@@ -47,6 +47,23 @@ function saveProject(){
 	//systemId = -1;
 }
 
+function savePropClass() {
+	const propClass = document.getElementById("cbclasses").value;
+	const prop = document.getElementById("cboprops").value;
+	const selectedClass = origProp.id();
+	console.log(selectedClass + " addProperty: " + propClass + ";" + prop);
+
+	const classObj = nodes.get(selectedClass);
+	classObj.addProperty(prop,propClass);
+
+	const txtTurtle = classObj.printText();
+	document.getElementById('txtCode').innerHTML = txtTurtle;
+	nodes.set(classObj.getClassName(), classObj);
+	updateUI();
+	const modal = document.getElementById("addPropClassDiv");
+	modal.style.display = "none";
+}
+
 function addClassAsProperty() {
 	console.log(targetClass +  " now has one " + sourceClass);
 }
@@ -84,21 +101,25 @@ function loadClasses(classAvoid) {
 
 function getProps(){
 	const selClass = document.getElementById("cbclasses").value;
-	console.log(selClass);
 	const combo = document.getElementById("cboprops");
 	combo.innerHTML = "";
-	const properties = nodes.get(selClass).getProperties();
-	console.log(properties);
-	const get_keys = properties.keys();
-	for (const prop of get_keys)
-	{
-		const option = document.createElement("option");
-		option.text = prop;
-		option.value = prop;
-		try {
-			combo.add(option, null); //Standard
-		}catch(error) {
-			combo.add(option); // IE only
+	try {
+		const properties = nodes.get(selClass).getProperties();
+		const get_keys = properties.keys();
+		for (const prop of get_keys)
+		{
+			const option = document.createElement("option");
+			option.text = prop;
+			option.value = prop;
+			try {
+				combo.add(option, null); //Standard
+			}catch(error) {
+				combo.add(option); // IE only
+			}
+		}
+	}catch(error) {
+		if(!selClass.toLowerCase().includes("nothing")){
+			console.log(selClass + ": " + error);
 		}
 	}
 }
@@ -242,14 +263,17 @@ document.addEventListener('DOMContentLoaded', function() {
 
 		cy.on('mouseup', 'node', function(evt) {
 			const mouseUpNodeSelected = evt.target.id();
+			//console.log(sourceClass);
+			//console.log(targetClass);
+			//console.log(mouseUpNodeSelected);
 			if(nodes.has(sourceClass) && nodes.has(targetClass) && nodes.has(mouseUpNodeSelected)){
 				addClassAsProperty();
 			}
 		});
 
 		cy.on('click', 'node', function(evt) {
-			//console.log(evt)
-			printSelected();
+			console.log(evt.target.id())
+			printSelected(evt.target.id());
 		});
 
 		var selectAllOfTheSameType = function(ele) {
@@ -539,8 +563,8 @@ document.addEventListener('DOMContentLoaded', function() {
 		showDiv("addShConstraint");
 	}
 
-	function printSelected() {
-		var id = cy.$(':selected').id();
+	function printSelected(id) {
+		//var id = cy.$(':selected').id();
 		//console.log(typeof nodes.get(id));
 		if(typeof(nodes.get(id)) === 'object'){
 			var classText = "" + nodes.get(id).printText();
@@ -643,45 +667,46 @@ document.addEventListener('DOMContentLoaded', function() {
 								} ]);
 						}
 						const properties = nodes.get(id).getProperties();
-						const get_keys = properties.keys();
+						let get_keys = properties.keys();
 						for (const prop of get_keys)
 						{
-							if(nodes.has(prop) && !className.includes(prop)){
-								cy.add([ {
-									group : 'nodes',
-									data : {
-										id : prop,
-										label : prop,
-										type : 'class'
+							const classProp = properties.get(prop);
+							if(!nodes.has(classProp)) {
+								cy.add([{
+									group: 'nodes',
+									data: {
+										id: prop + ';' + className,
+										label: prop,
+										type: 'property'
 									}
 								}, {
-									group : 'edges',
-									data : {
-										id : prop + '-' + className,
-										label : 'contains',
-										source : className,
-										target : prop
+									group: 'edges',
+									data: {
+										id: prop + '-' + className,
+										label: 'property',
+										source: className,
+										target: prop + ';' + className
 									}
-								} ]);
-							} else {
-								cy.add([ {
-									group : 'nodes',
-									data : {
-										id : prop + ';' + className,
-										label : prop,
-										type : 'property'
-									}
-								}, {
-									group : 'edges',
-									data : {
-										id : prop + '-' + className,
-										label : 'property',
-										source : className,
-										target : prop + ';' + className
-									}
-								} ]);
+								}]);
 							}
-							//lines.push(prop + " " + properties.get(prop) + " ;");
+						}
+
+						get_keys = properties.keys();
+						for (const prop of get_keys)
+						{
+							const classProp = properties.get(prop);
+							if(nodes.has(classProp)){
+								console.log(cy.elements('edge[source = "http://shacleditor.org/workplace"]'));
+								cy.add([
+									{ group: 'edges',
+										data : {
+											id : className + '-' + prop,
+											label : 'contains',
+											source : className,
+											target : prop + ";" + classProp
+										}
+									} ]);
+							}
 						}
 					}
 				} catch (err) {
