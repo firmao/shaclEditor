@@ -672,6 +672,9 @@ document.addEventListener('DOMContentLoaded', function() {
 						{
 							const classProp = properties.get(prop);
 							if(!nodes.has(classProp)) {
+								if(prop.includes("http://shacleditor.org/workid") && className.includes("http://shacleditor.org/workplace")){
+									console.log("Ahhhhhh ! " + prop + ';' + className);
+								}
 								cy.add([{
 									group: 'nodes',
 									data: {
@@ -690,24 +693,6 @@ document.addEventListener('DOMContentLoaded', function() {
 								}]);
 							}
 						}
-
-						get_keys = properties.keys();
-						for (const prop of get_keys)
-						{
-							const classProp = properties.get(prop);
-							if(nodes.has(classProp)){
-								console.log(cy.elements('edge[source = "http://shacleditor.org/workplace"]'));
-								cy.add([
-									{ group: 'edges',
-										data : {
-											id : className + '-' + prop,
-											label : 'contains',
-											source : className,
-											target : prop + ";" + classProp
-										}
-									} ]);
-							}
-						}
 					}
 				} catch (err) {
 					//document.getElementById("txtShacl").innerHTML = err.message;
@@ -715,7 +700,39 @@ document.addEventListener('DOMContentLoaded', function() {
 				}
 			}
 		}
+		updateEdges();
 	}
+
+function updateEdges() {
+	const allNodes = nodes.keys();
+	for (const id of allNodes){
+		if(typeof(nodes.get(id)) === 'object') {
+			try {
+				const className = nodes.get(id).className;
+				const properties = nodes.get(id).getProperties();
+				let get_keys = properties.keys();
+				for (const prop of get_keys)
+				{
+					const classProp = properties.get(prop);
+					if(nodes.has(classProp)){
+						console.log("target: " + prop + ";" + classProp);
+						cy.add([
+							{ group: 'edges',
+								data : {
+									id : className + '-' + prop,
+									label : 'contains',
+									source : className,
+									target : prop + ";" + classProp
+								}
+							} ]);
+					}
+				}
+			} catch (err) {
+				console.log(err);
+			}
+		}
+	}
+}
 
 	function saveClass() {
 		const className = document.getElementById("txtEdClassName").value;
