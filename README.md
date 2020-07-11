@@ -11,7 +11,7 @@ _______________________
 
 A video with a minimal example, just a proof of concept of a very first stage of this project (now should be different).
 
-https://www.youtube.com/watch?v=i958YCTpU2g
+https://youtu.be/c_3CL3FqVlw
 
 An unfinished version of the manual is [here](https://docs.google.com/document/d/1nIH84Lys71Trthr5-oNZGwZgfwD6RbWXOZqAJ387evo/edit?usp=sharing)
 
@@ -68,3 +68,7 @@ Given a visual representation of a class their constraints.
 - The most simple technology, basically it's only HTML and javascript applied. Many IDE's could be used to load the project, such as IntelliJIDEA, VisualSutdioJS, etc... just clone and start coding, no dependencies, no frameworks, no complex databases etc...
 
 More details on the paper. 
+
+
+contact:
+firmao@gmail.com
