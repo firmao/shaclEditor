@@ -65,7 +65,17 @@ function savePropClass() {
 }
 
 function addClassAsProperty() {
-	console.log(targetClass +  " now has one " + sourceClass);
+	//console.log(targetClass +  " now has one " + sourceClass);
+	const classObj = nodes.get(sourceClass);
+	const prop = targetClass.split(";")[0];
+	const propClass = targetClass.split(";")[1];
+	console.log(prop + "???" + propClass);
+	classObj.addProperty(prop,propClass);
+
+	const txtTurtle = classObj.printText();
+	document.getElementById('txtCode').innerHTML = txtTurtle;
+	nodes.set(classObj.getClassName(), classObj);
+	updateUI();
 }
 
 function loadClasses(classAvoid) {
@@ -266,13 +276,14 @@ document.addEventListener('DOMContentLoaded', function() {
 			//console.log(sourceClass);
 			//console.log(targetClass);
 			//console.log(mouseUpNodeSelected);
-			if(nodes.has(sourceClass) && nodes.has(targetClass) && nodes.has(mouseUpNodeSelected)){
+			//if(nodes.has(sourceClass) && nodes.has(targetClass) && nodes.has(mouseUpNodeSelected)){
+			if(nodes.has(sourceClass) && targetClass.includes(";") && mouseUpNodeSelected.includes(";")){
 				addClassAsProperty();
 			}
 		});
 
 		cy.on('click', 'node', function(evt) {
-			console.log(evt.target.id())
+			//console.log(evt.target.id())
 			printSelected(evt.target.id());
 		});
 
@@ -672,9 +683,6 @@ document.addEventListener('DOMContentLoaded', function() {
 						{
 							const classProp = properties.get(prop);
 							if(!nodes.has(classProp)) {
-								if(prop.includes("http://shacleditor.org/workid") && className.includes("http://shacleditor.org/workplace")){
-									console.log("Ahhhhhh ! " + prop + ';' + className);
-								}
 								cy.add([{
 									group: 'nodes',
 									data: {
@@ -715,7 +723,6 @@ function updateEdges() {
 				{
 					const classProp = properties.get(prop);
 					if(nodes.has(classProp)){
-						console.log("target: " + prop + ";" + classProp);
 						cy.add([
 							{ group: 'edges',
 								data : {
