@@ -9,9 +9,7 @@ bash <(curl -s https://raw.githubusercontent.com/firmao/shaclEditor/master/Insta
 after all, inside shaclEditor directory, open the index.html in your web-browser.
 _______________________
 
-A video with a minimal example, just a proof of concept of a very first stage of this project (now should be different).
-
-https://www.youtube.com/watch?v=i958YCTpU2g
+A video with a minimal example [here](https://youtu.be/c_3CL3FqVlw), just a proof of concept of a very first stage of this project (now should be different).
 
 An unfinished version of the manual is [here](https://docs.google.com/document/d/1nIH84Lys71Trthr5-oNZGwZgfwD6RbWXOZqAJ387evo/edit?usp=sharing)
 
@@ -68,3 +66,7 @@ Given a visual representation of a class their constraints.
 - The most simple technology, basically it's only HTML and javascript applied. Many IDE's could be used to load the project, such as IntelliJIDEA, VisualSutdioJS, etc... just clone and start coding, no dependencies, no frameworks, no complex databases etc...
 
 More details on the paper. 
+
+
+contact:
+firmao@gmail.com
