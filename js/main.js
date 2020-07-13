@@ -256,13 +256,12 @@ document.addEventListener('DOMContentLoaded', function() {
 			snap: true
 		});
 
-		let options = {
+		/*let options = {
 			name: 'circle'
-		};
+		};*/
 
 		cy.on('add', 'node', function(evt) {
-			cy.layout( options ).run();
-			cy.fit();
+			organizeUI();
 		});
 
 		cy.on('add', 'edge', function(evt) {
@@ -598,7 +597,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
 	function organizeUI() {
 		let options = {
-			name: 'cola'
+			name: 'circle'
 		};
 
 		cy.layout( options ).run();
