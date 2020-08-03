@@ -24,8 +24,8 @@ An unfinished version of the manual is [here](https://docs.google.com/document/d
 - Create RDF classes and add properties and RDF terms.
 - Create SHACL shapes and add constraints to validate the content in your RDF classes.
 - Execute and see the results of your SHACL validation on your RDF classes and terms.
-- Execute SPARQL queries over the graphs with [QUIT store](https://github.com/AKSW/QuitStore/) (In progress).
-- Obtain versions of the RDF Knowledge Base, due to the use of the [QUIT store](https://github.com/AKSW/QuitStore/)(In progress).
+- Execute SPARQL queries over the graphs with [QUIT store](https://github.com/AKSW/QuitStore/).
+- Obtain versions of the RDF Knowledge Base, due to the use of the [QUIT store](https://github.com/AKSW/QuitStore/).
 
 <img src="shaclEditorscreen.png">
 
