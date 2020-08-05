@@ -92,7 +92,7 @@ Given a visual representation of a class their constraints.
 - How to generate an RDF representation of the class and the constraints?
 - From the RDF, how to generate a visual representation of the RDF class and the SHACL constraints?
 
-## Main differences with the state of the art:
+# Main differences with the state of the art:
 - A GUI for non-RDF/SHACL users(see usability study).
 - Create and Edit SHACL constraints and RDF classes and terms, totally online.
 - The most simple technology, basically it's only HTML and javascript applied. Many IDE's could be used to load the project, such as IntelliJIDEA, VisualSutdioJS, etc... just clone and start coding, no dependencies, no frameworks, no complex databases etc...
