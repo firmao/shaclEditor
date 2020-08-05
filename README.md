@@ -8,10 +8,11 @@ This prototype was developed using:
 - HTML and javaScript
 
 ## Starting:
-We have two ways, a simple in which you just need to execute a command line, but it will kill all your dockers instances to guarantie the instance of QUIT store or you go step by step and saving your dockers instances and giving the rights that you think it's better for you at your own risk.
+We have two ways, a simple in which you just need to execute a command line, but it will kill all your docker instances to guarantee the instance of QUIT store or you go step by step and saving your dockers instances and giving the rights that you think it's better for you at your own risk.
 
 ### First way(Non safe, but fast and simple):
-Execute this comand in your bash (This will automatically (1) Clone the repository, (2) Giving administrative permissions to the shaclEditor directory, (3) Prune all existing docker instances, (3) Initialize the QUIT store:
+Execute this comand in your bash. 
+- This commmand will automatically (1) Clone the repository, (2) Giving administrative permissions to the shaclEditor directory, (3) Prune all existing docker instances, (3) Initialize the QUIT store:
 ```
 bash <(curl -s https://raw.githubusercontent.com/firmao/shaclEditor/master/InstallShaclEditor.sh)
 ```
@@ -36,6 +37,7 @@ Now the QUIT store are supposed to be running at http://localhost:8080/ and we n
 ```
 curl -d "insert data { graph <http://example.org/> { <urn:shacleditor> <http://shacleditor#id> 0 } }" -H "Content-Type: application/sparql-update"  http://localhost:8080/sparql
 ```
+after all, inside shaclEditor directory, open the index.html in your web-browser.
 ____________________
 # Screencast
 A video with a minimal example [here](https://youtu.be/c_3CL3FqVlw), just a proof of concept of a very first stage of this project (now should be different).
@@ -43,13 +45,13 @@ A video with a minimal example [here](https://youtu.be/c_3CL3FqVlw), just a proo
 # Manual
 An unfinished version of the manual is [here](https://docs.google.com/document/d/1nIH84Lys71Trthr5-oNZGwZgfwD6RbWXOZqAJ387evo/edit?usp=sharing)
 
-## Basic 3 steps of the workflow
+# Basic 3 steps of the workflow
 
 - 1 - Create Concepts/classes and properties
 - 2 - Create Shacl shapes and relate to the concepts
 - 3 - Create instances of the concepts/classes and check if the instances are valid with Shacl constraints 
 
-## What you can do with this "Shacl RDF Editor"
+# What you can do with this "Shacl RDF Editor"
 
 - Create RDF classes and add properties and RDF terms.
 - Create SHACL shapes and add constraints to validate the content in your RDF classes.
@@ -62,10 +64,10 @@ An unfinished version of the manual is [here](https://docs.google.com/document/d
 - RDF classes are represented by circles and SHACL shapes are represented by triangles.
 - The SHACL validation and the RDF representation are in the textAreas on the right side of the screen.
 
-## Use cases:
+# Use cases:
 As a motivation of our work, we describe two distinct scenarios where the proposed resource may be useful:
 
-### Scenario 1: 
+## Scenario 1: 
 Given an RDF class called person, assuming that a person cannot die before his birthday and this person can only have one social security number.
 
 The following questions are raised:
@@ -76,7 +78,7 @@ The following questions are raised:
 In this case, an approach is needed to enable the user to create graphically RDF classes validating the data with SHACL shapes.
 The best solution for this case was to create a Graphical User Interface (GUI) on the web, which allows the user to create RDF classes and terms and validating the data using SHACL constraints in a pervasive way.
 
-### Scenario 2:
+## Scenario 2:
 Given an RDF class with terms, the user, without knowledge in RDF or SHACL wants to validate the information.
 
 The following will be needed:
@@ -84,7 +86,7 @@ The following will be needed:
 - A GUI to load the RDF class.
 - A GUI to add constraints to this RDF class.
 
-### Scenario 3:
+## Scenario 3:
 Given a visual representation of a class their constraints.
 
 - How to generate an RDF representation of the class and the constraints?
