@@ -1,16 +1,46 @@
 # shaclEditor
 An integrated environment for Visualizing, Validate, and Versioning RDF graph
 
+### Requirements:
+This prototype was developed using:
+- Linux
+- Docker
+- HTML and javaScript
+
 ## Starting:
+We have two ways, a simple in which you just need to execute a command line, but it will kill all your dockers instances to guarantie the instance of QUIT store or you go step by step and saving your dockers instances and giving the rights that you think it's better for you at your own risk.
+
+### First way(prune all docker instances):
 Execute this comand in your bash:
 ```
 bash <(curl -s https://raw.githubusercontent.com/firmao/shaclEditor/master/InstallShaclEditor.sh)
 ```
 after all, inside shaclEditor directory, open the index.html in your web-browser.
-_______________________
 
+### Second way (step by step and safe)
+Clone the repository:
+```
+git clone https://github.com/firmao/shaclEditor.git
+```
+Giving permissions, we suggest the followiing permissions, but please, change as far you feel confortable.
+```
+sudo chown 1000 shaclEditor
+sudo chmod u+w shaclEditor
+cd shaclEditor
+```
+Create a docker instance for our versioned triple store (QUIT store)
+```
+docker run -it --name containername -p 8080:8080 -v quitrepo:/data aksw/quitstore
+```
+Now the QUIT store are supposed to be running at http://localhost:8080/ and we need to insert a first triple as a place holder to garantie that the triple store is working properly:
+```
+curl -d "insert data { graph <http://example.org/> { <urn:shacleditor> <http://shacleditor#id> 0 } }" -H "Content-Type: application/sparql-update"  http://localhost:8080/sparql
+```
+____________________
+# Screencast
 A video with a minimal example [here](https://youtu.be/c_3CL3FqVlw), just a proof of concept of a very first stage of this project (now should be different).
 
+# Manual
 An unfinished version of the manual is [here](https://docs.google.com/document/d/1nIH84Lys71Trthr5-oNZGwZgfwD6RbWXOZqAJ387evo/edit?usp=sharing)
 
 ## Basic 3 steps of the workflow
