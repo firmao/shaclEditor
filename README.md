@@ -10,8 +10,8 @@ This prototype was developed using:
 ## Starting:
 We have two ways, a simple in which you just need to execute a command line, but it will kill all your dockers instances to guarantie the instance of QUIT store or you go step by step and saving your dockers instances and giving the rights that you think it's better for you at your own risk.
 
-### First way(prune all docker instances):
-Execute this comand in your bash:
+### First way(Non safe, but fast and simple):
+Execute this comand in your bash (This will automatically (1) Clone the repository, (2) Giving administrative permissions to the shaclEditor directory, (3) Prune all existing docker instances, (3) Initialize the QUIT store:
 ```
 bash <(curl -s https://raw.githubusercontent.com/firmao/shaclEditor/master/InstallShaclEditor.sh)
 ```
