@@ -8,7 +8,7 @@ This prototype was developed using:
 - HTML and javaScript
 
 ## Starting:
-We have two ways, a simple in which you just need to execute a command line, but it will kill all your docker instances to guarantee the instance of QUIT store or you go step by step and saving your dockers instances and giving the rights that you think it's better for you at your own risk.
+We have two ways, a simple in which you just need to execute a command line, but it will kill all your docker instances to guarantee the instance of [QUIT store](https://github.com/AKSW/QuitStore/) or you go step by step and saving your dockers instances and giving the rights that you think it's better for you at your own risk.
 
 ### First way(Non safe, but fast and simple):
 Execute this comand in your bash. 
