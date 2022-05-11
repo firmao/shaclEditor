@@ -97,7 +97,7 @@ Given a visual representation of a class their constraints.
 - Create and Edit SHACL constraints and RDF classes and terms, totally online.
 - The most simple technology, basically it's only HTML and javascript applied. Many IDE's could be used to load the project, such as IntelliJIDEA, VisualSutdioJS, etc... just clone and start coding, no dependencies, no frameworks, no complex databases etc...
 
-More details on the paper. 
+More details on the [paper](https://www.researchgate.net/publication/346630362_VOCEDITOR_-An_Integrated_Environment_to_Visually_Edit_Validate_and_Versioning_RDF_Vocabularies). 
 
 
 contact:
