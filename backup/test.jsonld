@@ -1,0 +1,36 @@
+{
+  "@context": {
+    "dcterms": "http://purl.org/dc/terms/",
+    "foaf": "http://xmlns.com/foaf/0.1/",
+    "rdf": "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "obis": "https://purl.matolab.org/openbis/",
+    "user": "https://openbis.matolab.org/openbismantic/user/"
+  },
+  "@graph": [
+    {
+      "@id": "_:g0",
+      "@type": "obis:PermanentIdentifier",
+      "rdf:value": "admin",
+      "obis:is_identifier_of": {
+        "@id": "user:admin"
+      }
+    },
+    {
+      "@id": "user:admin",
+      "@type": "obis:User",
+      "dcterms:created": {
+        "@type": "xsd:dateTimeStamp",
+        "@value": "2023-05-31T16:08:47.133000"
+      },
+      "foaf:family_name": "Mustermann",
+      "foaf:givenname": "Max",
+      "foaf:mbox": {
+        "@id": "mailto:max.musermann@example.com"
+      },
+      "obis:has_identifier": {
+        "@id": "_:g0"
+      }
+    }
+  ]
+}
