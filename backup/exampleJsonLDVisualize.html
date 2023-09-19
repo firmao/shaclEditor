@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="shortcut icon" href="#">
+<link rel="stylesheet" type="text/css"
+	href="styles.css">
+<link rel="stylesheet" type="text/css"
+	href="jsonld-vis.css">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+<title>jsonld-vis example</title>
+</head>
+<body>
+	<div class="container">
+		<a id="link"></a>
+		<div id="graph"></div>
+	</div>
+
+	<script type="text/javascript"
+		src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.11/d3.min.js"></script>
+	<script type="text/javascript"
+		src="https://cdnjs.cloudflare.com/ajax/libs/d3-tip/0.6.7/d3-tip.min.js"></script>
+	<script type="text/javascript"
+		src="jsonld-vis.js"></script>
+	<script type="text/javascript">
+		var search = window.location.search.substr(1);
+
+		$('#link').attr('href', "view-source:" + search);
+		$('#link').text("view-source:" + search);
+
+		data2 = '{' + '  "@context": "http://schema.org/",'
+				+ '  "@type": "Person",' + '  "name": "Jane Doe",'
+				+ '  "jobTitle": "Professor",'
+				+ '  "telephone": "(425) 123-4567",'
+				+ '  "url": "http://www.janedoe.com"' + '}';
+		console.log("data:", data2);
+		console.log("search", search);
+		$.ajax(search).success(function(data) {
+			var e = document.createElement('div');
+			//console.log("data2:", data);
+			e.innerHTML = data;
+			var scripts = e.getElementsByTagName('script');
+
+			var params = {
+				w : 800,
+				h : 800,
+				maxLabelWidth : 250
+			};
+			d3.jsonldVis(JSON.parse(data2), "#graph", params);
+			
+
+		});
+	</script>
+</body>
+</html>
