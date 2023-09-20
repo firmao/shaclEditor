@@ -14,7 +14,6 @@
 </head>
 <body>
 	<div class="container">
-		<a id="link"></a>
 		<div id="graph"></div>
 	</div>
 
@@ -25,11 +24,6 @@
 	<script type="text/javascript"
 		src="jsonld-vis.js"></script>
 	<script type="text/javascript">
-		var search = window.location.search.substr(1);
-
-		$('#link').attr('href', "view-source:" + search);
-		$('#link').text("view-source:" + search);
-
 		data2 = "";
 		
 		// Fetch the JSON file
