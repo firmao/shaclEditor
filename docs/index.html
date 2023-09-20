@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="shortcut icon" href="#">
+<link rel="stylesheet" type="text/css"
+	href="styles.css">
+<link rel="stylesheet" type="text/css"
+	href="jsonld-vis.css">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+<title>jsonld-vis example</title>
+</head>
+<body>
+	<div class="container">
+		<a id="link"></a>
+		<div id="graph"></div>
+	</div>
+
+	<script type="text/javascript"
+		src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.11/d3.min.js"></script>
+	<script type="text/javascript"
+		src="https://cdnjs.cloudflare.com/ajax/libs/d3-tip/0.6.7/d3-tip.min.js"></script>
+	<script type="text/javascript"
+		src="jsonld-vis.js"></script>
+	<script type="text/javascript">
+		var search = window.location.search.substr(1);
+
+		$('#link').attr('href', "view-source:" + search);
+		$('#link').text("view-source:" + search);
+
+		data2 = "";
+		
+		// Fetch the JSON file
+		// can be fetch("anyjsonFile_LD_or_not.json")
+		fetch("SDexport.jsonld")
+		    .then(response => {
+		        if (!response.ok) {
+		            throw new Error(`HTTP error! Status: ${response.status}`);
+		        }
+		        return response.json(); // Parse the JSON response
+		    })
+		    .then(data => {
+		        // Handle the JSON data here
+		        console.log("data1", data);
+		        var params = {
+						w : 800,
+						h : 800,
+						maxLabelWidth : 250
+					};
+					d3.jsonldVis(data, "#graph", params);
+				data2 = data;
+		    })
+		    .catch(error => {
+		        console.error("Error reading JSON:", error);
+		    });
+	</script>
+</body>
+</html>
