@@ -1,0 +1,589 @@
+[
+  {
+    "@id": "_:ub2bL62C25",
+    "@type": [
+      "https://purl.matolab.org/openbis/PermanentIdentifier"
+    ],
+    "http://www.w3.org/1999/02/22-rdf-syntax-ns#value": [
+      {
+        "@value": "20230531140916169-35"
+      }
+    ],
+    "https://purl.matolab.org/openbis/is_identifier_of": [
+      {
+        "@id": "https://openbis.matolab.org/openbismantic/object/20230531140916169-35"
+      }
+    ]
+  },
+  {
+    "@id": "_:ub2bL100C25",
+    "@type": [
+      "https://purl.matolab.org/openbis/Identifier"
+    ],
+    "http://www.w3.org/1999/02/22-rdf-syntax-ns#value": [
+      {
+        "@value": "/EMODUL/LEBEDIGITAL"
+      }
+    ],
+    "https://purl.matolab.org/openbis/is_identifier_of": [
+      {
+        "@id": "https://openbis.matolab.org/openbismantic/project/20230531140903039-23"
+      }
+    ]
+  },
+  {
+    "@id": "https://openbis.matolab.org/openbismantic/space/EMODUL",
+    "@type": [
+      "https://purl.matolab.org/openbis/Space"
+    ],
+    "http://purl.org/dc/terms/created": [
+      {
+        "@type": "http://www.w3.org/2001/XMLSchema#dateTimeStamp",
+        "@value": "2023-05-31T16:09:02.948000"
+      }
+    ],
+    "http://purl.org/dc/terms/modified": [
+      {
+        "@type": "http://www.w3.org/2001/XMLSchema#dateTimeStamp",
+        "@value": "2023-05-31T16:09:02.948000"
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#comment": [
+      {
+        "@value": "Space for Emodul samples"
+      }
+    ],
+    "https://purl.matolab.org/openbis/code": [
+      {
+        "@value": "EMODUL"
+      }
+    ],
+    "https://purl.matolab.org/openbis/has_identifier": [
+      {
+        "@id": "_:ub2bL113C25"
+      }
+    ]
+  },
+  {
+    "@id": "_:ub2bL58C26",
+    "@type": [
+      "http://www.w3.org/ns/oa#Annotation"
+    ],
+    "http://www.w3.org/ns/oa#hasLiteralBody": [
+      {
+        "@value": "admixture"
+      }
+    ]
+  },
+  {
+    "@id": "_:ub2bL36C25",
+    "@type": [
+      "https://purl.matolab.org/openbis/PermanentIdentifier"
+    ],
+    "http://www.w3.org/1999/02/22-rdf-syntax-ns#value": [
+      {
+        "@value": "COLLECTION"
+      }
+    ],
+    "https://purl.matolab.org/openbis/is_identifier_of": [
+      {
+        "@id": "https://openbis.matolab.org/openbismantic/class/COLLECTION"
+      }
+    ]
+  },
+  {
+    "@id": "_:ub2bL23C25",
+    "@type": [
+      "https://purl.matolab.org/openbis/PermanentIdentifier"
+    ],
+    "http://www.w3.org/1999/02/22-rdf-syntax-ns#value": [
+      {
+        "@value": "EMODUL_INGREDIENT.BULKDENSITY"
+      }
+    ],
+    "https://purl.matolab.org/openbis/is_identifier_of": [
+      {
+        "@id": "https://openbis.matolab.org/openbismantic/object_property/EMODUL_INGREDIENT.BULKDENSITY"
+      }
+    ]
+  },
+  {
+    "@id": "https://openbis.matolab.org/openbismantic/object_property/NAME",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#ObjectProperty"
+    ],
+    "https://purl.matolab.org/openbis/has_identifier": [
+      {
+        "@id": "_:ub2bL28C25"
+      }
+    ]
+  },
+  {
+    "@id": "_:ub2bL103C9",
+    "@type": [
+      "https://purl.matolab.org/openbis/PermanentIdentifier"
+    ],
+    "http://www.w3.org/1999/02/22-rdf-syntax-ns#value": [
+      {
+        "@value": "20230531140903039-23"
+      }
+    ],
+    "https://purl.matolab.org/openbis/is_identifier_of": [
+      {
+        "@id": "https://openbis.matolab.org/openbismantic/project/20230531140903039-23"
+      }
+    ]
+  },
+  {
+    "@id": "_:ub2bL88C25",
+    "@type": [
+      "https://purl.matolab.org/openbis/PermanentIdentifier"
+    ],
+    "http://www.w3.org/1999/02/22-rdf-syntax-ns#value": [
+      {
+        "@value": "20230531140918056-37"
+      }
+    ],
+    "https://purl.matolab.org/openbis/is_identifier_of": [
+      {
+        "@id": "https://openbis.matolab.org/openbismantic/object/20230531140918056-37"
+      }
+    ]
+  },
+  {
+    "@id": "https://openbis.matolab.org/openbismantic/user/admin",
+    "@type": [
+      "https://purl.matolab.org/openbis/User"
+    ],
+    "http://purl.org/dc/terms/created": [
+      {
+        "@type": "http://www.w3.org/2001/XMLSchema#dateTimeStamp",
+        "@value": "2023-05-31T16:08:47.133000"
+      }
+    ],
+    "https://purl.matolab.org/openbis/has_identifier": [
+      {
+        "@id": "_:ub2bL119C25"
+      }
+    ]
+  },
+  {
+    "@id": "_:ub2bL119C25",
+    "@type": [
+      "https://purl.matolab.org/openbis/PermanentIdentifier"
+    ],
+    "http://www.w3.org/1999/02/22-rdf-syntax-ns#value": [
+      {
+        "@value": "admin"
+      }
+    ],
+    "https://purl.matolab.org/openbis/is_identifier_of": [
+      {
+        "@id": "https://openbis.matolab.org/openbismantic/user/admin"
+      }
+    ]
+  },
+  {
+    "@id": "https://openbis.matolab.org/openbismantic/object/20230531140918056-37",
+    "@type": [
+      "https://purl.matolab.org/openbis/Object"
+    ],
+    "http://purl.org/dc/terms/created": [
+      {
+        "@type": "http://www.w3.org/2001/XMLSchema#dateTimeStamp",
+        "@value": "2023-05-31T16:09:18.056000"
+      }
+    ],
+    "http://purl.org/dc/terms/modified": [
+      {
+        "@type": "http://www.w3.org/2001/XMLSchema#dateTimeStamp",
+        "@value": "2023-05-31T16:10:18.917000"
+      }
+    ],
+    "https://purl.matolab.org/openbis/code": [
+      {
+        "@value": "EMODUL_MIX11"
+      }
+    ],
+    "https://purl.matolab.org/openbis/has_identifier": [
+      {
+        "@id": "_:ub2bL88C25"
+      },
+      {
+        "@id": "_:ub2bL91C9"
+      }
+    ]
+  },
+  {
+    "@id": "_:ub2bL28C25",
+    "@type": [
+      "https://purl.matolab.org/openbis/PermanentIdentifier"
+    ],
+    "http://www.w3.org/1999/02/22-rdf-syntax-ns#value": [
+      {
+        "@value": "NAME"
+      }
+    ],
+    "https://purl.matolab.org/openbis/is_identifier_of": [
+      {
+        "@id": "https://openbis.matolab.org/openbismantic/object_property/NAME"
+      }
+    ]
+  },
+  {
+    "@id": "_:ub2bL80C9",
+    "@type": [
+      "https://purl.matolab.org/openbis/PermanentIdentifier"
+    ],
+    "http://www.w3.org/1999/02/22-rdf-syntax-ns#value": [
+      {
+        "@value": "20230531140903847-26"
+      }
+    ],
+    "https://purl.matolab.org/openbis/is_identifier_of": [
+      {
+        "@id": "https://openbis.matolab.org/openbismantic/collection/20230531140903847-26"
+      }
+    ]
+  },
+  {
+    "@id": "_:ub2bL113C25",
+    "@type": [
+      "https://purl.matolab.org/openbis/PermanentIdentifier"
+    ],
+    "http://www.w3.org/1999/02/22-rdf-syntax-ns#value": [
+      {
+        "@value": "EMODUL"
+      }
+    ],
+    "https://purl.matolab.org/openbis/is_identifier_of": [
+      {
+        "@id": "https://openbis.matolab.org/openbismantic/space/EMODUL"
+      }
+    ]
+  },
+  {
+    "@id": "https://openbis.matolab.org/openbismantic/object_property/EMODUL_INGREDIENT.BULKDENSITY",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#ObjectProperty"
+    ],
+    "https://purl.matolab.org/openbis/has_identifier": [
+      {
+        "@id": "_:ub2bL23C25"
+      }
+    ]
+  },
+  {
+    "@id": "_:ub2bL18C25",
+    "@type": [
+      "https://purl.matolab.org/openbis/PermanentIdentifier"
+    ],
+    "http://www.w3.org/1999/02/22-rdf-syntax-ns#value": [
+      {
+        "@value": "EMODUL_INGREDIENT.ANNOTATION"
+      }
+    ],
+    "https://purl.matolab.org/openbis/is_identifier_of": [
+      {
+        "@id": "https://openbis.matolab.org/openbismantic/object_property/EMODUL_INGREDIENT.ANNOTATION"
+      }
+    ]
+  },
+  {
+    "@id": "_:ub2bL54C50",
+    "@type": [
+      "http://www.w3.org/ns/oa#Annotation"
+    ],
+    "http://www.w3.org/ns/oa#hasLiteralBody": [
+      {
+        "@value": "FM 21/BV 21"
+      }
+    ]
+  },
+  {
+    "@id": "https://openbis.matolab.org/openbismantic/class/COLLECTION",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Class"
+    ],
+    "http://purl.org/dc/terms/modified": [
+      {
+        "@type": "http://www.w3.org/2001/XMLSchema#dateTimeStamp",
+        "@value": "2023-05-31T16:08:20.700000"
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#subClassOf": [
+      {
+        "@id": "https://purl.matolab.org/openbis/Collection"
+      }
+    ],
+    "https://purl.matolab.org/openbis/code": [
+      {
+        "@value": "COLLECTION"
+      }
+    ],
+    "https://purl.matolab.org/openbis/has_identifier": [
+      {
+        "@id": "_:ub2bL36C25"
+      }
+    ]
+  },
+  {
+    "@id": "https://openbis.matolab.org/openbismantic/project/20230531140903039-23",
+    "@type": [
+      "https://purl.matolab.org/openbis/Project"
+    ],
+    "http://purl.org/dc/terms/created": [
+      {
+        "@type": "http://www.w3.org/2001/XMLSchema#dateTimeStamp",
+        "@value": "2023-05-31T16:09:03.039000"
+      }
+    ],
+    "http://purl.org/dc/terms/modified": [
+      {
+        "@type": "http://www.w3.org/2001/XMLSchema#dateTimeStamp",
+        "@value": "2023-05-31T16:10:27.618000"
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#comment": [
+      {
+        "@value": "Project for Emodul samples"
+      }
+    ],
+    "https://purl.matolab.org/openbis/code": [
+      {
+        "@value": "LEBEDIGITAL"
+      }
+    ],
+    "https://purl.matolab.org/openbis/has_identifier": [
+      {
+        "@id": "_:ub2bL103C9"
+      },
+      {
+        "@id": "_:ub2bL100C25"
+      }
+    ],
+    "https://purl.matolab.org/openbis/relates_to": [
+      {
+        "@id": "https://openbis.matolab.org/openbismantic/space/EMODUL"
+      }
+    ]
+  },
+  {
+    "@id": "https://openbis.matolab.org/openbismantic/class/EMODUL_INGREDIENT",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Class"
+    ],
+    "http://purl.org/dc/terms/modified": [
+      {
+        "@type": "http://www.w3.org/2001/XMLSchema#dateTimeStamp",
+        "@value": "2023-05-31T16:08:55.842000"
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#subClassOf": [
+      {
+        "@id": "https://purl.matolab.org/openbis/Object"
+      }
+    ],
+    "https://purl.matolab.org/openbis/code": [
+      {
+        "@value": "EMODUL_INGREDIENT"
+      }
+    ],
+    "https://purl.matolab.org/openbis/has_identifier": [
+      {
+        "@id": "_:ub2bL44C25"
+      }
+    ]
+  },
+  {
+    "@id": "_:ub2bL65C9",
+    "@type": [
+      "https://purl.matolab.org/openbis/Identifier"
+    ],
+    "http://www.w3.org/1999/02/22-rdf-syntax-ns#value": [
+      {
+        "@value": "/EMODUL/LEBEDIGITAL/EMODUL_ING9"
+      }
+    ],
+    "https://purl.matolab.org/openbis/is_identifier_of": [
+      {
+        "@id": "https://openbis.matolab.org/openbismantic/object/20230531140916169-35"
+      }
+    ]
+  },
+  {
+    "@id": "_:ub2bL56C51",
+    "@type": [
+      "http://qudt.org/schema/qudt/QuantityValue"
+    ],
+    "http://qudt.org/schema/qudt/value": [
+      {
+        "@value": 1.14
+      }
+    ]
+  },
+  {
+    "@id": "https://openbis.matolab.org/openbismantic/collection/20230531140903847-26",
+    "@type": [
+      "https://purl.matolab.org/openbis/Collection",
+      "https://openbis.matolab.org/openbismantic/class/COLLECTION"
+    ],
+    "http://purl.org/dc/terms/created": [
+      {
+        "@type": "http://www.w3.org/2001/XMLSchema#dateTimeStamp",
+        "@value": "2023-05-31T16:09:03.847000"
+      }
+    ],
+    "http://purl.org/dc/terms/modified": [
+      {
+        "@type": "http://www.w3.org/2001/XMLSchema#dateTimeStamp",
+        "@value": "2023-05-31T16:09:36.726000"
+      }
+    ],
+    "https://purl.matolab.org/openbis/code": [
+      {
+        "@value": "LEBEDIGITAL_INGREDIENT_COLLECTION"
+      }
+    ],
+    "https://purl.matolab.org/openbis/has_identifier": [
+      {
+        "@id": "_:ub2bL80C9"
+      },
+      {
+        "@id": "_:ub2bL77C25"
+      }
+    ]
+  },
+  {
+    "@id": "_:ub2bL77C25",
+    "@type": [
+      "https://purl.matolab.org/openbis/Identifier"
+    ],
+    "http://www.w3.org/1999/02/22-rdf-syntax-ns#value": [
+      {
+        "@value": "/EMODUL/LEBEDIGITAL/LEBEDIGITAL_INGREDIENT_COLLECTION"
+      }
+    ],
+    "https://purl.matolab.org/openbis/is_identifier_of": [
+      {
+        "@id": "https://openbis.matolab.org/openbismantic/collection/20230531140903847-26"
+      }
+    ]
+  },
+  {
+    "@id": "https://openbis.matolab.org/openbismantic/object/20230531140916169-35",
+    "@type": [
+      "https://purl.matolab.org/openbis/Object",
+      "https://openbis.matolab.org/openbismantic/class/EMODUL_INGREDIENT"
+    ],
+    "http://purl.org/dc/elements/1.1/creator": [
+      {
+        "@id": "https://openbis.matolab.org/openbismantic/user/admin"
+      }
+    ],
+    "http://purl.org/dc/terms/contributor": [
+      {
+        "@id": "https://openbis.matolab.org/openbismantic/user/admin"
+      }
+    ],
+    "http://purl.org/dc/terms/created": [
+      {
+        "@type": "http://www.w3.org/2001/XMLSchema#dateTimeStamp",
+        "@value": "2023-05-31T16:09:16.169000"
+      }
+    ],
+    "http://purl.org/dc/terms/modified": [
+      {
+        "@type": "http://www.w3.org/2001/XMLSchema#dateTimeStamp",
+        "@value": "2023-05-31T16:10:18.357000"
+      }
+    ],
+    "https://openbis.matolab.org/openbismantic/object_property/EMODUL_INGREDIENT.ANNOTATION": [
+      {
+        "@id": "_:ub2bL54C50"
+      }
+    ],
+    "https://openbis.matolab.org/openbismantic/object_property/EMODUL_INGREDIENT.BULKDENSITY": [
+      {
+        "@id": "_:ub2bL56C51"
+      }
+    ],
+    "https://openbis.matolab.org/openbismantic/object_property/NAME": [
+      {
+        "@id": "_:ub2bL58C26"
+      }
+    ],
+    "https://purl.matolab.org/openbis/code": [
+      {
+        "@value": "EMODUL_ING9"
+      }
+    ],
+    "https://purl.matolab.org/openbis/has_child": [
+      {
+        "@id": "https://openbis.matolab.org/openbismantic/object/20230531140918056-37"
+      }
+    ],
+    "https://purl.matolab.org/openbis/has_identifier": [
+      {
+        "@id": "_:ub2bL62C25"
+      },
+      {
+        "@id": "_:ub2bL65C9"
+      }
+    ],
+    "https://purl.matolab.org/openbis/relates_to": [
+      {
+        "@id": "https://openbis.matolab.org/openbismantic/project/20230531140903039-23"
+      },
+      {
+        "@id": "https://openbis.matolab.org/openbismantic/space/EMODUL"
+      },
+      {
+        "@id": "https://openbis.matolab.org/openbismantic/collection/20230531140903847-26"
+      }
+    ]
+  },
+  {
+    "@id": "_:ub2bL91C9",
+    "@type": [
+      "https://purl.matolab.org/openbis/Identifier"
+    ],
+    "http://www.w3.org/1999/02/22-rdf-syntax-ns#value": [
+      {
+        "@value": "/EMODUL/LEBEDIGITAL/EMODUL_MIX11"
+      }
+    ],
+    "https://purl.matolab.org/openbis/is_identifier_of": [
+      {
+        "@id": "https://openbis.matolab.org/openbismantic/object/20230531140918056-37"
+      }
+    ]
+  },
+  {
+    "@id": "_:ub2bL44C25",
+    "@type": [
+      "https://purl.matolab.org/openbis/PermanentIdentifier"
+    ],
+    "http://www.w3.org/1999/02/22-rdf-syntax-ns#value": [
+      {
+        "@value": "EMODUL_INGREDIENT"
+      }
+    ],
+    "https://purl.matolab.org/openbis/is_identifier_of": [
+      {
+        "@id": "https://openbis.matolab.org/openbismantic/class/EMODUL_INGREDIENT"
+      }
+    ]
+  },
+  {
+    "@id": "https://openbis.matolab.org/openbismantic/object_property/EMODUL_INGREDIENT.ANNOTATION",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#ObjectProperty"
+    ],
+    "https://purl.matolab.org/openbis/has_identifier": [
+      {
+        "@id": "_:ub2bL18C25"
+      }
+    ]
+  }
+]
