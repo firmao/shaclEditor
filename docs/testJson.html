@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="shortcut icon" href="#">
+<link rel="stylesheet" type="text/css"
+	href="styles.css">
+<link rel="stylesheet" type="text/css"
+	href="jsonld-vis.css">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+<title>Interactive Graph</title>
+</head>
+<body>
+
+	<form>
+	  <label for="fname">Sparql Endpoint:</label><br>
+	  <input type="text" id="txtendpoint" size="100" name="txtendpoint" value="https://fuseki.matolab.org/LeBeDigital/sparql"><br>
+	  <label for="lname">SPARQL query:</label><br>
+	  <input type="text" id="txtquery" size="100" name="txtquery" value="select * where { ?s ?p ?o} limit 5"><br><br>
+	  <input type="button" value="showGraph" onclick="showGraph()">
+	</form> 
+
+	<div class="container">
+		<div id="graph"></div>
+	</div>
+
+	<script type="text/javascript"
+		src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.11/d3.min.js"></script>
+	<script type="text/javascript"
+		src="https://cdnjs.cloudflare.com/ajax/libs/d3-tip/0.6.7/d3-tip.min.js"></script>
+	<script type="text/javascript"
+		src="jsonld-vis.js"></script>
+<script>
+	function showGraph() {
+		console.log("Starting");
+		var queryStr = document.getElementById("txtquery").value;
+		var endpoint = document.getElementById("txtendpoint").value;
+		var querypart = "query=" + encodeURI(queryStr);
+
+		// Get our HTTP request object.
+		var xmlhttp = null;
+		if (window.XMLHttpRequest) {
+			xmlhttp = new XMLHttpRequest();
+		} else if (window.ActiveXObject) {
+			// Code for older versions of IE, like IE6 and before.
+			xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+		} else {
+			alert('Perhaps your browser does not support XMLHttpRequests?');
+		}
+
+		// Set up a POST with JSON result format.
+		xmlhttp.open('POST', endpoint, true); // GET can have caching probs, so POST
+		xmlhttp.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+		xmlhttp.setRequestHeader("Accept", "application/sparql-results+json");
+
+		// Set up callback to get the response asynchronously.
+		xmlhttp.onreadystatechange = function() {
+			if (xmlhttp.readyState == 4) {
+				if (xmlhttp.status == 200) {
+					// Process the results
+					//document.write(xmlhttp.responseText);
+					var mydata = JSON.parse(xmlhttp.responseText);
+					console.log("test: ", mydata);
+					var size = mydata.head.vars.length;
+					console.log("vars.length", size);
+					var params = {
+							w : 800,
+							h : 800,
+							maxLabelWidth : 250
+						};
+					d3.jsonldVis(mydata, "#graph", params);
+				} else {
+					// Some kind of error occurred.
+					alert("Sparql query error: " + xmlhttp.status + " " + xmlhttp.responseText);
+				}
+			}
+		};
+		xmlhttp.send(querypart);
+		return true;
+    }
+</script>
+</body>
+</html>
